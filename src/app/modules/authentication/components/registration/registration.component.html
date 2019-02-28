@@ -1,0 +1,49 @@
+<header class="registration-header">
+  <img
+    src="https://d2qjcw41i51x1e.cloudfront.net/connect/static/svg/843d3c1e.logo-spiral.svg"
+    class="registration-header__image">
+  <h1 class="registration-header__title">My Finance</h1>
+</header>
+
+<h2 class="registration-title">Sign up to manage your finance</h2>
+
+<section class="registration-form">
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">  
+    <div class="form-group">
+      <label for="email" class="form-group__label">Your Email</label>
+      <input type="text" formControlName="email" class="form-group__control" placeholder="Enter your Email"/>
+      <div class="form-group__error" *ngIf="registrationForm.controls['email'].invalid && registrationForm.controls['email'].touched">
+        Invalid email
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password" class="form-group__label">Password</label>
+      <input type="password" formControlName="password" class="form-group__control" placeholder="Enter your Password"/>
+      <div class="form-group__error" *ngIf="registrationForm.controls['password'].invalid && registrationForm.controls['password'].touched">
+        You must specify at least 5 characters long and no more 25. Password should contains numbers
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="confirm" class="form-group__label">Confirm Password</label>
+      <input type="password" formControlName="confirmPassword" class="form-group__control" placeholder="Confirm your Password"/>
+      <div 
+        class="form-group__error" 
+        *ngIf="registrationForm.controls['confirmPassword'].invalid && registrationForm.controls['confirmPassword'].touched"
+      >
+        Passwords do not match
+      </div>
+    </div>
+
+    <div class="registration-form__submit">
+      <button class="registration-form__submit-btn" type="submit" [disabled]="registrationForm.invalid">
+        Sign up
+      </button>
+    </div>
+  </form>
+</section>
+
+<footer class="registration-footer">
+  <span>Do you have existing an account? <a routerLink='/auth/login'>Login</a></span>
+</footer>
