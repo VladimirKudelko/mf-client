@@ -28,7 +28,7 @@
 
 .registration-form {
   padding: 2rem;
-  width: 75%;
+  width: 50%;
 
   &__submit {
     padding: 0 0.5rem;
@@ -53,6 +53,11 @@
   &__error {
     padding: 0 0.7rem;
     color: $red;
+  }
+
+  &--medium {
+    display: inline-block;
+    width: 50%;
   }
 }
 

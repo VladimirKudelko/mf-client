@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import * as _ from 'lodash';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -11,8 +13,10 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class RegistrationComponent implements OnInit {
 
   public registrationForm: FormGroup;
+
   constructor(
     private _fb: FormBuilder,
+    private _router: Router,
     private _authService: AuthService
   ) { }
 
@@ -22,6 +26,20 @@ export class RegistrationComponent implements OnInit {
 
   buildForm() {
     this.registrationForm = this._fb.group({
+      'firstName': [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(5),
+        ])
+      ],
+      'lastName': [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(5),
+        ])
+      ],
       'email': [
         '',
         Validators.compose([
@@ -35,7 +53,6 @@ export class RegistrationComponent implements OnInit {
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(25),
-          Validators.pattern(/[1-9]/)
         ])
       ],
       'confirmPassword': [
@@ -59,6 +76,17 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.registrationForm.value);
+    this._authService.registerUser(this.registrationForm.value)
+      .subscribe(response => {
+        if (!response.isSuccessfully) {
+          alert(response.message);
+
+          return;
+        }
+
+        this._authService.saveToLocalStorage('token', response.token);
+        this._authService.saveToLocalStorage('user', JSON.stringify(_.omit(response, ['isSuccessfully', 'token'])));
+        this._router.navigateByUrl('/dashboard');
+      }, (response) => alert(response.error.message));
   }
 }

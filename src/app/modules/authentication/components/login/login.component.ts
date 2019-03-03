@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import * as _ from 'lodash';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -12,6 +14,7 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   constructor(
     private _fb: FormBuilder,
+    private _router: Router,
     private _authService: AuthService
   ) { }
 
@@ -25,7 +28,7 @@ export class LoginComponent implements OnInit {
         '',
         Validators.compose([
           Validators.required,
-          Validators.email,
+          Validators.email
         ])
       ],
       'password': [
@@ -33,15 +36,25 @@ export class LoginComponent implements OnInit {
         Validators.compose([
           Validators.required,
           Validators.minLength(5),
-          Validators.maxLength(25),
-          Validators.pattern(/[1-9]/)
+          Validators.maxLength(25)
         ])
       ]
     });
   }
 
   onSubmit() {
-    console.log(this.loginForm.value);
+    this._authService.loginUser(this.loginForm.value)
+      .subscribe(response => {
+        if (!response.isSuccessfully) {
+          alert(response.message);
+
+          return;
+        }
+
+        this._authService.saveToLocalStorage('token', response.token);
+        this._authService.saveToLocalStorage('user', JSON.stringify(_.omit(response, ['isSuccessfully', 'token'])));
+        this._router.navigateByUrl('/dashboard');
+      }, (response) => alert(response.error.message));
   }
 
 }
