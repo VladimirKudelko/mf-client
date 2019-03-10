@@ -6,8 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./loader.component.scss']
 })
 export class LoaderComponent implements OnInit {
+  public isShown: boolean;
 
-  constructor() { }
+  constructor() { } // service with subject
 
   ngOnInit() {
   }

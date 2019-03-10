@@ -1,7 +1,8 @@
-@import 'src/app/scss/colors';
-@import 'src/app/scss/mixins';
+@import 'src/app/shared/scss/colors';
+@import 'src/app/shared/scss/mixins';
 
 :host {
+  grid-area: content;
   display: block;
   height: 100%;
   display: flex;

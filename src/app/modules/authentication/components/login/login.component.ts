@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as _ from 'lodash';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -52,7 +51,6 @@ export class LoginComponent implements OnInit {
         }
 
         this._authService.saveToLocalStorage('token', response.token);
-        this._authService.saveToLocalStorage('user', JSON.stringify(_.omit(response, ['isSuccessfully', 'token'])));
         this._router.navigateByUrl('/dashboard');
       }, (response) => alert(response.error.message));
   }
