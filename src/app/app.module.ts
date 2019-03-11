@@ -11,6 +11,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { ApiInterceptor } from './shared/interceptors/api.interceptor';
+import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,11 @@ import { ApiInterceptor } from './shared/interceptors/api.interceptor';
     HttpClientModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
