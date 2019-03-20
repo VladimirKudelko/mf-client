@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule, MatIconModule, MatSidenavModule, MatRadioModule } from '@angular/material';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -29,7 +30,8 @@ import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
     MatIconModule,
     MatSidenavModule,
     MatRadioModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [
     {

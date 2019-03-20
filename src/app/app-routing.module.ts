@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { AuthService } from './shared/services/auth.service';
+import { RoleEnum } from './shared/enums';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'auth/login' },
@@ -9,13 +11,13 @@ const routes: Routes = [
     path: 'dashboard',
     loadChildren: './modules/dashboard/dashboard.module#DashboardModule',
     canActivate: [ AuthService ],
-    data: { isAdmin: false }
+    data: { role: RoleEnum.User }
   },
   {
     path: 'admin',
     loadChildren: './modules/admin/admin.module#AdminModule',
     canActivate: [ AuthService ],
-    data: { isAdmin: true }
+    data: { role: RoleEnum.Admin }
   },
   { path: '**', redirectTo: 'auth/login' }
 ];

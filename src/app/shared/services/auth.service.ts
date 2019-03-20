@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import jwtDecode from 'jwt-decode';
 import * as _ from 'lodash';
 
-import { getBooleanFromString } from '../utils';
+import { RoleEnum } from '../enums';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +17,13 @@ export class AuthService implements CanActivate {
   ) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const { data: { isAdmin } } = next;
+    const { data: { role } } = next;
 
     if (!this.isAuthenticated()) {
       this._router.navigate(['/auth/login']);
 
       return false;
-    } else if (this.checkIsAdminRole() !== isAdmin) {
+    } else if (this.getRole() !== role) {
       this._router.navigate(['/auth/login']);
 
       return false;
@@ -40,11 +40,11 @@ export class AuthService implements CanActivate {
     return this._httpClient.post<any>('/auth/login', formData);
   }
 
-  public saveToLocalStorage(key: string, value: string) {
+  public saveToLocalStorage(key: string, value: string): void {
     localStorage.setItem(key, value);
   }
 
-  public getFromLocalStorage(key: string) {
+  public getFromLocalStorage(key: string): string {
     return localStorage.getItem(key);
   }
 
@@ -54,12 +54,12 @@ export class AuthService implements CanActivate {
     return !_.isEmpty(token);
   }
 
-  public checkIsAdminRole() {
+  public getRole(): RoleEnum {
     try {
       const token = this.getFromLocalStorage('token');
       const user = jwtDecode(token);
 
-      return getBooleanFromString(user.isAdmin);
+      return user.role;
     } catch (error) {
 
     }

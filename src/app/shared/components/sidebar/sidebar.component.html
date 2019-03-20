@@ -1,25 +1,13 @@
-<mat-sidenav-container class="example-container" *ngIf="true">
-  <mat-sidenav #sidenav>
-    <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
-    <p>
-      <mat-radio-group class="example-radio-group">
-        <label>Mode:</label>
-        <mat-radio-button value="over">Over</mat-radio-button>
-        <mat-radio-button value="side">Side</mat-radio-button>
-        <mat-radio-button value="push">Push</mat-radio-button>
-      </mat-radio-group>
-    </p>
-  </mat-sidenav>
-
-  <mat-sidenav-content>
-    <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
-    <p>
-      <mat-radio-group class="example-radio-group">
-        <label>Mode:</label>
-        <mat-radio-button value="over">Over</mat-radio-button>
-        <mat-radio-button value="side">Side</mat-radio-button>
-        <mat-radio-button value="push">Push</mat-radio-button>
-      </mat-radio-group>
-    </p>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<aside class="sidebar">
+  <ul class="menu">
+    <li
+      class="menu__item"
+      routerLinkActive="menu__item--active"
+      *ngFor="let item of navItems"
+      [routerLink]="item.link"
+      [routerLinkActiveOptions]="{ exact: true }">
+      <fa-icon class="menu__item-icon" [icon]="item.icon"></fa-icon>
+      <span class="menu__item-title" >{{ item.title }}</span>
+    </li>
+  </ul>
+</aside>

@@ -1,3 +1,39 @@
-:host {
-  grid-area: content;
+@import 'src/app/shared/scss/colors';
+@import 'src/app/shared/scss/mixins';
+
+.home {
+  padding: 1rem;
+}
+
+.todo-list {
+  width: 75%;
+  max-width: 600px;
+  min-height: 600px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  border-radius: 0.15rem;
+  background-color: $white;
+  text-align: center;
+  box-shadow:
+    1px 5px 30px rgba(0, 0, 0, .1),
+    3px 5px 10px rgba(0, 0, 0, .1);
+
+  &__title {
+    font-size: 2rem;
+    margin: 1rem 0;
+  }
+
+  &__subtitle {
+    color: darken($light-gray, 25);
+    margin: 0 0 2rem 0;
+  }
+}
+
+.task-header {
+  padding: 2rem 1rem;
+  font-size: 1.25rem;
+}
+
+.task-content {
+  
 }

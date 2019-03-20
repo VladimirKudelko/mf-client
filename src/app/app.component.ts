@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
-import { LoaderService } from './shared/services/loader.service';
 import { Subscription } from 'rxjs';
-import { LoaderState } from './shared/models';
+
+import { LoaderState, SidebarState } from './shared/models';
+import { SidebarService, LoaderService } from './shared/services';
 
 @Component({
   selector: 'app-root',
@@ -13,18 +13,23 @@ export class AppComponent implements OnInit, OnDestroy {
   public isShowSidebar = false;
   public isLoading = false;
 
-  private _subscription: Subscription;
+  private _loaderSubscription: Subscription;
+  private _sidebarSubscription: Subscription;
 
   constructor(
-    private _loaderService: LoaderService
+    private _loaderService: LoaderService,
+    private _sidebarService: SidebarService
   ) { }
 
   ngOnInit(): void {
-    this._subscription = this._loaderService.loaderState
+    this._loaderSubscription = this._loaderService.loaderState$
       .subscribe((state: LoaderState) => this.isLoading = state.show);
+    this._sidebarSubscription = this._sidebarService.sidebarState$
+      .subscribe((state: SidebarState) => this.isShowSidebar = state.show);
   }
 
   ngOnDestroy() {
-    this._subscription.unsubscribe();
+    this._loaderSubscription.unsubscribe();
+    this._sidebarSubscription.unsubscribe();
   }
 }

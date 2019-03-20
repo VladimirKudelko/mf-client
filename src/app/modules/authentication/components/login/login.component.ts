@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { RoleEnum } from 'src/app/shared/enums';
 
 @Component({
   selector: 'app-login',
@@ -51,7 +52,12 @@ export class LoginComponent implements OnInit {
         }
 
         this._authService.saveToLocalStorage('token', response.token);
-        this._router.navigateByUrl('/dashboard');
+
+        if (this._authService.getRole() === RoleEnum.Admin) {
+          this._router.navigateByUrl('/admin');
+        } else {
+          this._router.navigateByUrl('/dashboard');
+        }
       }, (response) => alert(response.error.message));
   }
 

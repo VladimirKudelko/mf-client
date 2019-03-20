@@ -17,3 +17,8 @@ body {
   background-color: $accent-color;
   font-family: 'Source Code Pro', monospace;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

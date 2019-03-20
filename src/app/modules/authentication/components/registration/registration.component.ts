@@ -75,6 +75,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
+    delete this.registrationForm.value.confirmPassword;
+
     this._authService.registerUser(this.registrationForm.value)
       .subscribe(response => {
         if (!response.isSuccessfully) {

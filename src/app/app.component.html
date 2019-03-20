@@ -1,5 +1,5 @@
-<div class="content" [ngClass]="{ 'content--without-sidebar': !isShowSidebar }">
-  <app-sidebar *ngIf="isShowSidebar"></app-sidebar>
+<div class="content">
+  <app-sidebar *ngIf="true"></app-sidebar>
   <router-outlet style="display: none"></router-outlet>
 </div>
 <app-loader *ngIf="isLoading"></app-loader>

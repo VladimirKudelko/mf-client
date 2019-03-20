@@ -8,7 +8,7 @@ import { LoaderState } from '../models';
 })
 export class LoaderService {
   private loader$ = new Subject<LoaderState>();
-  public loaderState = this.loader$.asObservable();
+  public loaderState$ = this.loader$.asObservable();
 
   show() {
     this.loader$.next(<LoaderState>{ show: true });
