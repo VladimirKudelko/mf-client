@@ -6,23 +6,23 @@
 }
 
 .menu {
+
   &__item {
-    color: $dark-gray;
     padding: 1.5rem;
     overflow: hidden;
+    color: $dark-gray;
+    outline: none;
 
     &--active {
       background-color: lighten($sidebar-color, 20);
     }
 
     &:hover {
-      cursor: pointer;
-      outline: none;
       background-color: lighten($sidebar-color, 20);
+      outline: none;
+      cursor: pointer;
     }
   }
-
-  &__item-icon { }
 
   &__item-title {
     margin-left: 0.5rem;

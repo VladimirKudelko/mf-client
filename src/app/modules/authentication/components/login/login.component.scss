@@ -2,19 +2,19 @@
 @import 'src/app/shared/scss/mixins';
 
 :host {
-  grid-area: content;
   display: flex;
-  height: 100%;
   flex-direction: column;
-  align-items: center;
+  grid-area: content;
   justify-content: center;
+  align-items: center;
+  height: 100%;
   padding: 20px;
 }
 
 .login-header {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 
   &__title {
     font-size: 2rem;
@@ -22,13 +22,13 @@
 }
 
 .login-title {
-  font-size: 2rem;
   margin: 1rem 0;
+  font-size: 2rem;
 }
 
 .login-form {
-  padding: 2rem;
   width: 50%;
+  padding: 2rem;
 
   &__submit {
     padding: 0 0.5rem;

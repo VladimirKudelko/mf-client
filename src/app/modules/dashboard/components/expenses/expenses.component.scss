@@ -1,0 +1,50 @@
+@import 'src/app/shared/scss/colors';
+@import 'src/app/shared/scss/mixins';
+
+:host {
+  padding: 1rem;
+}
+
+.wallet-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 1.5rem 2.5rem;
+  border-top: 1px solid $black;
+  border-bottom: 1px solid $black;
+
+  &__cash {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+  }
+}
+
+.categories-list {
+  padding: 1rem 0;
+
+  &__title {
+    font-size: 1.75rem;
+  }
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 125px;
+    height: 125px;
+    margin: 1rem 1rem 1rem 0;
+    background-color: $dark-gray;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken($dark-gray, 20);
+      cursor: pointer;
+    }
+  }
+}
