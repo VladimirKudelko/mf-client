@@ -1,0 +1,17 @@
+@import 'src/app/shared/scss/colors';
+@import 'src/app/shared/scss/mixins';
+
+.wallet {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 1.5rem 2.5rem;
+  border-top: 1px solid $black;
+  border-bottom: 1px solid $black;
+
+  &__cash {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+  }
+}

@@ -1,0 +1,12 @@
+<form class="form" [formGroup]="newCategoryForm">
+  <h1 mat-dialog-title>Creation Category</h1>
+
+  <mat-form-field>
+    <input matInput formControlName="title" placeholder="Enter an account name">
+  </mat-form-field>
+
+  <footer class="form__footer" mat-dialog-actions>
+    <button mat-button (click)="closeModal()">Cancel</button>
+    <button mat-button (click)="submit()" [disabled]="formIsInvalid()">Ok</button>
+  </footer>
+</form>

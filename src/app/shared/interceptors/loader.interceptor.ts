@@ -23,8 +23,7 @@ export class LoaderInterceptor implements HttpInterceptor {
         if (event instanceof HttpResponse) {
           this._loaderService.hide();
         }
-      },
-      (err: any) => this._loaderService.hide())
+      }, (err: any) => this._loaderService.hide())
     );
   }
 

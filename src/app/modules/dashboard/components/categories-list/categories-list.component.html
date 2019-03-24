@@ -1,0 +1,15 @@
+<section class="categories-list">
+  <h2 class="categories-list__title">{{ title }}</h2>
+  <button class="categories-list__creation" (click)="createNewCategory()">
+    <fa-icon [icon]="faPlus"></fa-icon>
+  </button>
+
+  <div class="categories" [@hideShow]="categories ? 'show' : 'hide'">
+    <app-category
+      class="categories__item"
+      *ngFor="let category of categories"
+      [category]="category"
+      (click)="someClick(category)"
+    ></app-category>
+  </div>
+</section>

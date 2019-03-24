@@ -6,6 +6,7 @@ import jwtDecode from 'jwt-decode';
 import * as _ from 'lodash';
 
 import { RoleEnum } from '../enums';
+import { User } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,10 @@ export class AuthService implements CanActivate {
     } catch (error) {
 
     }
+  }
+
+  public getUser(): User {
+    return jwtDecode(this.getFromLocalStorage('token'));
   }
 
   public logout(): void {

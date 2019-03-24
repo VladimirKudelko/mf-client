@@ -1,0 +1,46 @@
+@import 'src/app/shared/scss/colors';
+@import 'src/app/shared/scss/mixins';
+
+.categories-list {
+  padding: 1rem 0;
+
+  &__title {
+    display: inline-block;
+    font-size: 1.75rem;
+  }
+
+  &__creation {
+    float: right;
+    width: 25px;
+    height: 25px;
+    border: 0;
+    border-radius: 3px;
+    outline: none;
+
+    &:hover {
+      background-color: lighten($dark-blue, 20);
+      cursor: pointer;
+    }
+  }
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 125px;
+    height: 125px;
+    margin: 1rem 1rem 1rem 0;
+    background-color: $dark-gray;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken($dark-gray, 20);
+      cursor: pointer;
+    }
+  }
+}

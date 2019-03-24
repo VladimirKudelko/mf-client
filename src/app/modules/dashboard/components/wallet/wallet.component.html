@@ -1,0 +1,12 @@
+<section class="wallet">
+  <div class="wallet__cash">{{ wallet.balance | currency: wallet.currency }}</div>
+
+  <div class="wallet__updates">
+    <p>Created date: {{ wallet.createdDate | date }}</p>
+    <p>Last update: {{ getDateDifferences(wallet.lastUpdate) }}</p>
+  </div>
+
+  <div class="wallet__additions">
+    Some addition Information
+  </div>
+</section>

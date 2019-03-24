@@ -1,22 +1,6 @@
-<section *ngIf="currentWallet" class="wallet-info">
-  <div class="wallet-info__cash">{{ currentWallet.balance | currency: currentWallet.currency }}</div>
-
-  <div class="wallet-info__updates">
-    <p>Created date: {{ currentWallet.createdDate | date }}</p>
-    <p>Last update: {{ getDateDifferences(currentWallet.lastUpdate) }}</p>
-  </div>
-
-  <div class="wallet-info__additions">
-    Some addition Information
-  </div>
-</section>
-<section class="categories-list">
-  <h2 class="categories-list__title">Categories</h2>
-
-  <div class="categories">
-    <article class="categories__item" *ngFor="let category of categories">
-      {{ category.title }}
-    </article>
-  </div>
-</section>
-  
+<app-wallet *ngIf="currentWallet" [wallet]="currentWallet"></app-wallet>
+<app-categories-list
+  [title]="'Incomes Categories'"
+  [categoriesType]="CategoryTypeEnum.Incomes"
+  [categories]="categories"
+></app-categories-list>
