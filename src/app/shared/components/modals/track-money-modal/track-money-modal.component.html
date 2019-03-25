@@ -1,0 +1,16 @@
+<form class="form" [formGroup]="newTrackMoneyForm">
+  <h1 mat-dialog-title>Track money for {{ data.category.title }}</h1>
+
+  <mat-form-field class="form__control">
+    <input matInput type="number" formControlName="amount" placeholder="Enter an amount">
+  </mat-form-field>
+  <mat-form-field class="form__control">
+    <input matInput type="text" formControlName="note" placeholder="Enter a note">
+  </mat-form-field>
+
+  <footer class="form__footer" mat-dialog-actions>
+    <button mat-button (click)="closeModal()">Cancel</button>
+    <button mat-button (click)="submit()" [disabled]="formIsInvalid()">Ok</button>
+  </footer>
+</form>
+  

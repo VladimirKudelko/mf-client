@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import jwtDecode from 'jwt-decode';
 
 import { CashService, AuthService } from 'src/app/shared/services';
-import { Wallet, Category } from 'src/app/shared/models';
+import { Wallet, Category, User } from 'src/app/shared/models';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { CategoryTypeEnum } from 'src/app/shared/enums';
 
@@ -17,6 +17,8 @@ export class IncomesComponent implements OnInit {
   public categories: Category[];
   public CategoryTypeEnum = CategoryTypeEnum;
 
+  private _user: User;
+
   constructor(
     private _cashService: CashService,
     private _authService: AuthService,
@@ -25,13 +27,17 @@ export class IncomesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const user = this._authService.getUser();
+    this._user = this._authService.getUser();
 
-    this._categoryService.getIncomesCategories(user._id).subscribe(response => {
+    this._categoryService.getIncomesCategories(this._user._id).subscribe(response => {
       this.categories = response.categories;
       this._cdr.detectChanges();
     });
-    this._cashService.getUserCash(user._id).subscribe(wallet => {
+    this.updateUserCash();
+  }
+
+  public updateUserCash() {
+    this._cashService.getUserCash(this._user._id).subscribe(wallet => {
       this.currentWallet = wallet;
       this._cdr.detectChanges();
     });

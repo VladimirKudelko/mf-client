@@ -1,0 +1,19 @@
+@import 'src/app/shared/scss/colors';
+@import 'src/app/shared/scss/mixins';
+
+:host {
+  padding: 1rem;
+}
+
+.label {
+  font-size: 1.75rem;
+}
+
+.time-intervals {
+  display: block;
+  padding: 1rem 0;
+
+  &__radio-btn {
+    margin-right: 1rem;
+  }
+}

@@ -3,4 +3,6 @@
   [title]="'Incomes Categories'"
   [categoriesType]="CategoryTypeEnum.Incomes"
   [categories]="categories"
+  [wallet]="currentWallet"
+  (updatedCash)="updateUserCash()"
 ></app-categories-list>

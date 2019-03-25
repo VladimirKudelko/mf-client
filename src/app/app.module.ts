@@ -23,6 +23,7 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
 import { ApiInterceptor } from './shared/interceptors/api.interceptor';
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
 import { CreateCategoryModalComponent } from './shared/components/modals/create-category-modal/create-category-modal.component';
+import { TrackMoneyModalComponent } from './shared/components/modals/track-money-modal/track-money-modal.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CreateCategoryModalComponent } from './shared/components/modals/create-
     FooterComponent,
     LoaderComponent,
     SidebarComponent,
-    CreateCategoryModalComponent
+    CreateCategoryModalComponent,
+    TrackMoneyModalComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,7 @@ import { CreateCategoryModalComponent } from './shared/components/modals/create-
       multi: true
     }
   ],
-  entryComponents: [ CreateCategoryModalComponent ],
+  entryComponents: [ CreateCategoryModalComponent, TrackMoneyModalComponent ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -3,4 +3,6 @@
   [title]="'Expenses Categories'"
   [categoriesType]="CategoryTypeEnum.Expenses"
   [categories]="categories"
+  [wallet]="currentWallet"
+  (updatedCash)="updateUserCash()"
 ></app-categories-list>

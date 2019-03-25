@@ -1,3 +1,6 @@
-<p>
-  statistic works!
-</p>
+<label class="label">Pick your interval</label>
+<mat-radio-group class="time-intervals" [(ngModel)]="selectedInterval" (change)="changeInterval($event)">
+  <mat-radio-button class="time-intervals__radio-btn" *ngFor="let interval of intervals" [value]="interval">
+    {{ interval }}
+  </mat-radio-button>
+</mat-radio-group>
