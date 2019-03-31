@@ -14,7 +14,6 @@ export class TransactionService {
   ) { }
 
   public createTransaction(userId: string, data): Observable<{ transaction: Transaction }> {
-    console.log(new Date().toISOString());
     return this._httpClient.post<{ transaction: Transaction }>(`/transactions/${userId}`, data);
   }
 

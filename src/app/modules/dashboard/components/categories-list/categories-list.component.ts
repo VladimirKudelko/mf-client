@@ -70,20 +70,23 @@ export class CategoriesListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (!result || !result.amount || !category || !this.wallet) {
+      if (!result || !result.amountMoney || !category || !this.wallet) {
         return;
       }
 
-      const data = {
+      const { amountMoney, note } = result;
+      const data: any = {
         walletId: this.wallet._id,
         categoryId: category._id,
-        amountMoney: result.amount,
-        note: result.note || null,
         type: this.categoriesType,
         createdDate: new Date().toISOString()
       };
 
-      this._transactionService.createTransaction(this._user._id, data)
+      if (note) {
+        data.note = note;
+      }
+
+      this._transactionService.createTransaction(this._user._id, { ...data, amountMoney })
         .subscribe(response => this.updatedCash.emit());
     });
   }

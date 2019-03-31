@@ -10,7 +10,7 @@ import { Category } from 'src/app/shared/models';
 })
 export class TrackMoneyModalComponent {
   public newTrackMoneyForm: FormGroup = this.fb.group({
-    amount: [
+    amountMoney: [
       '',
       Validators.compose([
         Validators.required,
@@ -30,7 +30,7 @@ export class TrackMoneyModalComponent {
   public formIsInvalid(): boolean {
     return !(
       this.newTrackMoneyForm.valid &&
-      this.newTrackMoneyForm.get('amount').value
+      this.newTrackMoneyForm.get('amountMoney').value
     );
   }
 
@@ -40,7 +40,7 @@ export class TrackMoneyModalComponent {
 
   public submit() {
     const data = {
-      amount: this.newTrackMoneyForm.get('amount').value,
+      amountMoney: this.newTrackMoneyForm.get('amountMoney').value,
       note: this.newTrackMoneyForm.get('note').value
     };
 
