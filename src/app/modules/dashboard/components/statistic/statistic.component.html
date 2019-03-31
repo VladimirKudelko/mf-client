@@ -1,6 +1,30 @@
-<label class="label">Pick your interval</label>
 <mat-radio-group class="time-intervals" [(ngModel)]="selectedInterval" (change)="changeInterval($event)">
-  <mat-radio-button class="time-intervals__radio-btn" *ngFor="let interval of intervals" [value]="interval">
+  <label class="label">Pick your interval</label>
+  <mat-radio-button
+    class="time-intervals__radio-btn"
+    *ngFor="let interval of intervals; let i = index"
+    [checked]="i === 0 ? true : false"
+    color="primary"
+    [value]="interval">
     {{ interval }}
   </mat-radio-button>
 </mat-radio-group>
+<div class="chart-container">
+  <ngx-charts-line-chart
+    class="chart"
+    [view]="view"
+    [results]="results"
+    [scheme]="colorScheme"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    [maxYAxisTickLength]="maxYAxisTickLength"
+    [legendPosition]="legendPosition"
+    [legend]="isShowLegend"
+    [xAxis]="isShowXAxis"
+    [yAxis]="isShowYAxis"
+    [showXAxisLabel]="isShowXAxisLabel"
+    [showYAxisLabel]="isShowYAxisLabel"
+    [autoScale]="isAutoScale"
+    (select)="selectLine($event)"
+  ></ngx-charts-line-chart>
+</div>

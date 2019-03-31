@@ -2,10 +2,14 @@
 @import 'src/app/shared/scss/mixins';
 
 :host {
+  display: grid;
+  grid-template-rows: 10vh 80vh;
   padding: 1rem;
 }
 
 .label {
+  display: block;
+  margin-bottom: 1rem;
   font-size: 1.75rem;
 }
 
@@ -16,4 +20,15 @@
   &__radio-btn {
     margin-right: 1rem;
   }
+}
+
+.chart-container {
+  position: relative;
+}
+
+.chart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

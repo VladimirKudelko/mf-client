@@ -13,8 +13,8 @@ export class CategoryService {
     private _httpClient: HttpClient
   ) { }
 
-  createNewCategory(userId: string, data: any): Observable<Category> {
-    return this._httpClient.post<Category>(`/category/${userId}`, data);
+  createNewCategory(userId: string, data: any): Observable<{ category: Category }> {
+    return this._httpClient.post<{ category: Category }>(`/category/${userId}`, data);
   }
 
   getExpensesCategories(userId: string): Observable<{ categories: Category[] }> {

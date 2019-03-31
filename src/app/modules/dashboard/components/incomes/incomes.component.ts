@@ -37,8 +37,8 @@ export class IncomesComponent implements OnInit {
   }
 
   public updateUserCash() {
-    this._cashService.getUserCash(this._user._id).subscribe(wallet => {
-      this.currentWallet = wallet;
+    this._cashService.getUserCash(this._user._id).subscribe(response => {
+      this.currentWallet = response.wallet;
       this._cdr.detectChanges();
     });
   }

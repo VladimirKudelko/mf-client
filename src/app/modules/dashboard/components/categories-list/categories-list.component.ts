@@ -57,8 +57,8 @@ export class CategoriesListComponent implements OnInit {
 
       const data = { type: this.categoriesType, title: result.categoryTitle };
 
-      this._categoryService.createNewCategory(this._user._id, data).subscribe(category => {
-        this.categories.push(category);
+      this._categoryService.createNewCategory(this._user._id, data).subscribe(response => {
+        this.categories.push(response.category);
         this._cdr.detectChanges();
       });
     });
@@ -78,13 +78,13 @@ export class CategoriesListComponent implements OnInit {
         walletId: this.wallet._id,
         categoryId: category._id,
         amountMoney: result.amount,
-        note: result.note,
-        type: this.categoriesType
+        note: result.note || null,
+        type: this.categoriesType,
+        createdDate: new Date().toISOString()
       };
 
-      this._transactionService.createTransaction(this._user._id, data).subscribe(response => {
-        this.updatedCash.emit();
-      });
+      this._transactionService.createTransaction(this._user._id, data)
+        .subscribe(response => this.updatedCash.emit());
     });
   }
 }

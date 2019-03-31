@@ -12,7 +12,7 @@ export class CashService {
     private _httpClient: HttpClient,
   ) { }
 
-  public getUserCash(userId: string): Observable<Wallet> {
-    return this._httpClient.get<Wallet>(`/cash/${userId}`);
+  public getUserCash(userId: string): Observable<{ wallet: Wallet }> {
+    return this._httpClient.get<{ wallet: Wallet }>(`/cash/${userId}`);
   }
 }
