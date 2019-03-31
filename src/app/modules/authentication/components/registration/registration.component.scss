@@ -20,6 +20,11 @@
   &__title {
     font-size: 2rem;
   }
+
+  &__image {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .registration-title {
@@ -64,4 +69,8 @@
 
 .registration-footer {
   margin-top: 0.5rem;
+
+  &__link {
+    text-decoration: underline;
+  }
 }

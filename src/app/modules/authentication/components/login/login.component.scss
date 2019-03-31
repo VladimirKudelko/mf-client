@@ -19,6 +19,11 @@
   &__title {
     font-size: 2rem;
   }
+
+  &__image {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .login-title {
@@ -58,4 +63,8 @@
 
 .login-footer {
   margin-top: 0.5rem;
+
+  &__link {
+    text-decoration: underline;
+  }
 }

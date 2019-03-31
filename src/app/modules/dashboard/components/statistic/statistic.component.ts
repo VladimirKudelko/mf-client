@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { IntervalEnum, CategoryTypeEnum } from 'src/app/shared/enums';
 import { TransactionService } from 'src/app/shared/services/transaction.service';
 import { Transaction, User } from 'src/app/shared/models';
-import { AuthService } from 'src/app/shared/services';
+import { AuthService, SidebarService } from 'src/app/shared/services';
 
 @Component({
   selector: 'app-statistic',
@@ -40,10 +40,12 @@ export class StatisticComponent implements OnInit {
 
   constructor(
     private _authService: AuthService,
-    private _transactionService: TransactionService
+    private _transactionService: TransactionService,
+    private _sidebarService: SidebarService
   ) { }
 
   ngOnInit() {
+    this._sidebarService.show();
     this._user = this._authService.getUser();
   }
 
