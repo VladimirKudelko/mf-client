@@ -44,7 +44,7 @@ export class CategoriesListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._user = this._authService.getUser();
+    this._user = this._authService.getUserFromLocalStorage();
   }
 
   public createNewCategory() {

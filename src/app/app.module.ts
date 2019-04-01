@@ -24,6 +24,10 @@ import { ApiInterceptor } from './shared/interceptors/api.interceptor';
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
 import { CreateCategoryModalComponent } from './shared/components/modals/create-category-modal/create-category-modal.component';
 import { TrackMoneyModalComponent } from './shared/components/modals/track-money-modal/track-money-modal.component';
+import { ChangeFullNameModalComponent } from './shared/components/modals/change-full-name/change-full-name.component';
+import { ChangeEmailModalComponent } from './shared/components/modals/change-email/change-email.component';
+import { ChangePasswordModalComponent } from './shared/components/modals/change-password/change-password.component';
+import { NotificationComponent } from './shared/components/modals/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,11 @@ import { TrackMoneyModalComponent } from './shared/components/modals/track-money
     LoaderComponent,
     SidebarComponent,
     CreateCategoryModalComponent,
-    TrackMoneyModalComponent
+    TrackMoneyModalComponent,
+    ChangeFullNameModalComponent,
+    ChangeEmailModalComponent,
+    ChangePasswordModalComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +71,14 @@ import { TrackMoneyModalComponent } from './shared/components/modals/track-money
       multi: true
     }
   ],
-  entryComponents: [ CreateCategoryModalComponent, TrackMoneyModalComponent ],
+  entryComponents: [
+    CreateCategoryModalComponent,
+    TrackMoneyModalComponent,
+    ChangeEmailModalComponent,
+    ChangeFullNameModalComponent,
+    ChangePasswordModalComponent,
+    NotificationComponent
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

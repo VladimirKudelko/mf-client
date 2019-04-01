@@ -29,7 +29,7 @@ export class IncomesComponent implements OnInit {
 
   ngOnInit() {
     this._sidebarService.show();
-    this._user = this._authService.getUser();
+    this._user = this._authService.getUserFromLocalStorage();
 
     this._categoryService.getIncomesCategories(this._user._id).subscribe(response => {
       this.categories = response.categories;

@@ -41,6 +41,18 @@ export class AuthService implements CanActivate {
     return this._httpClient.post<any>('/auth/login', formData);
   }
 
+  public updateUserSettings(userId: string, data): Observable<{ updatedUser: User, isUpdated: boolean }> {
+    return this._httpClient.patch<{ updatedUser: User, isUpdated: boolean }>(`/profile/settings/${userId}`, data);
+  }
+
+  public updatePassword(userId: string, data): Observable<any> {
+    return this._httpClient.patch<any>(`/profile/settings/change-password/${userId}`, data);
+  }
+
+  public getUserById(userId: string = this.getUserFromLocalStorage()._id): Observable<{ user: User }> {
+    return this._httpClient.get<{ user: User }>(`/profile/${userId}`);
+  }
+
   public saveToLocalStorage(key: string, value: string): void {
     localStorage.setItem(key, value);
   }
@@ -66,7 +78,7 @@ export class AuthService implements CanActivate {
     }
   }
 
-  public getUser(): User {
+  public getUserFromLocalStorage(): User {
     return jwtDecode(this.getFromLocalStorage('token'));
   }
 

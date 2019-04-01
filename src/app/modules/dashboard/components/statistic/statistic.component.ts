@@ -46,7 +46,7 @@ export class StatisticComponent implements OnInit {
 
   ngOnInit() {
     this._sidebarService.show();
-    this._user = this._authService.getUser();
+    this._user = this._authService.getUserFromLocalStorage();
   }
 
   public changeInterval(event: MatRadioChange) {

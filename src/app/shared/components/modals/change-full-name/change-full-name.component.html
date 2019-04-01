@@ -1,0 +1,15 @@
+<form class="form" [formGroup]="changeFullNameForm">
+  <h1 mat-dialog-title>Change full name</h1>
+
+  <mat-form-field class="form__control">
+    <input matInput type="text" formControlName="firstName" [value]="data.firstName" placeholder="Enter an first name">
+  </mat-form-field>
+  <mat-form-field class="form__control">
+    <input matInput type="text" formControlName="lastName" [value]="data.lastName" placeholder="Enter an last name">
+  </mat-form-field>
+
+  <footer class="form__footer" mat-dialog-actions>
+    <button mat-button (click)="closeModal()">Cancel</button>
+    <button mat-button (click)="submit()" [disabled]="formIsInvalid()">Ok</button>
+  </footer>
+</form>

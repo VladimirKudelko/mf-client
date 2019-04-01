@@ -1,0 +1,60 @@
+@import 'src/app/shared/scss/colors';
+@import 'src/app/shared/scss/mixins';
+
+:host {
+  padding: 1rem;
+}
+
+.image-wrapper {
+  margin: 0 5rem 3rem;
+  text-align: center;
+}
+
+.user-settings {
+  margin: 0 5rem;
+
+  &__data {
+    float: left;
+    width: 50%;
+    padding-right: 3rem;
+    text-align: right;
+  }
+
+  &__account {
+    float: right;
+    width: 50%;
+    padding-left: 3rem;
+    text-align: left;
+  }
+}
+
+.account-information {
+
+  &__title {
+    margin-bottom: 0.5rem;
+    font-size: 1.35rem;
+  }
+
+  &__control {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: $dark-red;
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+
+.account-additions {
+
+  &__title {
+    font-size: 1.35rem;
+  }
+
+  &__date-joined {
+    margin: 1rem 0;
+    color: $gray;
+  }
+}

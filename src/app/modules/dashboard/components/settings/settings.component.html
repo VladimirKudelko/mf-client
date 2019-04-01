@@ -1,3 +1,19 @@
-<p>
-  settings works!
-</p>
+<div class="image-wrapper">
+  <img src="https://upload.wikimedia.org/wikipedia/en/3/3e/Hot_Stuff_the_Little_Devil.png">
+</div>
+<div class="user-settings" *ngIf="user">
+  <div class="user-settings__data account-information">
+    <h2 class="account-information__title">{{ user.firstName + ' ' + user.lastName }}</h2>
+    <span class="account-information__control" (click)="changeFullName()">Edit</span>
+
+    <h2 class="account-information__title">{{ user.email }}</h2>
+    <span class="account-information__control" (click)="changeEmail()">Edit</span>
+
+    <h2 class="account-information__title">***********</h2>
+    <span class="account-information__control" (click)="changePassword()">Change Password</span>
+  </div>
+  <div class="user-settings__account account-additions">
+    <h2 class="account-additions__title">Free Account</h2>
+    <p class="account-additions__date-joined">Joined on {{ joinedDate }}</p>
+  </div>
+</div>
