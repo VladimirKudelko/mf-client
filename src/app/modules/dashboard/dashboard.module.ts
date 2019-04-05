@@ -14,7 +14,6 @@ import { WalletComponent } from './components/wallet/wallet.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CategoriesListComponent } from './components/categories-list/categories-list.component';
 import { CategoryComponent } from './components/category/category.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [

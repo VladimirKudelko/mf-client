@@ -1,26 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { SidebarService } from 'src/app/shared/services';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+
+import { SidebarService, AuthService } from 'src/app/shared/services';
+import { Task } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
-  public panelOpenState = false;
-  public accordionItems = [
-    { title: 'Title #1', description: 'Description #1', content: 'Some content', isCompleted: true },
-    { title: 'Title #2', description: 'Description #2', content: 'Some content', isCompleted: false },
-    { title: 'Title #3', description: 'Description #3', content: 'Some content', isCompleted: false },
-    { title: 'Title #4', description: 'Description #4', content: 'Some content', isCompleted: false },
-    { title: 'Title #5', description: 'Description #5', content: 'Some content', isCompleted: false },
-  ];
+  public faCheck = faCheck;
+  public faTimes = faTimes;
+  public tasks: Task[];
 
   constructor(
-    private _sidebarService: SidebarService
+    private _sidebarService: SidebarService,
+    private _authService: AuthService,
+    private _cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this._sidebarService.show();
+    this._authService.getUserById().subscribe(response => {
+      this.tasks = response.user.tasks;
+      this._cdr.detectChanges();
+    });
+  }
+
+  getIconByStatus(task: Task) {
+    return task.isCompleted
+      ? faCheck
+      : faTimes;
   }
 }

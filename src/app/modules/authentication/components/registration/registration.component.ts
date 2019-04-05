@@ -29,14 +29,14 @@ export class RegistrationComponent implements OnInit {
         '',
         Validators.compose([
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(2),
         ])
       ],
       'lastName': [
         '',
         Validators.compose([
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(2),
         ])
       ],
       'email': [

@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material';
 import * as moment from 'moment';
 
 import { SidebarService, AuthService } from 'src/app/shared/services';
-import { User } from 'src/app/shared/models';
+import { User, Task } from 'src/app/shared/models';
 import { ChangeEmailModalComponent } from 'src/app/shared/components/modals/change-email/change-email.component';
 import { ChangeFullNameModalComponent } from 'src/app/shared/components/modals/change-full-name/change-full-name.component';
 import { ChangePasswordModalComponent } from 'src/app/shared/components/modals/change-password/change-password.component';
@@ -16,6 +16,8 @@ import { ChangePasswordModalComponent } from 'src/app/shared/components/modals/c
 export class SettingsComponent implements OnInit {
   public user: User;
   public joinedDate: any;
+
+  private _settingsTask: Task;
 
   constructor(
     private _sidebarService: SidebarService,
@@ -44,8 +46,11 @@ export class SettingsComponent implements OnInit {
         return;
       }
 
-      this._authService.updateUserSettings(this.user._id, { firstName, lastName })
-        .subscribe(response => this.getUser());
+      this._authService.updateUserSettings(this.user._id, {
+        firstName,
+        lastName,
+        isUpdateTask: !this._settingsTask.isCompleted
+      }).subscribe(response => this.getUser());
     });
   }
 
@@ -61,7 +66,7 @@ export class SettingsComponent implements OnInit {
         return;
       }
 
-      this._authService.updateUserSettings(this.user._id, { email })
+      this._authService.updateUserSettings(this.user._id, { email, isUpdateTask: !this._settingsTask.isCompleted })
         .subscribe(response => this.getUser());
     });
   }
@@ -76,13 +81,18 @@ export class SettingsComponent implements OnInit {
         return;
       }
 
-      this._authService.updatePassword(this.user._id, { lastPassword, newPassword }).subscribe();
+      this._authService.updatePassword(this.user._id, {
+        lastPassword,
+        newPassword,
+        isUpdateTask: !this._settingsTask.isCompleted
+      }).subscribe();
     });
   }
 
   public getUser() {
     this._authService.getUserById().subscribe(response => {
       this.user = response.user;
+      this._settingsTask = this.user.tasks.find(task => task.key === 'settings');
       this.joinedDate = moment(this.user.createdDate).format('DD MMMM YYYY');
       this._cdr.detectChanges();
     });

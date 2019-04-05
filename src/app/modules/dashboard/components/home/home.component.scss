@@ -32,4 +32,20 @@
 .task-header {
   padding: 2rem 1rem;
   font-size: 1.25rem;
+
+  &__description {
+    padding: 0.5rem 0;
+
+    &--completed {
+      color: $green;
+    }
+  
+    &--not-completed {
+      color: $red;
+    }
+  }
+
+  &__description-icon {
+    margin-right: 1rem;
+  }
 }

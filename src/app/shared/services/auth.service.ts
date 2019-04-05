@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 
 import { RoleEnum } from '../enums';
 import { User } from '../models';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,10 @@ export class AuthService implements CanActivate {
   }
 
   public registerUser(formData): Observable<any> {
-    return this._httpClient.post<any>('/auth/signup', formData);
+    return this._httpClient.post<any>('/auth/signup', formData)
+    .pipe(
+      tap(response => this.saveToLocalStorage('user', JSON.stringify(response.user)))
+    );
   }
 
   public loginUser(formData): Observable<any> {
@@ -50,7 +54,10 @@ export class AuthService implements CanActivate {
   }
 
   public getUserById(userId: string = this.getUserFromLocalStorage()._id): Observable<{ user: User }> {
-    return this._httpClient.get<{ user: User }>(`/profile/${userId}`);
+    return this._httpClient.get<{ user: User }>(`/profile/${userId}`)
+      .pipe(
+        tap(response => this.saveToLocalStorage('user', JSON.stringify(response.user)))
+      );
   }
 
   public saveToLocalStorage(key: string, value: string): void {
@@ -79,7 +86,7 @@ export class AuthService implements CanActivate {
   }
 
   public getUserFromLocalStorage(): User {
-    return jwtDecode(this.getFromLocalStorage('token'));
+    return JSON.parse(this.getFromLocalStorage('user'));
   }
 
   public logout(): void {

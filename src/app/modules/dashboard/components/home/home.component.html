@@ -3,13 +3,13 @@
     <h2 class="todo-list__title">Complete the whole task</h2>
     <p class="todo-list__subtitle">You will get present</p>
 
-    <mat-accordion>
-      <mat-expansion-panel class="task" *ngFor="let task of accordionItems">
+    <mat-accordion *ngIf="tasks && tasks?.length">
+      <mat-expansion-panel class="task" *ngFor="let task of tasks">
         <mat-expansion-panel-header class="task-header">
-          <mat-panel-title class="task-header__title">
-            {{ task.title }}
-          </mat-panel-title>
-          <mat-panel-description class="task-header__description">
+          <mat-panel-description
+            class="task-header__description"
+            [ngClass]="{ 'task-header__description--completed': task.isCompleted, 'task-header__description--not-completed': !task.isCompleted }">
+            <fa-icon class="task-header__description-icon" [icon]="getIconByStatus(task)"></fa-icon>
             {{ task.description }}
           </mat-panel-description>
         </mat-expansion-panel-header>

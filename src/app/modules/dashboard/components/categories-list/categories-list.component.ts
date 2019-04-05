@@ -5,7 +5,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { CreateCategoryModalComponent } from 'src/app/shared/components/modals/create-category-modal/create-category-modal.component';
 import { TrackMoneyModalComponent } from 'src/app/shared/components/modals/track-money-modal/track-money-modal.component';
-import { Category, User, Wallet } from 'src/app/shared/models';
+import { Category, User, Wallet, Task } from 'src/app/shared/models';
 import { CategoryTypeEnum } from 'src/app/shared/enums';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { AuthService } from 'src/app/shared/services';
@@ -33,6 +33,9 @@ export class CategoriesListComponent implements OnInit {
   @Output() updatedCash = new EventEmitter();
 
   private _user: User;
+  private _categoryTask: Task;
+  private _moneyTask: Task;
+
   public faPlus = faPlus;
 
   constructor(
@@ -45,6 +48,8 @@ export class CategoriesListComponent implements OnInit {
 
   ngOnInit() {
     this._user = this._authService.getUserFromLocalStorage();
+    this._categoryTask = this._user.tasks.find(task => task.key === 'category');
+    this._moneyTask = this._user.tasks.find(task => task.key === 'money');
   }
 
   public createNewCategory() {
@@ -55,7 +60,11 @@ export class CategoriesListComponent implements OnInit {
         return;
       }
 
-      const data = { type: this.categoriesType, title: result.categoryTitle };
+      const data = {
+        type: this.categoriesType,
+        title: result.categoryTitle,
+        isUpdateTask: !this._categoryTask.isCompleted
+      };
 
       this._categoryService.createNewCategory(this._user._id, data).subscribe(response => {
         this.categories.push(response.category);
@@ -79,7 +88,8 @@ export class CategoriesListComponent implements OnInit {
         walletId: this.wallet._id,
         categoryId: category._id,
         type: this.categoriesType,
-        createdDate: new Date().toISOString()
+        createdDate: new Date().toISOString(),
+        isUpdateTask: !this._moneyTask.isCompleted
       };
 
       if (note) {

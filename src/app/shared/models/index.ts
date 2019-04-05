@@ -5,12 +5,14 @@ import { MenuItem } from './menu-item.model';
 import { Wallet } from './wallet.model';
 import { Category } from './category.model';
 import { Transaction } from './transaction.model';
+import { Task } from './task';
 
 export {
   Category,
   LoaderState,
   MenuItem,
   SidebarState,
+  Task,
   Transaction,
   User,
   Wallet
