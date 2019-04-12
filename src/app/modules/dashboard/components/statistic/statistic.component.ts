@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatRadioChange } from '@angular/material';
 import * as moment from 'moment';
 
@@ -41,7 +41,8 @@ export class StatisticComponent implements OnInit {
   constructor(
     private _authService: AuthService,
     private _transactionService: TransactionService,
-    private _sidebarService: SidebarService
+    private _sidebarService: SidebarService,
+    private _cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -51,7 +52,9 @@ export class StatisticComponent implements OnInit {
 
   public changeInterval(event: MatRadioChange) {
     this._transactionService.getUserTransactions(this._user._id, event.value).subscribe(response => {
-      if (!response.transactions && !response.transactions.length) {
+      const { transactions } = response;
+
+      if (!transactions && !transactions.length) {
         return;
       }
 
@@ -60,19 +63,13 @@ export class StatisticComponent implements OnInit {
         { name: 'Incomes', series: [ ] }
       ];
 
-      response.transactions.forEach(transaction => {
-        const formattedDate = this.formatDateByInterval(transaction.createdDate, this.selectedInterval);
+      const expensesTransactions = transactions.filter(transaction => transaction.type === CategoryTypeEnum.Expenses);
+      const incomesTransactions = transactions.filter(transaction => transaction.type === CategoryTypeEnum.Incomes);
 
-        if (transaction.type === CategoryTypeEnum.Expenses) {
-          this.results[0].series.push(
-            { 'value': transaction.amountMoney, 'name': formattedDate }
-          );
-        } else {
-          this.results[1].series.push(
-            { 'value': transaction.amountMoney, 'name': formattedDate }
-          );
-        }
-      });
+      this.results[0].series = this.groupTransactionsByDate(expensesTransactions);
+      this.results[1].series = this.groupTransactionsByDate(incomesTransactions);
+
+      this._cdr.detectChanges();
     });
   }
 
@@ -80,12 +77,12 @@ export class StatisticComponent implements OnInit {
     console.log(event);
   }
 
-  private formatDateByInterval(date: Date, interval: IntervalEnum): string {
+  private formatDateByInterval(date: string, interval: IntervalEnum): string {
     const formattedDate = moment(date);
 
     switch (interval) {
       case IntervalEnum.Day:
-        return formattedDate.format('h:mm:ss');
+        return formattedDate.format('h:mm');
       case IntervalEnum.Week:
         return formattedDate.format('dddd');
       case IntervalEnum.Month:
@@ -94,6 +91,29 @@ export class StatisticComponent implements OnInit {
         return formattedDate.format('L');
       default: return formattedDate.format('L');
     }
+  }
+
+  private groupTransactionsByDate(transactions): any {
+    const groups: any[] = transactions.reduce((accumulator, transaction) => {
+      const date = this.formatDateByInterval(transaction.createdDate, this.selectedInterval);
+
+      if (!accumulator[date]) {
+        accumulator[date] = [];
+      }
+
+      accumulator[date].push(transaction);
+
+      return accumulator;
+    }, {});
+
+    return Object.keys(groups).map((createdDate) => {
+      const total = groups[createdDate].reduce((accumulator, transaction) => accumulator + transaction.amountMoney, 0);
+
+      return {
+        name: createdDate,
+        value: total
+      };
+    });
   }
 
 }

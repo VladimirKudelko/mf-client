@@ -8,5 +8,5 @@ export interface Transaction {
   amountMoney: number;
   type: CategoryTypeEnum;
   note: string;
-  createdDate?: Date;
+  createdDate?: string;
 }
