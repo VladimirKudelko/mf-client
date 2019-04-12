@@ -1,13 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 import { environment } from 'src/environments/environment';
@@ -26,14 +19,6 @@ export class ApiInterceptor implements HttpInterceptor {
       });
     }
 
-    return next.handle(modified).pipe(
-      map((event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse) {
-            console.log('event--->>>', event);
-        }
-        return event;
-      })
-    );
+    return next.handle(modified);
   }
-
 }

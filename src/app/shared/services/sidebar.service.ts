@@ -10,10 +10,11 @@ export class SidebarService {
   private sidebar$ = new BehaviorSubject<SidebarState>({ show: false });
   public sidebarState$ = this.sidebar$.asObservable();
 
-  show() {
+  public show(): void {
     this.sidebar$.next(<SidebarState>{ show: true });
   }
-  hide() {
+
+  public hide(): void {
     this.sidebar$.next(<SidebarState>{ show: false });
   }
 }

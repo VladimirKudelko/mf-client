@@ -36,11 +36,9 @@ export class CreateCategoryModalComponent {
     this.dialogRef.close();
   }
 
-  submit() {
-    const data = {
+  submit(): void {
+    this.dialogRef.close({
       categoryTitle: this.newCategoryForm.get('title').value,
-    };
-
-    this.dialogRef.close(data);
+    });
   }
 }

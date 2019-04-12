@@ -4,7 +4,7 @@
     <fa-icon [icon]="faPlus"></fa-icon>
   </button>
 
-  <div class="categories" [@hideShow]="categories ? 'show' : 'hide'">
+  <div class="categories" [@hideShow]="getShowCategories">
     <app-category
       class="categories__item"
       *ngFor="let category of categories"

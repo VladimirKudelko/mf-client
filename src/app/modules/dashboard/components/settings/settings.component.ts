@@ -24,7 +24,7 @@ export class SettingsComponent implements OnInit {
     private _authService: AuthService,
     private _cdr: ChangeDetectorRef,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit() {
     this._sidebarService.show();
@@ -66,7 +66,12 @@ export class SettingsComponent implements OnInit {
         return;
       }
 
-      this._authService.updateUserSettings(this.user._id, { email, isUpdateTask: !this._settingsTask.isCompleted })
+      const data = {
+        email,
+        isUpdateTask: !this._settingsTask.isCompleted
+      };
+
+      this._authService.updateUserSettings(this.user._id, data)
         .subscribe(response => this.getUser());
     });
   }
@@ -81,11 +86,13 @@ export class SettingsComponent implements OnInit {
         return;
       }
 
-      this._authService.updatePassword(this.user._id, {
+      const data = {
         lastPassword,
         newPassword,
         isUpdateTask: !this._settingsTask.isCompleted
-      }).subscribe();
+      };
+
+      this._authService.updatePassword(this.user._id, data).subscribe();
     });
   }
 

@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-
   public registrationForm: FormGroup;
 
   constructor(
@@ -54,14 +53,7 @@ export class RegistrationComponent implements OnInit {
           Validators.maxLength(25),
         ])
       ],
-      'confirmPassword': [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(25),
-        ])
-      ]
+      'confirmPassword': [ '' ]
     }, { validator: this.checkPasswords });
   }
 
@@ -78,15 +70,12 @@ export class RegistrationComponent implements OnInit {
     delete this.registrationForm.value.confirmPassword;
 
     this._authService.registerUser(this.registrationForm.value)
-      .subscribe(response => {
-        if (!response.isSuccessfully) {
-          alert(response.message);
-
-          return;
-        }
-
-        this._authService.saveToLocalStorage('token', response.token);
-        this._router.navigateByUrl('/dashboard');
-      }, (response) => alert(response.error.message));
+      .subscribe(
+        response => {
+          this._authService.saveToLocalStorage('token', response.token);
+          this._router.navigateByUrl('/dashboard');
+        },
+        (response) => alert(response.error.message)
+      );
   }
 }

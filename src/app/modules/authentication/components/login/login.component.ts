@@ -12,6 +12,7 @@ import { RoleEnum } from 'src/app/shared/enums';
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
+
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
@@ -45,12 +46,6 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this._authService.loginUser(this.loginForm.value)
       .subscribe(response => {
-        if (!response.isSuccessfully) {
-          alert(response.message);
-
-          return;
-        }
-
         this._authService.saveToLocalStorage('token', response.token);
 
         if (this._authService.getRole() === RoleEnum.Admin) {
@@ -58,7 +53,7 @@ export class LoginComponent implements OnInit {
         } else {
           this._router.navigateByUrl('/dashboard');
         }
-      }, (response) => alert(response.error.message));
+      }, (response) => alert(response));
   }
 
 }

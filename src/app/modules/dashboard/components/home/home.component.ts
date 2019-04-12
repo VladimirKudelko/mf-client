@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     private _sidebarService: SidebarService,
     private _authService: AuthService,
     private _cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this._sidebarService.show();
@@ -27,6 +27,13 @@ export class HomeComponent implements OnInit {
       this.tasks = response.user.tasks;
       this._cdr.detectChanges();
     });
+  }
+
+  getTaskClasses(task: Task) {
+    return {
+      'task-header__description--completed': task.isCompleted,
+      'task-header__description--not-completed': !task.isCompleted
+    };
   }
 
   getIconByStatus(task: Task) {

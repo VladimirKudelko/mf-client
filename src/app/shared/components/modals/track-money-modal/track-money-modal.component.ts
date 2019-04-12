@@ -46,5 +46,4 @@ export class TrackMoneyModalComponent {
 
     this.dialogRef.close(data);
   }
-
 }

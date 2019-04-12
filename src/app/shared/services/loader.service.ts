@@ -10,10 +10,11 @@ export class LoaderService {
   private loader$ = new BehaviorSubject<LoaderState>({ show: false });
   public loaderState$ = this.loader$.asObservable();
 
-  show() {
+  public show(): void {
     this.loader$.next(<LoaderState>{ show: true });
   }
-  hide() {
+
+  public hide(): void {
     this.loader$.next(<LoaderState>{ show: false });
   }
 }

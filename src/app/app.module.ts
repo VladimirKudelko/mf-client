@@ -16,8 +16,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavComponent } from './shared/components/nav/nav.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { ApiInterceptor } from './shared/interceptors/api.interceptor';
@@ -32,8 +30,6 @@ import { NotificationComponent } from './shared/components/modals/notification/n
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
-    FooterComponent,
     LoaderComponent,
     SidebarComponent,
     CreateCategoryModalComponent,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 import { Transaction } from '../models';
 import { TransactionPeriodEnum } from '../enums';
@@ -13,7 +13,7 @@ export class TransactionService {
     private _httpClient: HttpClient
   ) { }
 
-  public createTransaction(userId: string, data): Observable<{ transaction: Transaction }> {
+  public createTransaction(userId: string, data: any): Observable<{ transaction: Transaction }> {
     return this._httpClient.post<{ transaction: Transaction }>(`/transactions/${userId}`, data);
   }
 

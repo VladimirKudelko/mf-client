@@ -35,11 +35,9 @@ export class ChangeEmailModalComponent {
     this.dialogRef.close();
   }
 
-  public submit() {
-    const data = {
+  public submit(): void {
+    this.dialogRef.close({
       email: this.changeEmailForm.get('email').value,
-    };
-
-    this.dialogRef.close(data);
+    });
   }
 }

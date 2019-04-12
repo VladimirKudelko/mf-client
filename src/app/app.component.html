@@ -1,4 +1,4 @@
-<div class="content" [ngClass]="{ 'content--without-sidebar': !isShowSidebar }">
+<div class="content" [ngClass]="getSidebarClasses">
   <app-sidebar *ngIf="isShowSidebar"></app-sidebar>
   <router-outlet style="display: none"></router-outlet>
 </div>

@@ -36,6 +36,12 @@ export class AppComponent implements OnInit, OnDestroy {
       });
   }
 
+  get getSidebarClasses() {
+    return {
+      'content--without-sidebar': !this.isShowSidebar
+    };
+  }
+
   ngOnDestroy() {
     this._loaderSubscription.unsubscribe();
     this._sidebarSubscription.unsubscribe();

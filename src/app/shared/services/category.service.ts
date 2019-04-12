@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 import { Category } from '../models';
 
@@ -8,20 +8,19 @@ import { Category } from '../models';
   providedIn: 'root'
 })
 export class CategoryService {
-
   constructor(
     private _httpClient: HttpClient
   ) { }
 
-  createNewCategory(userId: string, data: any): Observable<{ category: Category }> {
+  public createNewCategory(userId: string, data: any): Observable<{ category: Category }> {
     return this._httpClient.post<{ category: Category }>(`/category/${userId}`, data);
   }
 
-  getExpensesCategories(userId: string): Observable<{ categories: Category[] }> {
+  public getExpensesCategories(userId: string): Observable<{ categories: Category[] }> {
     return this._httpClient.get<{ categories: Category[] }>(`/category/expenses/${userId}`);
   }
 
-  getIncomesCategories(userId: string): Observable<{ categories: Category[] }> {
+  public getIncomesCategories(userId: string): Observable<{ categories: Category[] }> {
     return this._httpClient.get<{ categories: Category[] }>(`/category/incomes/${userId}`);
   }
 }

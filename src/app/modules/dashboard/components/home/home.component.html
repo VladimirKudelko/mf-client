@@ -8,7 +8,7 @@
         <mat-expansion-panel-header class="task-header">
           <mat-panel-description
             class="task-header__description"
-            [ngClass]="{ 'task-header__description--completed': task.isCompleted, 'task-header__description--not-completed': !task.isCompleted }">
+            [ngClass]="getTaskClasses(task)">
             <fa-icon class="task-header__description-icon" [icon]="getIconByStatus(task)"></fa-icon>
             {{ task.description }}
           </mat-panel-description>

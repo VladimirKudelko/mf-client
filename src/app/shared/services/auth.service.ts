@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import jwtDecode from 'jwt-decode';
 import * as _ from 'lodash';
 
 import { RoleEnum } from '../enums';
 import { User } from '../models';
-import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class AuthService implements CanActivate {
     private _router: Router
   ) { }
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  public canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const { data: { role } } = next;
 
     if (!this.isAuthenticated()) {
@@ -34,23 +34,23 @@ export class AuthService implements CanActivate {
     return true;
   }
 
-  public registerUser(formData): Observable<any> {
-    return this._httpClient.post<any>('/auth/signup', formData)
-    .pipe(
-      tap(response => this.saveToLocalStorage('user', JSON.stringify(response.user)))
-    );
+  public registerUser(formData: any): Observable<{ isSuccessfully: boolean, token: string, user: User }> {
+    return this._httpClient.post<{ isSuccessfully: boolean, token: string, user: User }>('/auth/signup', formData)
+      .pipe(
+        tap(response => this.saveToLocalStorage('user', JSON.stringify(response.user)))
+      );
   }
 
-  public loginUser(formData): Observable<any> {
-    return this._httpClient.post<any>('/auth/login', formData);
+  public loginUser(formData: any): Observable<{ isSuccessfully: boolean, token: string, user: User }> {
+    return this._httpClient.post<{ isSuccessfully: boolean, token: string, user: User }>('/auth/login', formData);
   }
 
-  public updateUserSettings(userId: string, data): Observable<{ updatedUser: User, isUpdated: boolean }> {
+  public updateUserSettings(userId: string, data: any): Observable<{ updatedUser: User, isUpdated: boolean }> {
     return this._httpClient.patch<{ updatedUser: User, isUpdated: boolean }>(`/profile/settings/${userId}`, data);
   }
 
-  public updatePassword(userId: string, data): Observable<any> {
-    return this._httpClient.patch<any>(`/profile/settings/change-password/${userId}`, data);
+  public updatePassword(userId: string, data: any): Observable<{ isSuccessfully: boolean, updatedUser: User }> {
+    return this._httpClient.patch<{ isSuccessfully: boolean, updatedUser: User }>(`/profile/settings/change-password/${userId}`, data);
   }
 
   public getUserById(userId: string = this.getUserFromLocalStorage()._id): Observable<{ user: User }> {
@@ -81,7 +81,7 @@ export class AuthService implements CanActivate {
 
       return user.role;
     } catch (error) {
-
+      console.log(error);
     }
   }
 
@@ -92,5 +92,4 @@ export class AuthService implements CanActivate {
   public logout(): void {
     localStorage.removeItem('token');
   }
-
 }

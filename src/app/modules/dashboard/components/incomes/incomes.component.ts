@@ -1,9 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import jwtDecode from 'jwt-decode';
 
-import { CashService, AuthService, SidebarService } from 'src/app/shared/services';
+import { CashService, AuthService, SidebarService, CategoryService } from 'src/app/shared/services';
 import { Wallet, Category, User } from 'src/app/shared/models';
-import { CategoryService } from 'src/app/shared/services/category.service';
 import { CategoryTypeEnum } from 'src/app/shared/enums';
 
 @Component({

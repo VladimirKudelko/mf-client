@@ -8,7 +8,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   styleUrls: ['./change-full-name.component.scss']
 })
 export class ChangeFullNameModalComponent {
-
   public changeFullNameForm: FormGroup = this._fb.group({
     firstName: [
       '',
@@ -38,7 +37,7 @@ export class ChangeFullNameModalComponent {
     this.dialogRef.close();
   }
 
-  public submit() {
+  public submit(): void {
     const data = {
       firstName: this.changeFullNameForm.get('firstName').value,
       lastName: this.changeFullNameForm.get('lastName').value,

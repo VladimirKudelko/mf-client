@@ -44,7 +44,7 @@ export class ChangePasswordModalComponent {
     this.dialogRef.close();
   }
 
-  public submit() {
+  public submit(): void {
     const data = {
       lastPassword: this.changePasswordForm.get('lastPassword').value,
       newPassword: this.changePasswordForm.get('newPassword').value,
@@ -52,5 +52,4 @@ export class ChangePasswordModalComponent {
 
     this.dialogRef.close(data);
   }
-
 }
