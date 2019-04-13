@@ -6,8 +6,9 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { CreateCategoryModalComponent } from 'src/app/shared/components/modals/create-category-modal/create-category-modal.component';
 import { TrackMoneyModalComponent } from 'src/app/shared/components/modals/track-money-modal/track-money-modal.component';
 import { Category, User, Wallet, Task } from 'src/app/shared/models';
-import { CategoryTypeEnum } from 'src/app/shared/enums';
+import { CategoryTypeEnum, PopupEnum } from 'src/app/shared/enums';
 import { CategoryService, AuthService, TransactionService } from 'src/app/shared/services';
+import { NotificationModalComponent } from 'src/app/shared/components/modals/notification/notification.component';
 
 @Component({
   selector: 'app-categories-list',
@@ -50,6 +51,13 @@ export class CategoriesListComponent implements OnInit {
     this._moneyTask = this._user.tasks.find(task => task.key === 'money');
   }
 
+  private showNotificationModal(modalType: PopupEnum, message: string) {
+    this.dialog.open(NotificationModalComponent, {
+      width: '400px',
+      data: { modalType, message }
+    });
+  }
+
   get getShowCategories(): string {
     return this.categories
       ? 'show'
@@ -72,6 +80,7 @@ export class CategoriesListComponent implements OnInit {
 
       this._categoryService.createNewCategory(this._user._id, data).subscribe(response => {
         this.categories.push(response.category);
+        this.showNotificationModal(PopupEnum.Success, 'Category is added');
         this._cdr.detectChanges();
       });
     });

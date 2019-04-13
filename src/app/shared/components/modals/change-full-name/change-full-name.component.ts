@@ -45,5 +45,4 @@ export class ChangeFullNameModalComponent {
 
     this.dialogRef.close(data);
   }
-
 }

@@ -8,7 +8,8 @@ import {
   MatRadioModule,
   MatDialogModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatButtonModule
 } from '@angular/material';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -25,7 +26,7 @@ import { TrackMoneyModalComponent } from './shared/components/modals/track-money
 import { ChangeFullNameModalComponent } from './shared/components/modals/change-full-name/change-full-name.component';
 import { ChangeEmailModalComponent } from './shared/components/modals/change-email/change-email.component';
 import { ChangePasswordModalComponent } from './shared/components/modals/change-password/change-password.component';
-import { NotificationComponent } from './shared/components/modals/notification/notification.component';
+import { NotificationModalComponent } from './shared/components/modals/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { NotificationComponent } from './shared/components/modals/notification/n
     ChangeFullNameModalComponent,
     ChangeEmailModalComponent,
     ChangePasswordModalComponent,
-    NotificationComponent
+    NotificationModalComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +53,7 @@ import { NotificationComponent } from './shared/components/modals/notification/n
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
     HttpClientModule,
     FontAwesomeModule
   ],
@@ -73,7 +75,7 @@ import { NotificationComponent } from './shared/components/modals/notification/n
     ChangeEmailModalComponent,
     ChangeFullNameModalComponent,
     ChangePasswordModalComponent,
-    NotificationComponent
+    NotificationModalComponent
   ],
   bootstrap: [ AppComponent ]
 })

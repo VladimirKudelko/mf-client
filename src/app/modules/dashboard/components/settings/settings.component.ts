@@ -7,6 +7,8 @@ import { User, Task } from 'src/app/shared/models';
 import { ChangeEmailModalComponent } from 'src/app/shared/components/modals/change-email/change-email.component';
 import { ChangeFullNameModalComponent } from 'src/app/shared/components/modals/change-full-name/change-full-name.component';
 import { ChangePasswordModalComponent } from 'src/app/shared/components/modals/change-password/change-password.component';
+import { NotificationModalComponent } from 'src/app/shared/components/modals/notification/notification.component';
+import { PopupEnum } from 'src/app/shared/enums';
 
 @Component({
   selector: 'app-settings',
@@ -14,10 +16,10 @@ import { ChangePasswordModalComponent } from 'src/app/shared/components/modals/c
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+  private _settingsTask: Task;
+
   public user: User;
   public joinedDate: any;
-
-  private _settingsTask: Task;
 
   constructor(
     private _sidebarService: SidebarService,
@@ -29,6 +31,13 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
     this._sidebarService.show();
     this.getUser();
+  }
+
+  private showNotificationModal(modalType: PopupEnum, message: string) {
+    this.dialog.open(NotificationModalComponent, {
+      width: '400px',
+      data: { modalType, message }
+    });
   }
 
   public changeFullName() {
@@ -46,11 +55,21 @@ export class SettingsComponent implements OnInit {
         return;
       }
 
-      this._authService.updateUserSettings(this.user._id, {
+      const data = {
         firstName,
         lastName,
         isUpdateTask: !this._settingsTask.isCompleted
-      }).subscribe(response => this.getUser());
+      };
+
+      this._authService.updateUserSettings(this.user._id, data).subscribe(
+        response => {
+          if (response.isUpdated) {
+            this.showNotificationModal(PopupEnum.Success, 'Full name is updated');
+          }
+
+          this.getUser();
+        }, response => this.showNotificationModal(PopupEnum.Error, response.error.message)
+      );
     });
   }
 
@@ -71,8 +90,16 @@ export class SettingsComponent implements OnInit {
         isUpdateTask: !this._settingsTask.isCompleted
       };
 
-      this._authService.updateUserSettings(this.user._id, data)
-        .subscribe(response => this.getUser());
+      this._authService.updateUserSettings(this.user._id, data).subscribe(
+        response => {
+          if (response.isUpdated) {
+            this.showNotificationModal(PopupEnum.Success, 'Email is updated');
+          }
+
+          this.getUser();
+        },
+        response => this.showNotificationModal(PopupEnum.Error, response.error.message)
+      );
     });
   }
 
@@ -92,7 +119,14 @@ export class SettingsComponent implements OnInit {
         isUpdateTask: !this._settingsTask.isCompleted
       };
 
-      this._authService.updatePassword(this.user._id, data).subscribe();
+      this._authService.updatePassword(this.user._id, data).subscribe(
+        response => {
+          if (response.isSuccessfully) {
+            this.showNotificationModal(PopupEnum.Success, 'Password is updated');
+          }
+        },
+        response => this.showNotificationModal(PopupEnum.Error, response.error.message)
+      );
     });
   }
 

@@ -1,3 +1,11 @@
-<p>
-  notification works!
-</p>
+<div class="modal" [ngClass]="getModalStyles">
+  <h1 mat-dialog-title>{{ data.modalType }}</h1>
+
+  <div class="modal__content" mat-dialog-content>
+    {{ data.message }}
+  </div>
+
+  <footer class="footer" mat-dialog-actions>
+    <button class="footer__button" mat-button (click)="closeModal()">Ok</button>
+  </footer>
+</div>

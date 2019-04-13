@@ -1,0 +1,36 @@
+@import 'src/app/shared/scss/colors';
+@import 'src/app/shared/scss/mixins';
+
+:host {
+  display: block;
+  margin: -24px;
+}
+
+.modal {
+  padding: 1.25rem;
+  overflow: hidden;
+
+  &__content {
+    padding: 5px 24px;
+  }
+
+  &--error {
+    background-color: $pretty-red;
+  }
+
+  &--warning {
+    background-color: $yellow;
+  }
+
+  &--success {
+    background-color: $dark-green;
+  }
+}
+
+.footer {
+
+  &__button {
+    margin: 1rem 0;
+    background-color: $white;
+  }
+}

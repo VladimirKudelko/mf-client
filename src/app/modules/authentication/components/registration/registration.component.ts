@@ -3,6 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { NotificationModalComponent } from 'src/app/shared/components/modals/notification/notification.component';
+import { PopupEnum } from 'src/app/shared/enums';
 
 @Component({
   selector: 'app-registration',
@@ -15,7 +18,8 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
-    private _authService: AuthService
+    private _authService: AuthService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -75,7 +79,15 @@ export class RegistrationComponent implements OnInit {
           this._authService.saveToLocalStorage('token', response.token);
           this._router.navigateByUrl('/dashboard');
         },
-        (response) => alert(response.error.message)
+        (response) => {
+          this.dialog.open(NotificationModalComponent, {
+            width: '400px',
+            data: {
+              modalType: PopupEnum.Error,
+              message: response.error.message
+            }
+          });
+        }
       );
   }
 }

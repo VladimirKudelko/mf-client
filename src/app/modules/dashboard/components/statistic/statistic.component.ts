@@ -104,7 +104,7 @@ export class StatisticComponent implements OnInit {
       accumulator[date].push(transaction);
 
       return accumulator;
-    }, {});
+    }, { });
 
     return Object.keys(groups).map((createdDate) => {
       const total = groups[createdDate].reduce((accumulator, transaction) => accumulator + transaction.amountMoney, 0);

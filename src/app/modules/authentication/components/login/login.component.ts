@@ -3,7 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { RoleEnum } from 'src/app/shared/enums';
+import { RoleEnum, PopupEnum } from 'src/app/shared/enums';
+import { NotificationModalComponent } from 'src/app/shared/components/modals/notification/notification.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
-    private _authService: AuthService
+    private _authService: AuthService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -53,7 +56,15 @@ export class LoginComponent implements OnInit {
         } else {
           this._router.navigateByUrl('/dashboard');
         }
-      }, (response) => alert(response));
+      }, (response) => {
+        this.dialog.open(NotificationModalComponent, {
+          width: '400px',
+          data: {
+            modalType: PopupEnum.Error,
+            message: response.error.message
+          }
+        });
+      });
   }
 
 }
