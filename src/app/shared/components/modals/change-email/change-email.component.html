@@ -1,4 +1,4 @@
-<form class="form" [formGroup]="changeEmailForm">
+<form class="form" [formGroup]="changeEmailForm" (ngSubmit)="submit()">
   <h1 mat-dialog-title>Change email</h1>
 
   <mat-form-field class="form__control">
@@ -7,7 +7,7 @@
 
   <footer class="form__footer" mat-dialog-actions>
     <button mat-button (click)="closeModal()">Cancel</button>
-    <button mat-button (click)="submit()" [disabled]="formIsInvalid()">Ok</button>
+    <button mat-button (click)="submit()" type="submit" [disabled]="formIsInvalid()">Ok</button>
   </footer>
 </form>
   

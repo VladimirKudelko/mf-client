@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
+    private _dialog: MatDialog,
     private _authService: AuthService,
-    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
           this._router.navigateByUrl('/dashboard');
         }
       }, (response) => {
-        this.dialog.open(NotificationModalComponent, {
+        this._dialog.open(NotificationModalComponent, {
           width: '400px',
           data: {
             modalType: PopupEnum.Error,

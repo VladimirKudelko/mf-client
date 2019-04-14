@@ -34,15 +34,28 @@ export class AuthService implements CanActivate {
     return true;
   }
 
+  private saveUser() {
+    return tap((response: any) => this.saveToLocalStorage('user', JSON.stringify(response.user)));
+  }
+
+  public getUserFromToken(): User {
+    try {
+      const token = this.getFromLocalStorage('token');
+
+      return jwtDecode(token);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   public registerUser(formData: any): Observable<{ isSuccessfully: boolean, token: string, user: User }> {
     return this._httpClient.post<{ isSuccessfully: boolean, token: string, user: User }>('/auth/signup', formData)
-      .pipe(
-        tap(response => this.saveToLocalStorage('user', JSON.stringify(response.user)))
-      );
+      .pipe(this.saveUser());
   }
 
   public loginUser(formData: any): Observable<{ isSuccessfully: boolean, token: string, user: User }> {
-    return this._httpClient.post<{ isSuccessfully: boolean, token: string, user: User }>('/auth/login', formData);
+    return this._httpClient.post<{ isSuccessfully: boolean, token: string, user: User }>('/auth/login', formData)
+      .pipe(this.saveUser());
   }
 
   public updateUserSettings(userId: string, data: any): Observable<{ updatedUser: User, isUpdated: boolean }> {
@@ -53,11 +66,9 @@ export class AuthService implements CanActivate {
     return this._httpClient.patch<{ isSuccessfully: boolean, updatedUser: User }>(`/profile/settings/change-password/${userId}`, data);
   }
 
-  public getUserById(userId: string = this.getUserFromLocalStorage()._id): Observable<{ user: User }> {
+  public getUserById(userId: string = this.getUserFromToken()._id): Observable<{ user: User }> {
     return this._httpClient.get<{ user: User }>(`/profile/${userId}`)
-      .pipe(
-        tap(response => this.saveToLocalStorage('user', JSON.stringify(response.user)))
-      );
+      .pipe(this.saveUser());
   }
 
   public saveToLocalStorage(key: string, value: string): void {
