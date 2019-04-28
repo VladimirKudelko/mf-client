@@ -1,0 +1,43 @@
+@import 'src/app/shared/scss/colors';
+@import 'src/app/shared/scss/mixins';
+
+:host {
+  display: block;
+  padding: 1rem;
+
+  ::ng-deep.role-cell {
+    display: inline-block;
+    width: 50%;
+    padding: 0 0.25rem;
+    color: $accent-color;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow:
+      0 3px 1px -2px rgba(0, 0, 0, 0.2),
+      0 2px 2px 0 rgba(0, 0, 0, 0.14),
+      0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
+    &--green {
+      background-color: $dark-green;
+    }
+
+    &--red {
+      background-color: $red;
+    }
+  }
+}
+
+.profiles-table {
+  width: 100%;
+}
+
+.icon {
+  padding: 0 0.25rem;
+  color: $red;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.5;
+  }
+}

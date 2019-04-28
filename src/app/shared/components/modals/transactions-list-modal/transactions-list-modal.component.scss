@@ -1,0 +1,24 @@
+@import 'src/app/shared/scss/colors';
+@import 'src/app/shared/scss/mixins';
+
+.form {
+
+  &__title {
+    text-align: center;
+  }
+
+  &__control {
+    display: block;
+  }
+}
+
+.transactions-list {
+
+  &__item--dark {
+    background-color: $light-gray;
+  }
+
+  .mat-line {
+    margin-top: 0.5rem;
+  }
+}

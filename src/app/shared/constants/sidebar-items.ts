@@ -3,8 +3,8 @@ import { faHome, faPlus, faMinus, faChartBar, faCog } from '@fortawesome/free-so
 
 export const navItems: MenuItem[] = [
   { title: 'HOME', link: '/dashboard/home', icon: faHome },
-  { title: 'Expenses', link: '/dashboard/expenses', icon: faPlus },
-  { title: 'Incomes', link: '/dashboard/incomes', icon: faMinus },
+  { title: 'Incomes', link: '/dashboard/incomes', icon: faPlus },
+  { title: 'Expenses', link: '/dashboard/expenses', icon: faMinus },
   { title: 'Statistic', link: '/dashboard/statistic', icon: faChartBar },
   { title: 'Settings', link: '/dashboard/settings', icon: faCog }
 ];

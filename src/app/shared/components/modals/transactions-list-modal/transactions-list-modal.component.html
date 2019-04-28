@@ -1,0 +1,29 @@
+<form class="form" (ngSubmit)="closeModal()">
+  <h1 mat-dialog-title class="form__title">Transactions List</h1>
+
+  <mat-form-field class="form__control">
+    <mat-select (selectionChange)="someMethod($event)">
+      <mat-option *ngFor="let state of intervals" [value]="state">{{ state }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-list class="transactions-list" *ngIf="transactions && transactions.length">
+    <mat-list-item
+      class="transactions-list__item"
+      *ngFor="let transaction of transactions; let index = index"
+      [ngClass]="{'transactions-list__item--dark': (index + 1) % 2 === 0}"
+    >
+      <fa-icon *ngIf="transaction.type === CategoryTypeEnum.Expenses" [icon]="faMinus"></fa-icon>
+      <fa-icon *ngIf="transaction.type === CategoryTypeEnum.Incomes" [icon]="faPlus"></fa-icon>
+      <h4 mat-line>{{ transaction.createdDate | date }} </h4>
+      <span *ngIf="transaction.note">({{ transaction.note }})</span>
+      <p mat-line> {{ transaction.amountMoney }}$ </p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+
+  <footer class="form__footer" mat-dialog-actions>
+    <button mat-raised-button	 type="submit" color="primary">Ok</button>
+  </footer>
+</form>
+  

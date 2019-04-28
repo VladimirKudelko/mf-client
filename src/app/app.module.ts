@@ -9,7 +9,9 @@ import {
   MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
-  MatButtonModule
+  MatButtonModule,
+  MatSelectModule,
+  MatListModule
 } from '@angular/material';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -27,6 +29,8 @@ import { ChangeFullNameModalComponent } from './shared/components/modals/change-
 import { ChangeEmailModalComponent } from './shared/components/modals/change-email/change-email.component';
 import { ChangePasswordModalComponent } from './shared/components/modals/change-password/change-password.component';
 import { NotificationModalComponent } from './shared/components/modals/notification/notification.component';
+import { ConfirmationModalComponent } from './shared/components/modals/confirmation-modal/confirmation-modal.component';
+import { TransactionsListModalComponent } from './shared/components/modals/transactions-list-modal/transactions-list-modal.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,9 @@ import { NotificationModalComponent } from './shared/components/modals/notificat
     ChangeFullNameModalComponent,
     ChangeEmailModalComponent,
     ChangePasswordModalComponent,
-    NotificationModalComponent
+    NotificationModalComponent,
+    ConfirmationModalComponent,
+    TransactionsListModalComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +60,8 @@ import { NotificationModalComponent } from './shared/components/modals/notificat
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatSelectModule,
+    MatListModule,
     HttpClientModule,
     FontAwesomeModule
   ],
@@ -75,7 +83,9 @@ import { NotificationModalComponent } from './shared/components/modals/notificat
     ChangeEmailModalComponent,
     ChangeFullNameModalComponent,
     ChangePasswordModalComponent,
-    NotificationModalComponent
+    NotificationModalComponent,
+    ConfirmationModalComponent,
+    TransactionsListModalComponent
   ],
   bootstrap: [ AppComponent ]
 })

@@ -15,8 +15,8 @@ import { AuthService, SidebarService } from 'src/app/shared/services';
 })
 export class StatisticComponent implements OnInit {
   public results = [
-    { name: 'Expenses', series: [ ] },
-    { name: 'Incomes', series: [ ] }
+    { name: 'Incomes', series: [ ] },
+    { name: 'Expenses', series: [ ] }
   ];
   public view: number[] = [ 700, 375 ];
   public colorScheme = {
@@ -59,15 +59,15 @@ export class StatisticComponent implements OnInit {
       }
 
       this.results = [
-        { name: 'Expenses', series: [ ] },
-        { name: 'Incomes', series: [ ] }
+        { name: 'Incomes', series: [ ] },
+        { name: 'Expenses', series: [ ] }
       ];
 
       const expensesTransactions = transactions.filter(transaction => transaction.type === CategoryTypeEnum.Expenses);
       const incomesTransactions = transactions.filter(transaction => transaction.type === CategoryTypeEnum.Incomes);
 
-      this.results[0].series = this.groupTransactionsByDate(expensesTransactions);
-      this.results[1].series = this.groupTransactionsByDate(incomesTransactions);
+      this.results[0].series = this.groupTransactionsByDate(incomesTransactions);
+      this.results[1].series = this.groupTransactionsByDate(expensesTransactions);
 
       this._cdr.detectChanges();
     });
