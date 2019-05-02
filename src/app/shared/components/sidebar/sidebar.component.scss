@@ -1,6 +1,7 @@
 @import 'src/app/shared/scss/colors';
 
 :host {
+  z-index: 999;
   display: block;
   background-color: $sidebar-color;
 }

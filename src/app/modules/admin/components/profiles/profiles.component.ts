@@ -74,7 +74,7 @@ export class ProfilesComponent implements OnInit {
   public showTransactions(userId: string): void {
     this.dialog.open(TransactionsListModalComponent,
       {
-        data: { userId },
+        data: { userId, isShowSelect: true },
         width: '100vw',
         height: '80vh'
       }

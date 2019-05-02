@@ -1,8 +1,8 @@
 <form class="form" (ngSubmit)="closeModal()">
   <h1 mat-dialog-title class="form__title">Transactions List</h1>
 
-  <mat-form-field class="form__control">
-    <mat-select (selectionChange)="someMethod($event)">
+  <mat-form-field *ngIf="data.isShowSelect" class="form__control">
+    <mat-select (selectionChange)="changeInterval($event)">
       <mat-option *ngFor="let state of intervals" [value]="state">{{ state }}</mat-option>
     </mat-select>
   </mat-form-field>
@@ -15,8 +15,10 @@
     >
       <fa-icon *ngIf="transaction.type === CategoryTypeEnum.Expenses" [icon]="faMinus"></fa-icon>
       <fa-icon *ngIf="transaction.type === CategoryTypeEnum.Incomes" [icon]="faPlus"></fa-icon>
-      <h4 mat-line>{{ transaction.createdDate | date }} </h4>
-      <span *ngIf="transaction.note">({{ transaction.note }})</span>
+      <h4 mat-line>
+        {{ transaction.createdDate | date }}
+        <span *ngIf="transaction.note">({{ transaction.note }})</span>
+      </h4>
       <p mat-line> {{ transaction.amountMoney }}$ </p>
     </mat-list-item>
     <mat-divider></mat-divider>

@@ -1,11 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { MatRadioChange } from '@angular/material';
+import { MatRadioChange, MatDialog } from '@angular/material';
 import * as moment from 'moment';
 
 import { IntervalEnum, CategoryTypeEnum } from 'src/app/shared/enums';
 import { TransactionService } from 'src/app/shared/services/transaction.service';
 import { Transaction, User } from 'src/app/shared/models';
 import { AuthService, SidebarService } from 'src/app/shared/services';
+import { TransactionsListModalComponent } from 'src/app/shared/components/modals/transactions-list-modal/transactions-list-modal.component';
 
 @Component({
   selector: 'app-statistic',
@@ -14,6 +15,7 @@ import { AuthService, SidebarService } from 'src/app/shared/services';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatisticComponent implements OnInit {
+  private _user: User;
   public results = [
     { name: 'Incomes', series: [ ] },
     { name: 'Expenses', series: [ ] }
@@ -33,16 +35,15 @@ export class StatisticComponent implements OnInit {
   public isShowXAxisLabel = true;
   public isShowYAxisLabel = true;
   public selectedInterval: IntervalEnum;
-  public intervals: string[] = [ IntervalEnum.Day, IntervalEnum.Week, IntervalEnum.Month, IntervalEnum.Year ];
+  public intervals: string[] = [ IntervalEnum.Week, IntervalEnum.Month, IntervalEnum.Year ];
   public transactions: Transaction[];
-
-  private _user: User;
 
   constructor(
     private _authService: AuthService,
     private _transactionService: TransactionService,
     private _sidebarService: SidebarService,
-    private _cdr: ChangeDetectorRef
+    private _cdr: ChangeDetectorRef,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -73,29 +74,32 @@ export class StatisticComponent implements OnInit {
     });
   }
 
-  public selectLine(event) {
-    console.log(event);
-  }
+  public selectLine(event: { name: string, value: number, series: string }) {
+    const { _id } = this._user;
+    const startDate = moment(event.name);
+    const endDate = moment(startDate).add(1, 'day');
 
-  private formatDateByInterval(date: string, interval: IntervalEnum): string {
-    const formattedDate = moment(date);
+    this._transactionService.getUserTransactionsByPeriod(_id, +startDate, +endDate)
+      .subscribe(response => {
+        const { transactions } = response;
 
-    switch (interval) {
-      case IntervalEnum.Day:
-        return formattedDate.format('h:mm');
-      case IntervalEnum.Week:
-        return formattedDate.format('dddd');
-      case IntervalEnum.Month:
-        return formattedDate.format('L');
-      case IntervalEnum.Year:
-        return formattedDate.format('L');
-      default: return formattedDate.format('L');
-    }
+        if (!transactions) {
+          return;
+        }
+
+        this.dialog.open(TransactionsListModalComponent,
+          {
+            data: { userId: _id, isShowSelect: false, transactions },
+            width: '100vw',
+            height: '80vh'
+          }
+        );
+      });
   }
 
   private groupTransactionsByDate(transactions): any {
     const groups: any[] = transactions.reduce((accumulator, transaction) => {
-      const date = this.formatDateByInterval(transaction.createdDate, this.selectedInterval);
+      const date = moment(transaction.createdDate).format('L');
 
       if (!accumulator[date]) {
         accumulator[date] = [];

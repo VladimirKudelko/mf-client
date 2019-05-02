@@ -1,8 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { faPlus, faMinus  } from '@fortawesome/free-solid-svg-icons';
 
-import { IntervalEnum, CategoryTypeEnum } from 'src/app/shared/enums';
+import { IntervalEnum, CategoryTypeEnum, TransactionPeriodEnum } from 'src/app/shared/enums';
 import { TransactionService } from 'src/app/shared/services';
 import { Transaction } from 'src/app/shared/models';
 
@@ -11,7 +11,7 @@ import { Transaction } from 'src/app/shared/models';
   templateUrl: './transactions-list-modal.component.html',
   styleUrls: ['./transactions-list-modal.component.scss']
 })
-export class TransactionsListModalComponent {
+export class TransactionsListModalComponent implements OnInit {
   public intervals: string[] = [ IntervalEnum.Day, IntervalEnum.Week, IntervalEnum.Month, IntervalEnum.Year ];
   public transactions: Transaction[] = [];
   public CategoryTypeEnum = CategoryTypeEnum;
@@ -21,10 +21,18 @@ export class TransactionsListModalComponent {
   constructor(
     private _transactionService: TransactionService,
     public dialogRef: MatDialogRef<TransactionsListModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { userId: string },
+    @Inject(MAT_DIALOG_DATA) public data: { userId: string, isShowSelect: boolean, transactions: Transaction[] },
   ) { }
 
-  public someMethod(event): void {
+  ngOnInit(): void {
+    const { transactions } = this.data;
+
+    if (transactions && transactions.length) {
+      this.transactions = transactions;
+    }
+  }
+
+  public changeInterval(event: { value: TransactionPeriodEnum }): void {
     const { value } = event;
 
     if (!value) {

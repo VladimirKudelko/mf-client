@@ -20,4 +20,10 @@ export class TransactionService {
   public getUserTransactions(userId: string, period: TransactionPeriodEnum): Observable<{ transactions: Transaction[] }> {
     return this._httpClient.get<{ transactions: Transaction[]} >(`/transactions/user/${userId}?period=${period}`);
   }
+
+  public getUserTransactionsByPeriod(userId: string, startDate: number, endDate: number): Observable<{ transactions: Transaction[] }> {
+    const url = `/transactions/user/${userId}/date?startDate=${startDate}&endDate=${endDate}`;
+
+    return this._httpClient.get<{ transactions: Transaction[]} >(url);
+  }
 }
