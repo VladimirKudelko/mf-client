@@ -19,7 +19,7 @@ export class SettingsComponent implements OnInit {
   private _settingsTask: Task;
 
   public user: User;
-  public joinedDate: any;
+  public joinedDate: string;
 
   constructor(
     private _sidebarService: SidebarService,
@@ -28,19 +28,19 @@ export class SettingsComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._sidebarService.show();
     this.getUser();
   }
 
-  private showNotificationModal(modalType: PopupEnum, message: string) {
+  private showNotificationModal(modalType: PopupEnum, message: string): void {
     this.dialog.open(NotificationModalComponent, {
       width: '400px',
       data: { modalType, message }
     });
   }
 
-  public changeFullName() {
+  public changeFullName(): void {
     const dialogRef = this.dialog.open(ChangeFullNameModalComponent, {
       data: {
         firstName: this.user.firstName,
@@ -68,12 +68,13 @@ export class SettingsComponent implements OnInit {
           }
 
           this.getUser();
-        }, response => this.showNotificationModal(PopupEnum.Error, response.error.message)
+        },
+        response => this.showNotificationModal(PopupEnum.Error, response.error.message)
       );
     });
   }
 
-  public changeEmail() {
+  public changeEmail(): void {
     const dialogRef = this.dialog.open(ChangeEmailModalComponent, {
       data: { email: this.user.email },
     });
@@ -103,7 +104,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  public changePassword() {
+  public changePassword(): void {
     const dialogRef = this.dialog.open(ChangePasswordModalComponent);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -130,7 +131,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  public getUser() {
+  public getUser(): void {
     this._authService.getUserById().subscribe(response => {
       this.user = response.user;
       this._settingsTask = this.user.tasks.find(task => task.key === 'settings');

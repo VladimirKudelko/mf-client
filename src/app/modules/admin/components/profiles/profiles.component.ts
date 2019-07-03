@@ -1,9 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { MatDialog, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { map, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
-import * as moment from 'moment';
 
 import { ProfileService } from 'src/app/shared/services';
 import { ConfirmationModalComponent } from 'src/app/shared/components/modals/confirmation-modal/confirmation-modal.component';
@@ -36,18 +33,8 @@ export class ProfilesComponent implements OnInit {
 
   public fetchUsers(): void {
     this._profileService.getAll()
-      .pipe(
-        map(response => {
-          return response.users.map((user: { createdDate: moment.MomentInput; }) => {
-            user.createdDate = moment(user.createdDate).format('YYYY-MM-DD');
-
-            return user;
-          });
-        }),
-        catchError(() => of([]))
-      )
-      .subscribe(users => {
-        this.dataSource = new MatTableDataSource(users);
+      .subscribe(response => {
+        this.dataSource = new MatTableDataSource(response.users);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
 

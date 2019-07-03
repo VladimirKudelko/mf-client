@@ -6,5 +6,5 @@ export const navItems: MenuItem[] = [
   { title: 'Incomes', link: '/dashboard/incomes', icon: faPlus },
   { title: 'Expenses', link: '/dashboard/expenses', icon: faMinus },
   { title: 'Statistic', link: '/dashboard/statistic', icon: faChartBar },
-  { title: 'Settings', link: '/dashboard/settings', icon: faCog }
+  { title: 'Settings', link: '/dashboard/settings', icon: faCog },
 ];

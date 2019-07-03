@@ -11,11 +11,11 @@ import { CategoryTypeEnum } from 'src/app/shared/enums';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExpensesComponent implements OnInit {
+  private _user: User;
+
   public currentWallet: Wallet;
   public categories: Category[];
   public CategoryTypeEnum = CategoryTypeEnum;
-
-  private _user: User;
 
   constructor(
     private _cashService: CashService,
@@ -25,19 +25,17 @@ export class ExpensesComponent implements OnInit {
     private _cdr: ChangeDetectorRef
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._sidebarService.show();
     this._user = this._authService.getUserFromLocalStorage();
-
     this._categoryService.getExpensesCategories(this._user._id).subscribe(response => {
       this.categories = response.categories;
       this._cdr.detectChanges();
     });
-
     this.updateUserCash();
   }
 
-  public updateUserCash() {
+  public updateUserCash(): void {
     this._cashService.getUserCash(this._user._id).subscribe(response => {
       this.currentWallet = response.wallet;
       this._cdr.detectChanges();

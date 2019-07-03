@@ -1,23 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatMenuModule,
-  MatIconModule,
-  MatSidenavModule,
-  MatRadioModule,
-  MatDialogModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatButtonModule,
-  MatSelectModule,
-  MatListModule
-} from '@angular/material';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
+import { AppMaterialModule } from './shared/modules/app-material/app-material.module';
 import { AppComponent } from './app.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
@@ -52,16 +41,7 @@ import { TransactionsListModalComponent } from './shared/components/modals/trans
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatMenuModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatRadioModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatListModule,
+    AppMaterialModule,
     HttpClientModule,
     FontAwesomeModule
   ],

@@ -59,13 +59,20 @@ export class StatisticComponent implements OnInit {
         return;
       }
 
+      const expensesTransactions = [];
+      const incomesTransactions = [];
+
       this.results = [
         { name: 'Incomes', series: [ ] },
         { name: 'Expenses', series: [ ] }
       ];
 
-      const expensesTransactions = transactions.filter(transaction => transaction.type === CategoryTypeEnum.Expenses);
-      const incomesTransactions = transactions.filter(transaction => transaction.type === CategoryTypeEnum.Incomes);
+      transactions.forEach(transaction => {
+        switch (transaction.type) {
+          case CategoryTypeEnum.Expenses: expensesTransactions.push(transaction); break;
+          case CategoryTypeEnum.Incomes: incomesTransactions.push(transaction); break;
+        }
+      });
 
       this.results[0].series = this.groupTransactionsByDate(incomesTransactions);
       this.results[1].series = this.groupTransactionsByDate(expensesTransactions);
@@ -87,13 +94,11 @@ export class StatisticComponent implements OnInit {
           return;
         }
 
-        this.dialog.open(TransactionsListModalComponent,
-          {
-            data: { userId: _id, isShowSelect: false, transactions },
-            width: '100vw',
-            height: '80vh'
-          }
-        );
+        this.dialog.open(TransactionsListModalComponent, {
+          data: { userId: _id, isShowSelect: false, transactions },
+          width: '100vw',
+          height: '80vh'
+        });
       });
   }
 
@@ -108,7 +113,7 @@ export class StatisticComponent implements OnInit {
       accumulator[date].push(transaction);
 
       return accumulator;
-    }, { });
+    }, {});
 
     return Object.keys(groups).map((createdDate) => {
       const total = groups[createdDate].reduce((accumulator, transaction) => accumulator + transaction.amountMoney, 0);

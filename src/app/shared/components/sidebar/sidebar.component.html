@@ -9,5 +9,9 @@
       <fa-icon class="menu__item-icon" [icon]="item.icon"></fa-icon>
       <span class="menu__item-title" >{{ item.title }}</span>
     </li>
+    <li class="menu__item" (click)="logout()">
+      <fa-icon class="menu__item-icon" [icon]="faDoorOpen"></fa-icon>
+      <span class="menu__item-title" >Logout</span>
+    </li>
   </ul>
 </aside>

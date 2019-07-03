@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
 import { Category } from 'src/app/shared/models';
 
 @Component({
@@ -38,7 +39,7 @@ export class TrackMoneyModalComponent {
     this.dialogRef.close();
   }
 
-  public submit() {
+  public submit(): void {
     const data = {
       amountMoney: this.newTrackMoneyForm.get('amountMoney').value,
       note: this.newTrackMoneyForm.get('note').value

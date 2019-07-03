@@ -45,20 +45,24 @@ export class CategoriesListComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._user = this._authService.getUserFromLocalStorage();
-    this._categoryTask = this._user.tasks.find(task => task.key === 'category');
-    this._moneyTask = this._user.tasks.find(task => task.key === 'money');
+    this._user.tasks.forEach(task => {
+      switch (task.key) {
+        case 'category': this._categoryTask = task; break;
+        case 'money': this._moneyTask = task; break;
+      }
+    });
   }
 
-  private showNotificationModal(modalType: PopupEnum, message: string) {
+  private showNotificationModal(modalType: PopupEnum, message: string): void {
     this.dialog.open(NotificationModalComponent, {
       width: '400px',
       data: { modalType, message }
     });
   }
 
-  get getShowCategories(): string {
+  get isShowCategories(): string {
     return this.categories
       ? 'show'
       : 'hide';

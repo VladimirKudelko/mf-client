@@ -100,7 +100,22 @@ export class AuthService implements CanActivate {
     return JSON.parse(this.getFromLocalStorage('user'));
   }
 
-  public logout(): void {
-    localStorage.removeItem('token');
+  public logout(): Observable<{ isSuccessfully: boolean, userId: string }> {
+    const user = JSON.parse(this.getFromLocalStorage('user'));
+    const envelope =
+      '<?xml version="1.0" encoding="utf-8"?>' +
+      '<soapenv:Envelope ' +
+      'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+      'xmlns:api="http://127.0.0.1/Integrics/Enswitch/API" ' +
+      'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ' +
+      'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">' +
+      '<soapenv:Body>' +
+      '<api:some_api_call soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">' +
+      `<userId xsi:type="xsd:string">${ user._id }</userId>` +
+      '</api:some_api_call>' +
+      '</soapenv:Body>' +
+      '</soapenv:Envelope>';
+
+    return this._httpClient.post<{ isSuccessfully: boolean, userId: string }>('/auth/logout', { envelope });
   }
 }

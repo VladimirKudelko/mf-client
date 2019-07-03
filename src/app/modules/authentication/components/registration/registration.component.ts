@@ -67,7 +67,7 @@ export class RegistrationComponent implements OnInit {
 
     return password === confirmPassword
       ? null
-      : { notSame: true };
+      : { isNotSame: true };
   }
 
   onSubmit() {
@@ -79,7 +79,7 @@ export class RegistrationComponent implements OnInit {
           this._authService.saveToLocalStorage('token', response.token);
           this._router.navigateByUrl('/dashboard');
         },
-        (response) => {
+        response => {
           this.dialog.open(NotificationModalComponent, {
             width: '400px',
             data: {

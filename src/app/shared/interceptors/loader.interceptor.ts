@@ -13,18 +13,22 @@ import { LoaderService } from '../services/loader.service';
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
-  constructor(private _loaderService: LoaderService) { }
+  constructor(
+    private _loaderService: LoaderService
+  ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this._loaderService.show();
 
     return next.handle(request).pipe(
-      tap((event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse) {
-          this._loaderService.hide();
-        }
-      }, (err: any) => this._loaderService.hide())
+      tap(
+        (event: HttpEvent<any>) => {
+          if (event instanceof HttpResponse) {
+            this._loaderService.hide();
+          }
+        },
+        (err: any) => this._loaderService.hide()
+      )
     );
   }
 }
-

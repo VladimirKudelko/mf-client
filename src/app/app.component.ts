@@ -36,7 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
       });
   }
 
-  get getSidebarClasses() {
+  get sidebarClasses() {
     return {
       'content--without-sidebar': !this.isShowSidebar
     };

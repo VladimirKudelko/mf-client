@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { RoleEnum } from '../enums';
 import * as _ from 'lodash';
+
+import { RoleEnum } from '../enums';
 
 @Pipe({
   name: 'dynamic'
@@ -8,23 +9,23 @@ import * as _ from 'lodash';
 export class DynamicPipe implements PipeTransform {
   transform(value: string | number) {
     if (!value) {
-      return this.empty(value);
+      return this.getEmptyString(value);
     }
 
     return value === RoleEnum.User
-      ? this.red(value)
-      : this.green(value);
+      ? this.decorateRedColor(value)
+      : this.decorateGreenColor(value);
   }
 
-  green(value: string | number) {
+  decorateGreenColor(value: string | number) {
     return `<span class="role-cell role-cell--green">${value}</span>`;
   }
 
-  red(value: string | number) {
+  decorateRedColor(value: string | number) {
     return `<span class="role-cell role-cell--red">${value}</span>`;
   }
 
-  empty(value: string | number) {
+  getEmptyString(value: string | number) {
     if (typeof value === 'string' && value.trim().length === 0) {
       return '---';
     }

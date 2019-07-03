@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faTimes, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 import { SidebarService, AuthService } from 'src/app/shared/services';
 import { Task } from 'src/app/shared/models';
@@ -29,14 +29,14 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getTaskClasses(task: Task) {
+  getTaskClasses(task: Task): object {
     return {
       'task-header__description--completed': task.isCompleted,
       'task-header__description--not-completed': !task.isCompleted
     };
   }
 
-  getIconByStatus(task: Task) {
+  getIconByStatus(task: Task): IconDefinition {
     return task.isCompleted
       ? faCheck
       : faTimes;
