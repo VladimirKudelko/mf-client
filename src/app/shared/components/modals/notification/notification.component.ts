@@ -14,7 +14,7 @@ export class NotificationModalComponent {
     @Inject(MAT_DIALOG_DATA) public data: { modalType: PopupEnum, message: string }
   ) { }
 
-  get modalStyles() {
+  get modalClasses() {
     return {
       'modal--error': this.data.modalType === PopupEnum.Error,
       'modal--warning': this.data.modalType === PopupEnum.Warning,

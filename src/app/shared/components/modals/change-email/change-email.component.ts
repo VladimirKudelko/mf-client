@@ -24,11 +24,8 @@ export class ChangeEmailModalComponent {
     @Inject(FormBuilder) private _fb: FormBuilder
   ) { }
 
-  public formIsInvalid(): boolean {
-    return !(
-      this.changeEmailForm.valid &&
-      this.changeEmailForm.get('email').value
-    );
+  public isFormValid(): boolean {
+    return this.changeEmailForm.valid && this.changeEmailForm.get('email').value;
   }
 
   public closeModal(): void {

@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
+
 import { NotificationModalComponent } from 'src/app/shared/components/modals/notification/notification.component';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { PopupEnum } from 'src/app/shared/enums';
+import { checkPasswords } from '../../validators';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent {
   public registrationForm: FormGroup;
 
   constructor(
@@ -20,13 +21,7 @@ export class RegistrationComponent implements OnInit {
     private _router: Router,
     private _authService: AuthService,
     public dialog: MatDialog
-  ) { }
-
-  ngOnInit() {
-    this.buildForm();
-  }
-
-  buildForm() {
+  ) {
     this.registrationForm = this._fb.group({
       'firstName': [
         '',
@@ -58,19 +53,10 @@ export class RegistrationComponent implements OnInit {
         ])
       ],
       'confirmPassword': [ '' ]
-    }, { validator: this.checkPasswords });
+    }, { validator: checkPasswords });
   }
 
-  checkPasswords(group: FormGroup) {
-    const password = group.controls['password'].value;
-    const confirmPassword = group.controls['confirmPassword'].value;
-
-    return password === confirmPassword
-      ? null
-      : { isNotSame: true };
-  }
-
-  onSubmit() {
+  submit(): void {
     delete this.registrationForm.value.confirmPassword;
 
     this._authService.registerUser(this.registrationForm.value)

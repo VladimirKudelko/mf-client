@@ -22,14 +22,7 @@ export class LoginComponent implements OnInit {
     private _dialog: MatDialog,
     private _authService: AuthService,
     private _sidebarService: SidebarService,
-  ) { }
-
-  ngOnInit() {
-    this.buildForm();
-    this._sidebarService.hide();
-  }
-
-  buildForm() {
+  ) {
     this.loginForm = this._fb.group({
       'email': [
         '',
@@ -49,7 +42,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  ngOnInit(): void {
+    this._sidebarService.hide();
+  }
+
+  submit(): void {
     this._authService.loginUser(this.loginForm.value)
       .subscribe(
         response => {

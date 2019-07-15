@@ -7,14 +7,14 @@ import { SidebarState } from '../models';
   providedIn: 'root'
 })
 export class SidebarService {
-  private sidebar$ = new BehaviorSubject<SidebarState>({ show: false });
-  public sidebarState$ = this.sidebar$.asObservable();
+  private _sidebar$ = new BehaviorSubject<SidebarState>({ isShow: false });
+  public sidebarState$ = this._sidebar$.asObservable();
 
   public show(): void {
-    this.sidebar$.next(<SidebarState>{ show: true });
+    this._sidebar$.next(<SidebarState>{ isShow: true });
   }
 
   public hide(): void {
-    this.sidebar$.next(<SidebarState>{ show: false });
+    this._sidebar$.next(<SidebarState>{ isShow: false });
   }
 }

@@ -17,7 +17,7 @@ import { RegistrationComponent } from './components/registration/registration.co
     AuthenticationRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
+    HttpClientModule
   ]
 })
 export class AuthenticationModule { }

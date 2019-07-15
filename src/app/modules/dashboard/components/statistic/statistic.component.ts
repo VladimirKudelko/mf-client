@@ -46,12 +46,12 @@ export class StatisticComponent implements OnInit {
     public dialog: MatDialog,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._sidebarService.show();
     this._user = this._authService.getUserFromLocalStorage();
   }
 
-  public changeInterval(event: MatRadioChange) {
+  public changeInterval(event: MatRadioChange): void {
     this._transactionService.getUserTransactions(this._user._id, event.value).subscribe(response => {
       const { transactions } = response;
 
@@ -81,7 +81,7 @@ export class StatisticComponent implements OnInit {
     });
   }
 
-  public selectLine(event: { name: string, value: number, series: string }) {
+  public selectLine(event: { name: string, value: number, series: string }): void {
     const { _id } = this._user;
     const startDate = moment(event.name);
     const endDate = moment(startDate).add(1, 'day');

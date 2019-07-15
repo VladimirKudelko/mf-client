@@ -7,14 +7,14 @@ import { LoaderState } from '../models';
   providedIn: 'root'
 })
 export class LoaderService {
-  private loader$ = new BehaviorSubject<LoaderState>({ show: false });
-  public loaderState$ = this.loader$.asObservable();
+  private _loader$ = new BehaviorSubject<LoaderState>({ isShow: false });
+  public loaderState$ = this._loader$.asObservable();
 
   public show(): void {
-    this.loader$.next(<LoaderState>{ show: true });
+    this._loader$.next(<LoaderState>{ isShow: true });
   }
 
   public hide(): void {
-    this.loader$.next(<LoaderState>{ show: false });
+    this._loader$.next(<LoaderState>{ isShow: false });
   }
 }

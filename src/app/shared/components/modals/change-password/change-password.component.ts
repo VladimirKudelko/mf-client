@@ -32,12 +32,10 @@ export class ChangePasswordModalComponent {
     @Inject(FormBuilder) private _fb: FormBuilder
   ) { }
 
-  public formIsInvalid(): boolean {
-    return !(
-      this.changePasswordForm.valid &&
+  public isFormValid(): boolean {
+    return this.changePasswordForm.valid &&
       this.changePasswordForm.get('lastPassword').value &&
-      this.changePasswordForm.get('newPassword').value
-    );
+      this.changePasswordForm.get('newPassword').value;
   }
 
   public closeModal(): void {
@@ -45,11 +43,9 @@ export class ChangePasswordModalComponent {
   }
 
   public submit(): void {
-    const data = {
+    this.dialogRef.close({
       lastPassword: this.changePasswordForm.get('lastPassword').value,
       newPassword: this.changePasswordForm.get('newPassword').value,
-    };
-
-    this.dialogRef.close(data);
+    });
   }
 }

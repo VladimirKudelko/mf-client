@@ -1,5 +1,7 @@
 <div class="content" [ngClass]="sidebarClasses">
   <app-sidebar *ngIf="isShowSidebar"></app-sidebar>
-  <router-outlet style="display: none"></router-outlet>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
 </div>
 <app-loader *ngIf="isLoading"></app-loader>

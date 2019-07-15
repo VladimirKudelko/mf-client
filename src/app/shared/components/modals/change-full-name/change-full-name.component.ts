@@ -9,14 +9,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class ChangeFullNameModalComponent {
   public changeFullNameForm: FormGroup = this._fb.group({
-    firstName: [
-      '',
-      Validators.compose([ Validators.required ])
-    ],
-    lastName: [
-      '',
-      Validators.compose([ Validators.required ])
-    ]
+    firstName: [ '', Validators.compose([ Validators.required ]) ],
+    lastName: [ '', Validators.compose([ Validators.required ]) ]
   });
 
   constructor(
@@ -25,12 +19,10 @@ export class ChangeFullNameModalComponent {
     @Inject(FormBuilder) private _fb: FormBuilder
   ) { }
 
-  public formIsInvalid(): boolean {
-    return !(
-      this.changeFullNameForm.valid &&
+  public isFormValid(): boolean {
+    return this.changeFullNameForm.valid &&
       this.changeFullNameForm.get('firstName').value &&
-      this.changeFullNameForm.get('lastName').value
-    );
+      this.changeFullNameForm.get('lastName').value;
   }
 
   public closeModal(): void {
@@ -38,11 +30,9 @@ export class ChangeFullNameModalComponent {
   }
 
   public submit(): void {
-    const data = {
+    this.dialogRef.close({
       firstName: this.changeFullNameForm.get('firstName').value,
       lastName: this.changeFullNameForm.get('lastName').value,
-    };
-
-    this.dialogRef.close(data);
+    });
   }
 }

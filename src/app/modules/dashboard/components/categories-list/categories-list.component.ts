@@ -1,28 +1,20 @@
 import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { trigger, state, style, animate, transition } from '@angular/animations';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import { CreateCategoryModalComponent } from 'src/app/shared/components/modals/create-category-modal/create-category-modal.component';
-import { TrackMoneyModalComponent } from 'src/app/shared/components/modals/track-money-modal/track-money-modal.component';
+import { TrackMoneyModalComponent, CreateCategoryModalComponent, NotificationModalComponent } from 'src/app/shared/components/modals';
 import { Category, User, Wallet, Task } from 'src/app/shared/models';
 import { CategoryTypeEnum, PopupEnum } from 'src/app/shared/enums';
 import { CategoryService, AuthService, TransactionService } from 'src/app/shared/services';
-import { NotificationModalComponent } from 'src/app/shared/components/modals/notification/notification.component';
+import { hideShow } from '../../animations';
+import { TaskKeysEnum } from '../../enums';
 
 @Component({
   selector: 'app-categories-list',
   templateUrl: './categories-list.component.html',
   styleUrls: ['./categories-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('hideShow', [
-      state('hide', style({ opacity: 0 })),
-      state('show', style({ opacity: 1 })),
-      transition('hide => show', [ animate('1s') ]),
-      transition('show => hide', [ animate('0.5s') ])
-    ]),
-  ]
+  animations: [ hideShow ]
 })
 export class CategoriesListComponent implements OnInit {
   @Input() title: string;
@@ -49,8 +41,8 @@ export class CategoriesListComponent implements OnInit {
     this._user = this._authService.getUserFromLocalStorage();
     this._user.tasks.forEach(task => {
       switch (task.key) {
-        case 'category': this._categoryTask = task; break;
-        case 'money': this._moneyTask = task; break;
+        case TaskKeysEnum.Category: this._categoryTask = task; break;
+        case TaskKeysEnum.Money: this._moneyTask = task; break;
       }
     });
   }
@@ -91,17 +83,14 @@ export class CategoriesListComponent implements OnInit {
   }
 
   public trackMoney(category: Category): void {
-    const dialogRef = this.dialog.open(TrackMoneyModalComponent, {
-      data: { category },
-    });
+    const dialogRef = this.dialog.open(TrackMoneyModalComponent, { data: { category } });
 
     dialogRef.afterClosed().subscribe(result => {
-      const { amountMoney, note } = result;
-
-      if (!result || !amountMoney || !category || !this.wallet) {
+      if (!result || !result.amountMoney || !category || !this.wallet) {
         return;
       }
 
+      const { amountMoney, note } = result;
       const data: any = {
         walletId: this.wallet._id,
         categoryId: category._id,

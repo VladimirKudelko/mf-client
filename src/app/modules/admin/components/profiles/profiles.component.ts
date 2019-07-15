@@ -3,9 +3,9 @@ import { MatDialog, MatTableDataSource, MatSort, MatPaginator } from '@angular/m
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { ProfileService } from 'src/app/shared/services';
-import { ConfirmationModalComponent } from 'src/app/shared/components/modals/confirmation-modal/confirmation-modal.component';
-import { TransactionsListModalComponent } from 'src/app/shared/components/modals/transactions-list-modal/transactions-list-modal.component';
+import { ConfirmationModalComponent, TransactionsListModalComponent } from 'src/app/shared/components/modals';
 import { User } from 'src/app/shared/models';
+import { DISPLAYED_COLUMNS } from '../../constants';
 
 @Component({
   selector: 'app-profiles',
@@ -14,8 +14,10 @@ import { User } from 'src/app/shared/models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfilesComponent implements OnInit {
-  public displayedColumns: string[] = ['Full Name', 'email', 'createdDate', 'role', 'transactions', '_id'];
+  public displayedColumns = DISPLAYED_COLUMNS;
   public dataSource: MatTableDataSource<User>;
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
+  public pageSize = 5;
   public faTrashAlt = faTrashAlt;
 
   @ViewChild(MatSort) sort: MatSort;

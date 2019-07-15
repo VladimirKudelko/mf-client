@@ -1,6 +1,5 @@
 <header class="registration-header">
-  <img
-    src="https://lh3.googleusercontent.com/zsfSd_DIBW37asmMH2HB_ut6ZUAigLlSrT-1TgBdBxs2VnTPWAp7OEZQzQfcqT8KCMSY"
+  <img src="https://lh3.googleusercontent.com/zsfSd_DIBW37asmMH2HB_ut6ZUAigLlSrT-1TgBdBxs2VnTPWAp7OEZQzQfcqT8KCMSY"
     class="registration-header__image">
   <h1 class="registration-header__title">My Finance</h1>
 </header>
@@ -8,7 +7,7 @@
 <h2 class="registration-title">Sign up to manage your finance</h2>
 
 <section class="registration-form">
-  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="registrationForm" (ngSubmit)="submit()">
     <div class="form-group form-group--medium">
       <label class="form-group__label">First Name</label>
       <input type="text" formControlName="firstName" class="form-group__control"/>

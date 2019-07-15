@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 
-import { navItems } from '../../constants/sidebar-items';
+import { NAV_ITEMS } from '../../constants/sidebar-items';
 import { AuthService } from '../../services';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
-  public navItems = navItems;
+  public navItems = NAV_ITEMS;
   public faDoorOpen = faDoorOpen;
 
   constructor(

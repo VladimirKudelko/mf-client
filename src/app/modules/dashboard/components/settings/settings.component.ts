@@ -4,10 +4,12 @@ import * as moment from 'moment';
 
 import { SidebarService, AuthService } from 'src/app/shared/services';
 import { User, Task } from 'src/app/shared/models';
-import { ChangeEmailModalComponent } from 'src/app/shared/components/modals/change-email/change-email.component';
-import { ChangeFullNameModalComponent } from 'src/app/shared/components/modals/change-full-name/change-full-name.component';
-import { ChangePasswordModalComponent } from 'src/app/shared/components/modals/change-password/change-password.component';
-import { NotificationModalComponent } from 'src/app/shared/components/modals/notification/notification.component';
+import {
+  ChangeEmailModalComponent,
+  ChangeFullNameModalComponent,
+  ChangePasswordModalComponent,
+  NotificationModalComponent
+} from 'src/app/shared/components/modals';
 import { PopupEnum } from 'src/app/shared/enums';
 
 @Component({
@@ -49,12 +51,11 @@ export class SettingsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      const { firstName, lastName } = result;
-
-      if (!result || !firstName || !lastName) {
+      if (!result || !result.firstName || !result.lastName) {
         return;
       }
 
+      const { firstName, lastName } = result;
       const data = {
         firstName,
         lastName,
@@ -80,12 +81,11 @@ export class SettingsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      const { email } = result;
-
-      if (!result || !email) {
+      if (!result || !result.email) {
         return;
       }
 
+      const { email } = result;
       const data = {
         email,
         isUpdateTask: !this._settingsTask.isCompleted
@@ -108,12 +108,11 @@ export class SettingsComponent implements OnInit {
     const dialogRef = this.dialog.open(ChangePasswordModalComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      const { lastPassword, newPassword } = result;
-
-      if (!result || !lastPassword || !newPassword) {
+      if (!result || !result.lastPassword || !result.newPassword) {
         return;
       }
 
+      const { lastPassword, newPassword } = result;
       const data = {
         lastPassword,
         newPassword,

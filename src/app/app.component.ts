@@ -11,11 +11,11 @@ import { SidebarService, LoaderService } from './shared/services';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit, OnDestroy {
-  public isShowSidebar;
-  public isLoading;
-
   private _loaderSubscription: Subscription;
   private _sidebarSubscription: Subscription;
+
+  public isShowSidebar: boolean;
+  public isLoading: boolean;
 
   constructor(
     private _loaderService: LoaderService,
@@ -26,12 +26,12 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._loaderSubscription = this._loaderService.loaderState$
       .subscribe((state: LoaderState) => {
-        this.isLoading = state.show;
+        this.isLoading = state.isShow;
         this._cdr.detectChanges();
       });
     this._sidebarSubscription = this._sidebarService.sidebarState$
       .subscribe((state: SidebarState) => {
-        this.isShowSidebar = state.show;
+        this.isShowSidebar = state.isShow;
         this._cdr.detectChanges();
       });
   }
