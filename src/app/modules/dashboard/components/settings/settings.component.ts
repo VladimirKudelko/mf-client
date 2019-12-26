@@ -77,7 +77,9 @@ export class SettingsComponent implements OnInit {
 
   public changeEmail(): void {
     const dialogRef = this.dialog.open(ChangeEmailModalComponent, {
-      data: { email: this.user.email },
+      data: {
+        email: this.user.email
+      },
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -14,7 +14,7 @@ import { TaskKeysEnum } from '../../enums';
   templateUrl: './categories-list.component.html',
   styleUrls: ['./categories-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [ hideShow ]
+  // animations: [ hideShow ]
 })
 export class CategoriesListComponent implements OnInit {
   @Input() title: string;

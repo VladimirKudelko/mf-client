@@ -6,7 +6,7 @@
   </mat-form-field>
 
   <footer class="form__footer" mat-dialog-actions>
-    <button mat-button (click)="closeModal()">Cancel</button>
+    <button mat-button mat-dialog-close>Cancel</button>
     <button mat-button (click)="submit()" type="submit" [disabled]="formIsInvalid()">Ok</button>
   </footer>
 </form>

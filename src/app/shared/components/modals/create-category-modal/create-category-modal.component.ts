@@ -32,10 +32,6 @@ export class CreateCategoryModalComponent {
     );
   }
 
-  closeModal(): void {
-    this.dialogRef.close();
-  }
-
   submit(): void {
     this.dialogRef.close({
       categoryTitle: this.newCategoryForm.get('title').value,

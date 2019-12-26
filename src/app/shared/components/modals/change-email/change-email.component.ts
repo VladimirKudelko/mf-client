@@ -28,10 +28,6 @@ export class ChangeEmailModalComponent {
     return this.changeEmailForm.valid && this.changeEmailForm.get('email').value;
   }
 
-  public closeModal(): void {
-    this.dialogRef.close();
-  }
-
   public submit(): void {
     this.dialogRef.close({
       email: this.changeEmailForm.get('email').value,

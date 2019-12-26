@@ -49,8 +49,4 @@ export class TransactionsListModalComponent implements OnInit {
       this.transactions = transactions;
     });
   }
-
-  public closeModal(): void {
-    this.dialogRef.close();
-  }
 }

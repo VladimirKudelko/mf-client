@@ -11,10 +11,6 @@ export class ConfirmationModalComponent {
     public dialogRef: MatDialogRef<ConfirmationModalComponent>
   ) { }
 
-  public closeModal(): void {
-    this.dialogRef.close(false);
-  }
-
   public submit(): void {
     this.dialogRef.close(true);
   }

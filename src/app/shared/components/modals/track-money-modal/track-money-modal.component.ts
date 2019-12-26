@@ -35,10 +35,6 @@ export class TrackMoneyModalComponent {
     );
   }
 
-  public closeModal(): void {
-    this.dialogRef.close();
-  }
-
   public submit(): void {
     const data = {
       amountMoney: this.newTrackMoneyForm.get('amountMoney').value,

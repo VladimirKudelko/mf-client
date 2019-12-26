@@ -21,8 +21,4 @@ export class NotificationModalComponent {
       'modal--success': this.data.modalType === PopupEnum.Success
     };
   }
-
-  public closeModal(): void {
-    this.dialogRef.close();
-  }
 }

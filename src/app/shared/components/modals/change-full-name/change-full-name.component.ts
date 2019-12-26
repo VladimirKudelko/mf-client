@@ -25,10 +25,6 @@ export class ChangeFullNameModalComponent {
       this.changeFullNameForm.get('lastName').value;
   }
 
-  public closeModal(): void {
-    this.dialogRef.close();
-  }
-
   public submit(): void {
     this.dialogRef.close({
       firstName: this.changeFullNameForm.get('firstName').value,

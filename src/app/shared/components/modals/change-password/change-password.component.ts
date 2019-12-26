@@ -38,10 +38,6 @@ export class ChangePasswordModalComponent {
       this.changePasswordForm.get('newPassword').value;
   }
 
-  public closeModal(): void {
-    this.dialogRef.close();
-  }
-
   public submit(): void {
     this.dialogRef.close({
       lastPassword: this.changePasswordForm.get('lastPassword').value,
