@@ -56,6 +56,10 @@ export class LoginComponent implements OnInit {
             : this._router.navigateByUrl('/dashboard');
         },
         response => {
+          if (!response.error || !response.error.message) {
+            return;
+          }
+
           this._dialog.open(NotificationModalComponent, {
             width: '400px',
             data: {

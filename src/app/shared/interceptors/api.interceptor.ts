@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse, } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
 import * as _ from 'lodash';
 import * as httpStatus from 'http-status-codes';
 
 import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs/operators';
+import { NotificationModalComponent } from '../components/modals';
+import { PopupEnum } from '../enums';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
   constructor(
-    private _router: Router
+    private _router: Router,
+    private _dialog: MatDialog,
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -28,13 +33,27 @@ export class ApiInterceptor implements HttpInterceptor {
 
     return next.handle(modified).pipe(
       tap(
-        (event: HttpEvent<any>) => { },
-        (error: any) => {
-          if (error.status === httpStatus.UNAUTHORIZED) {
-            this._router.navigate(['/auth/login']);
+        (event: HttpEvent<any>) => {},
+        (error) => {
+          switch (error.status) {
+            case httpStatus.UNAUTHORIZED:
+              this._router.navigate(['/auth/login']);
+
+              break;
+            case 0:
+              this.showNotification(PopupEnum.Error, 'Sorry, but the service is not available now. Try to do it later.');
+
+              break;
           }
         }
       )
     );
+  }
+
+  private showNotification(modalType: PopupEnum, message: string): void {
+    this._dialog.open(NotificationModalComponent, {
+      width: '400px',
+      data: { modalType, message }
+    });
   }
 }

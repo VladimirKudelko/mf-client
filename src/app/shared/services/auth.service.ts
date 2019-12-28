@@ -71,6 +71,10 @@ export class AuthService implements CanActivate {
       .pipe(this.saveUser());
   }
 
+  public verifyEmail(email: string, hash: string): Observable<{ isVerified: boolean }> {
+    return this._httpClient.post<{ isVerified: boolean }>('/auth/email-verification', { email, hash });
+  }
+
   public saveToLocalStorage(key: string, value: string): void {
     localStorage.setItem(key, value);
   }
