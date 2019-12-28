@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { MatDialog, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 
-import { ProfileService } from 'src/app/shared/services';
+import { ProfileService, AuthService } from 'src/app/shared/services';
 import { ConfirmationModalComponent, TransactionsListModalComponent } from 'src/app/shared/components/modals';
 import { User } from 'src/app/shared/models';
 import { DISPLAYED_COLUMNS } from '../../constants';
@@ -19,15 +19,17 @@ export class ProfilesComponent implements OnInit {
   public pageSizeOptions: number[] = [5, 10, 25, 100];
   public pageSize = 5;
   public faTrashAlt = faTrashAlt;
+  public faDoorOpen = faDoorOpen;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private _cdr: ChangeDetectorRef,
+    private _authService: AuthService,
     private _profileService: ProfileService,
     public dialog: MatDialog,
-  ) { }
+    ) { }
 
   ngOnInit(): void {
     this.fetchUsers();
@@ -68,5 +70,9 @@ export class ProfilesComponent implements OnInit {
         height: '80vh'
       }
     );
+  }
+
+  public logout(): void {
+    this._authService.logout();
   }
 }

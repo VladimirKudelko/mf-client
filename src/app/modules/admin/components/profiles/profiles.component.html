@@ -1,3 +1,10 @@
+<div class="action-panel">
+  <button mat-raised-button color="primary" (click)="logout()">
+    <fa-icon [icon]="faDoorOpen"></fa-icon>
+    <span>Logout</span>
+  </button>
+</div>
+
 <mat-table
   class="profiles-table mat-elevation-z8"
   [dataSource]="dataSource"

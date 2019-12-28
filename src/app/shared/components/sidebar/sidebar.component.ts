@@ -20,16 +20,6 @@ export class SidebarComponent {
   ) { }
 
   public logout(): void {
-    this._authService.logout().subscribe(response => {
-      const { userId } = response;
-
-      if (!userId) {
-        return;
-      }
-
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      this._router.navigateByUrl('/auth/login');
-    });
+    this._authService.logout();
   }
 }
