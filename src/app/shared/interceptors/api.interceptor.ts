@@ -42,6 +42,7 @@ export class ApiInterceptor implements HttpInterceptor {
               break;
             case 0:
               this.showNotification(PopupEnum.Error, 'Sorry, but the service is not available now. Try to do it later.');
+              this._router.navigate(['/auth/login']);
 
               break;
           }

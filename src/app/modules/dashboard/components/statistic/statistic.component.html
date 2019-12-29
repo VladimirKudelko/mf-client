@@ -3,7 +3,6 @@
   <mat-radio-button
     class="time-intervals__radio-btn"
     *ngFor="let interval of intervals; let i = index"
-    [checked]="i === 0 ? true : false"
     color="primary"
     [value]="interval">
     {{ interval }}
