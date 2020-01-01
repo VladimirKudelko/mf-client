@@ -124,10 +124,10 @@ export class SettingsComponent implements OnInit {
       this._authService.updatePassword(this.user._id, data).subscribe(
         response => {
           if (response.isSuccessfully) {
-            this.showNotificationModal(PopupEnum.Success, 'Password is updated');
+            this.showNotificationModal(PopupEnum.Success, 'Password has been updated');
           }
         },
-        response => this.showNotificationModal(PopupEnum.Error, response.error.message)
+        response => this.showNotificationModal(PopupEnum.Error, response.error.message || response.error)
       );
     });
   }
