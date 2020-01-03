@@ -6,8 +6,10 @@ import { CreateCategoryModalComponent } from './create-category-modal/create-cat
 import { NotificationModalComponent } from './notification/notification.component';
 import { TrackMoneyModalComponent } from './track-money-modal/track-money-modal.component';
 import { TransactionsListModalComponent } from './transactions-list-modal/transactions-list-modal.component';
+import { AddBudgetModalComponent } from './add-budget-modal/add-budget-modal.component';
 
 export {
+  AddBudgetModalComponent,
   ChangeEmailModalComponent,
   ChangeFullNameModalComponent,
   ChangePasswordModalComponent,

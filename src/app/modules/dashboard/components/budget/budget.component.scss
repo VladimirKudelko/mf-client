@@ -1,0 +1,39 @@
+@import 'src/app/shared/scss/colors';
+@import 'src/app/shared/scss/mixins';
+
+:host {
+  display: block;
+  padding: 1rem;
+}
+
+.no-budgets {
+  display: flex;
+  padding: 1rem;
+  background-color: $light-blue;
+
+  &__content {
+    padding-left: 0.5rem;
+  }
+}
+
+.add-budget-btn {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  width: 90px;
+  height: 90px;
+  color: $accent-color;
+  font-size: 96px;
+  line-height: 86px;
+  text-align: center;
+  background-color: $turquoise;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(8, 0, 0, 0.336);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: lighten($turquoise, 10);
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+}

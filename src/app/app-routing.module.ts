@@ -10,13 +10,13 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: './modules/dashboard/dashboard.module#DashboardModule',
-    canActivate: [ AuthService ],
+    canActivate: [AuthService],
     data: { role: RoleEnum.User }
   },
   {
     path: 'admin',
     loadChildren: './modules/admin/admin.module#AdminModule',
-    canActivate: [ AuthService ],
+    canActivate: [AuthService],
     data: { role: RoleEnum.Admin }
   },
   { path: '**', redirectTo: 'auth/login' }

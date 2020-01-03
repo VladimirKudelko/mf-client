@@ -14,6 +14,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { WalletComponent } from './components/wallet/wallet.component';
 import { CategoriesListComponent } from './components/categories-list/categories-list.component';
 import { CategoryComponent } from './components/category/category.component';
+import { BudgetComponent } from './components/budget/budget.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CategoryComponent } from './components/category/category.component';
     WalletComponent,
     CategoriesListComponent,
     CategoryComponent,
+    BudgetComponent,
   ],
   imports: [
     CommonModule,

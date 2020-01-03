@@ -65,7 +65,7 @@ export class SettingsComponent implements OnInit {
       this._authService.updateUserSettings(this.user._id, data).subscribe(
         response => {
           if (response.isUpdated) {
-            this.showNotificationModal(PopupEnum.Success, 'Full name is updated');
+            this.showNotificationModal(PopupEnum.Success, 'Full name has been updated');
           }
 
           this.getUser();

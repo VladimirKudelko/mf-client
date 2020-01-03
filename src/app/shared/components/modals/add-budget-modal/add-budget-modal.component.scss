@@ -1,0 +1,17 @@
+::ng-deep {
+
+  .mat-horizontal-stepper-header-container {
+    margin-bottom: 1rem;
+  }
+}
+
+.add-budget {
+
+  &__control {
+    display: block;
+  }
+
+  &__label {
+    font-weight: 600;
+  }
+}

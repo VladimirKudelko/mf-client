@@ -1,0 +1,31 @@
+<div class="add-budget">
+  <h1 mat-dialog-title>Add Budget</h1>
+
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="budgetTypeForm">
+      <form [formGroup]="budgetTypeForm">
+        <ng-template matStepLabel>Budget Type</ng-template>
+        <p class="add-budget__label">Which expenses is this budget for?</p>
+        <mat-form-field class="add-budget__control">
+          <mat-select formControlName="budgetType" required>
+            <mat-option *ngFor="let type of budgetTypes" [value]="type">{{ type }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="amountOfMoneyForm">
+      <form [formGroup]="amountOfMoneyForm">
+        <ng-template matStepLabel>Amount of money</ng-template>
+        <p class="add-budget__label">How much can you spend?</p>
+        <mat-form-field class="add-budget__control">
+          <input matInput type="number" placeholder="0" formControlName="amountOfMoney" required>
+        </mat-form-field>
+      </form>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+  <footer class="add-budget__footer" mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button type="submit" (click)="submit()" [disabled]="!areFormsValid">Ok</button>
+  </footer>
+</div>

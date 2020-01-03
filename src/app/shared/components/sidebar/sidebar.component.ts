@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 
 import { NAV_ITEMS } from '../../constants/sidebar-items';
@@ -15,8 +14,7 @@ export class SidebarComponent {
   public faDoorOpen = faDoorOpen;
 
   constructor(
-    private _authService: AuthService,
-    private _router: Router
+    private _authService: AuthService
   ) { }
 
   public logout(): void {

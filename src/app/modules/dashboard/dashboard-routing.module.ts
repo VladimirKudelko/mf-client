@@ -6,12 +6,14 @@ import { IncomesComponent } from './components/incomes/incomes.component';
 import { ExpensesComponent } from './components/expenses/expenses.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { BudgetComponent } from './components/budget/budget.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: HomeComponent },
   { path: 'expenses', component: ExpensesComponent },
   { path: 'incomes', component: IncomesComponent },
+  { path: 'budgets', component: BudgetComponent },
   { path: 'statistic', component: StatisticComponent },
   { path: 'settings', component: SettingsComponent },
 ];
