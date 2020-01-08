@@ -6,8 +6,10 @@ import { Wallet } from './wallet.model';
 import { Category } from './category.model';
 import { Transaction } from './transaction.model';
 import { Task } from './task';
+import { Budget } from './budget.model';
 
 export {
+  Budget,
   Category,
   LoaderState,
   MenuItem,

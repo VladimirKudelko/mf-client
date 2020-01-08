@@ -1,5 +1,5 @@
 import { RoleEnum } from '../enums';
-import { Task } from '.';
+import { Task, Budget } from '.';
 
 export interface User {
   _id: string;
@@ -9,4 +9,8 @@ export interface User {
   createdDate: string;
   tasks: Task[];
   role: RoleEnum;
+  currency: string;
+  budget: {
+    allExpenses: Budget
+  };
 }

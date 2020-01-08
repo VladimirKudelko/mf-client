@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 
 import { Wallet } from '../models';
 
+const urls = {
+  getUserCash: (userId: string) => `/cash/${userId}`
+};
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +16,6 @@ export class CashService {
   ) { }
 
   public getUserCash(userId: string): Observable<{ wallet: Wallet }> {
-    return this._httpClient.get<{ wallet: Wallet }>(`/cash/${userId}`);
+    return this._httpClient.get<{ wallet: Wallet }>(urls.getUserCash(userId));
   }
 }

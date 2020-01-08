@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { MatDialog, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { faTrashAlt, faDoorOpen } from '@fortawesome/free-solid-svg-icons';
+import { filter } from 'rxjs/operators';
 
 import { ProfileService, AuthService } from 'src/app/shared/services';
 import { ConfirmationModalComponent, TransactionsListModalComponent } from 'src/app/shared/components/modals';
@@ -35,10 +36,17 @@ export class ProfilesComponent implements OnInit {
     this.fetchUsers();
   }
 
+  private deleteProfile(userId: string): void {
+    this._profileService
+      .deleteProfile(userId)
+      .pipe(filter(response => response.isDeleted))
+      .subscribe(() => this.fetchUsers());
+  }
+
   public fetchUsers(): void {
     this._profileService.getAll()
-      .subscribe(response => {
-        this.dataSource = new MatTableDataSource(response.users);
+      .subscribe(users => {
+        this.dataSource = new MatTableDataSource(users);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
 
@@ -46,20 +54,12 @@ export class ProfilesComponent implements OnInit {
       });
   }
 
-  public deleteProfile(id: string): void {
-    const dialogRef = this.dialog.open(ConfirmationModalComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result) {
-        return;
-      }
-
-      this._profileService.deleteProfile(id).subscribe(response => {
-        if (response.isDeleted) {
-          this.fetchUsers();
-        }
-      });
-    });
+  public openDeleteProfileDialog(id: string): void {
+    this.dialog
+      .open(ConfirmationModalComponent)
+      .afterClosed()
+      .pipe(filter(result => !!result))
+      .subscribe(() => this.deleteProfile(id));
   }
 
   public showTransactions(userId: string): void {

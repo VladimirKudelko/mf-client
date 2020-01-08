@@ -45,7 +45,7 @@
   <ng-container matColumnDef="_id">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell class="profiles-table__row-item" *matCellDef="let user">
-      <fa-icon class="icon fa-2x" [icon]="faTrashAlt" (click)="deleteProfile(user._id)"></fa-icon>
+      <fa-icon class="icon fa-2x" [icon]="faTrashAlt" (click)="openDeleteProfileDialog(user._id)"></fa-icon>
     </mat-cell>
   </ng-container>
 </mat-table>

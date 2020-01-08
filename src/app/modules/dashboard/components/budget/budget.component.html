@@ -1,13 +1,19 @@
-<div class="no-budgets">
+<div class="no-budgets" *ngIf="!allExpenses">
   <fa-icon class="no-budgets__icon" [icon]="faInfoCircle"></fa-icon>
   <div class="no-budgets__content">
-    <h1>There are no budgets here.</h1>
+    <h2>There are no budgets here.</h2>
     <p>
       It's best you start with a monthly budget for all expenses.
     </p>
   </div>
 </div>
 
-<div class="add-budget-btn" (click)="addBudget()">
+<div class="all-expenses" *ngIf="allExpenses">
+  <h2>Current Month Limit: {{ allExpenses.limit | currency: allExpenses.currency }}</h2>
+  <h2>You have lost: {{ leftMoney | currency: allExpenses.currency }}</h2>
+  <progress-bar [progress]="progressBarValue" [color]="'#488aff'" ></progress-bar>
+</div>
+
+<div class="add-budget-btn" (click)="openAddingBudgetModal()">
   <span>+</span>
 </div>
