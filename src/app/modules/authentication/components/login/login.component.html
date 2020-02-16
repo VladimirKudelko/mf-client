@@ -1,14 +1,12 @@
 <header class="login-header">
-  <img
-    src="https://lh3.googleusercontent.com/zsfSd_DIBW37asmMH2HB_ut6ZUAigLlSrT-1TgBdBxs2VnTPWAp7OEZQzQfcqT8KCMSY"
-    class="login-header__image">
+  <img src="../../../../../assets/app-icon.png" class="login-header__image">
   <h1 class="login-header__title">My Finance</h1>
 </header>
 
 <h2 class="login-title">Log in to continue to My Finance</h2>
 
 <section class="login-form">
-  <form [formGroup]="loginForm" (ngSubmit)="submit()">  
+  <form [formGroup]="loginForm" (ngSubmit)="submit()">
     <div class="form-group">
       <label for="email" class="form-group__label">Your Email</label>
       <input type="text" formControlName="email" class="form-group__control" placeholder="Enter your Email"/>
@@ -31,8 +29,8 @@
       </button>
     </div>
   </form>
+  <footer class="login-form__footer">
+    <a class="login-form__footer-link" routerLink='/auth/reg'>Sign up for an account</a>
+    <a class="login-form__footer-link" routerLink='/auth/recovery-password'>Forgot password?</a>
+  </footer>
 </section>
-
-<footer class="login-footer">
-  <a class="login-footer__link" routerLink='/auth/reg'>Sign up for an account</a>
-</footer>

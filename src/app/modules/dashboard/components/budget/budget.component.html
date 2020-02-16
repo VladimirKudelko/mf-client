@@ -11,7 +11,7 @@
 <div class="all-expenses" *ngIf="allExpenses">
   <h2>Current Month Limit: {{ allExpenses.limit | currency: allExpenses.currency }}</h2>
   <h2>You have lost: {{ leftMoney | currency: allExpenses.currency }}</h2>
-  <progress-bar [progress]="progressBarValue" [color]="'#488aff'" ></progress-bar>
+  <progress-bar [progress]="allExpensesPercentage" [color]="'#488aff'"></progress-bar>
 </div>
 
 <div class="add-budget-btn" (click)="openAddingBudgetModal()">

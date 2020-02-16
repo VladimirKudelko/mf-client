@@ -33,19 +33,25 @@
 
 .login-form {
   width: 50%;
-  padding: 2rem;
-
-  &__submit {
-    padding: 0 0.5rem;
-  }
+  padding: 2rem 2rem 1rem;
 
   &__submit-btn {
     @include submit-button;
   }
+
+  &__footer {
+    margin-top: 1rem;
+  }
+
+  &__footer-link {
+    display: block;
+    margin-top: 0.5rem;
+    text-decoration: underline;
+  }
 }
 
 .form-group {
-  padding: 0.5rem;
+  padding: 0.5rem 0;
 
   &__label {
     padding: 0 0.7rem;
@@ -58,13 +64,5 @@
   &__error {
     padding: 0 0.7rem;
     color: $red;
-  }
-}
-
-.login-footer {
-  margin-top: 0.5rem;
-
-  &__link {
-    text-decoration: underline;
   }
 }
