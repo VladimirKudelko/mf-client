@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
 
-import { LoaderState, SidebarState } from './shared/models';
 import { SidebarService, LoaderService } from './shared/services';
+import { LocalizationService } from './shared/services/localization.service';
 
 @Component({
   selector: 'app-root',
@@ -18,33 +17,32 @@ export class AppComponent implements OnInit, OnDestroy {
   public isShowSidebar: boolean;
   public isLoading: boolean;
 
-  constructor(
-    private _loaderService: LoaderService,
-    private _sidebarService: SidebarService,
-    private _cdr: ChangeDetectorRef,
-    private _translateService: TranslateService
-  ) { }
-
-  ngOnInit(): void {
-    this._translateService.setDefaultLang('ru');
-    this._translateService.use('ru'); // switching
-
-    this._loaderSubscription = this._loaderService.loaderState$
-      .subscribe((state: LoaderState) => {
-        this.isLoading = state.isShow;
-        this._cdr.detectChanges();
-      });
-    this._sidebarSubscription = this._sidebarService.sidebarState$
-      .subscribe((state: SidebarState) => {
-        this.isShowSidebar = state.isShow;
-        this._cdr.detectChanges();
-      });
-  }
-
   get sidebarClasses() {
     return {
       'content--without-sidebar': !this.isShowSidebar
     };
+  }
+
+  constructor(
+    private _loaderService: LoaderService,
+    private _sidebarService: SidebarService,
+    private _localizationService: LocalizationService,
+    private _cdr: ChangeDetectorRef
+  ) { }
+
+  ngOnInit(): void {
+    this._localizationService.initialize();
+
+    this._loaderSubscription = this._loaderService.loaderState$
+      .subscribe(state => {
+        this.isLoading = state.isShow;
+        this._cdr.detectChanges();
+      });
+    this._sidebarSubscription = this._sidebarService.sidebarState$
+      .subscribe(state => {
+        this.isShowSidebar = state.isShow;
+        this._cdr.detectChanges();
+      });
   }
 
   ngOnDestroy() {

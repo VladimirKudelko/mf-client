@@ -7,6 +7,7 @@ import { TransactionPeriodEnum } from './transaction-period';
 import { PopupEnum } from './popup-type';
 import { BudgetTypeEnum } from './budget-type.enum';
 import { BudgetLifetimeEnum } from './budget-lifetime.enum';
+import { LanguageEnum } from './language.enum';
 
 export {
   BudgetTypeEnum,
@@ -14,6 +15,7 @@ export {
   CategoryTypeEnum,
   CurrencyEnum,
   IntervalEnum,
+  LanguageEnum,
   PopupEnum,
   RoleEnum,
   TransactionPeriodEnum,
