@@ -2,8 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './shared/modules/app-material/app-material.module';
@@ -13,6 +15,10 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { ApiInterceptor } from './shared/interceptors/api.interceptor';
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
+
+export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
+  return new TranslateHttpLoader(http, '/assets/locales/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -29,7 +35,15 @@ import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
     AppMaterialModule,
     HttpClientModule,
     FontAwesomeModule,
-    MaterialModalsModule
+    MaterialModalsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+      useDefaultLang: false
+    })
   ],
   providers: [
     {

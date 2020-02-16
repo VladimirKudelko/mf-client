@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse, } from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
@@ -21,9 +21,9 @@ export class ApiInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('token');
-    let modified = request.clone({
-      url: environment.apiUrl + request.url
-    });
+    let modified = request.url.includes('assets')
+      ? request.clone({ url: `${environment.clientUrl}${request.url}` })
+      : request.clone({ url: `${environment.apiUrl}${request.url}` });
 
     if (!_.isEmpty(token)) {
       modified = modified.clone({
