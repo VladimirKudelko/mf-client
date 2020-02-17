@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
@@ -11,7 +11,8 @@ import { checkPasswords } from '../../validators';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+  styleUrls: ['./registration.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistrationComponent {
   public registrationForm: FormGroup;
@@ -54,6 +55,13 @@ export class RegistrationComponent {
       ],
       'confirmPassword': [ '' ]
     }, { validator: checkPasswords });
+  }
+
+  isControlInvalid(controlName: string): boolean {
+    return (
+      this.registrationForm.controls[controlName].invalid &&
+      this.registrationForm.controls[controlName].touched
+    );
   }
 
   submit(): void {

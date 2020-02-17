@@ -6,8 +6,8 @@ import { TrackMoneyModalComponent, CreateCategoryModalComponent, NotificationMod
 import { Category, User, Wallet, Task } from 'src/app/shared/models';
 import { CategoryTypeEnum, PopupEnum } from 'src/app/shared/enums';
 import { CategoryService, AuthService, TransactionService } from 'src/app/shared/services';
-import { hideShow } from '../../animations';
 import { TaskKeysEnum } from '../../enums';
+import { LocalizationService } from 'src/app/shared/services/localization.service';
 
 @Component({
   selector: 'app-categories-list',
@@ -31,10 +31,11 @@ export class CategoriesListComponent implements OnInit {
 
   constructor(
     private _cdr: ChangeDetectorRef,
+    public dialog: MatDialog,
     private _categoryService: CategoryService,
     private _transactionService: TransactionService,
     private _authService: AuthService,
-    public dialog: MatDialog
+    private _localizationService: LocalizationService
   ) { }
 
   ngOnInit(): void {
@@ -50,7 +51,10 @@ export class CategoriesListComponent implements OnInit {
   private showNotificationModal(modalType: PopupEnum, message: string): void {
     this.dialog.open(NotificationModalComponent, {
       width: '400px',
-      data: { modalType, message }
+      data: {
+        modalType,
+        message: this._localizationService.getTranslation(message)
+      }
     });
   }
 

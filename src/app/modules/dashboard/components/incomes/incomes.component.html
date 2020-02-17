@@ -1,6 +1,6 @@
 <app-wallet *ngIf="currentWallet" [wallet]="currentWallet"></app-wallet>
 <app-categories-list
-  [title]="'Incomes Categories'"
+  title="{{ 'Incomes Categories' | translate }}"
   [categoriesType]="CategoryTypeEnum.Incomes"
   [categories]="categories"
   [wallet]="currentWallet"

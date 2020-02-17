@@ -11,6 +11,7 @@ import {
   NotificationModalComponent
 } from 'src/app/shared/components/modals';
 import { PopupEnum } from 'src/app/shared/enums';
+import { LocalizationService } from 'src/app/shared/services/localization.service';
 
 @Component({
   selector: 'app-settings',
@@ -26,6 +27,7 @@ export class SettingsComponent implements OnInit {
   constructor(
     private _sidebarService: SidebarService,
     private _authService: AuthService,
+    private _localizationService: LocalizationService,
     private _cdr: ChangeDetectorRef,
     public dialog: MatDialog
   ) { }
@@ -65,7 +67,10 @@ export class SettingsComponent implements OnInit {
       this._authService.updateUserSettings(this.user._id, data).subscribe(
         response => {
           if (response.isUpdated) {
-            this.showNotificationModal(PopupEnum.Success, 'Full name has been updated');
+            this.showNotificationModal(
+              PopupEnum.Success,
+              this._localizationService.getTranslation('Full name has been updated')
+            );
           }
 
           this.getUser();
@@ -96,7 +101,10 @@ export class SettingsComponent implements OnInit {
       this._authService.updateUserSettings(this.user._id, data).subscribe(
         response => {
           if (response.isUpdated) {
-            this.showNotificationModal(PopupEnum.Success, 'Email is updated');
+            this.showNotificationModal(
+              PopupEnum.Success,
+              this._localizationService.getTranslation('Email has been updated')
+            );
           }
 
           this.getUser();
@@ -124,7 +132,10 @@ export class SettingsComponent implements OnInit {
       this._authService.updatePassword(this.user._id, data).subscribe(
         response => {
           if (response.isSuccessfully) {
-            this.showNotificationModal(PopupEnum.Success, 'Password has been updated');
+            this.showNotificationModal(
+              PopupEnum.Success,
+              this._localizationService.getTranslation('Password has been updated')
+            );
           }
         },
         response => this.showNotificationModal(PopupEnum.Error, response.error.message || response.error)

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ProgressBarModule } from 'angular-progress-bar';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { AppMaterialModule } from 'src/app/shared/modules/app-material/app-material.module';
@@ -36,7 +37,8 @@ import { BudgetComponent } from './components/budget/budget.component';
     AppMaterialModule,
     FontAwesomeModule,
     NgxChartsModule,
-    ProgressBarModule
+    ProgressBarModule,
+    TranslateModule
   ]
 })
 export class DashboardModule { }

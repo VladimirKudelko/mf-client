@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     private _router: Router,
     private _dialog: MatDialog,
     private _authService: AuthService,
-    private _sidebarService: SidebarService,
+    private _sidebarService: SidebarService
   ) {
     this.loginForm = this._fb.group({
       'email': [
@@ -44,6 +44,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this._sidebarService.hide();
+  }
+
+  isControlInvalid(controlName: string): boolean {
+    return (
+      this.loginForm.controls[controlName].invalid &&
+      this.loginForm.controls[controlName].touched
+    );
   }
 
   submit(): void {

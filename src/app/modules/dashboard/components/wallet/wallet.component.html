@@ -2,7 +2,7 @@
   <div class="wallet__cash">{{ wallet.balance | currency: wallet.currency }}</div>
 
   <div class="wallet__updates">
-    <p>Created date: {{ wallet.createdDate | date }}</p>
-    <p>Last update: {{ getDateDifferences(wallet.lastUpdate) }}</p>
+    <p>{{ 'Created date' | translate }}: {{ wallet.createdDate | date }}</p>
+    <p>{{ 'Last update' | translate }}: {{ getDateDifferences(wallet.lastUpdate) }}</p>
   </div>
 </section>

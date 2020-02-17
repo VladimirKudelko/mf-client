@@ -17,12 +17,12 @@ import { TransactionsListModalComponent } from 'src/app/shared/components/modals
 export class StatisticComponent implements OnInit {
   private _user: User;
   public results = [
-    { name: 'Incomes', series: [ ] },
-    { name: 'Expenses', series: [ ] }
+    { name: 'Incomes', series: [] },
+    { name: 'Expenses', series: [] }
   ];
-  public view: number[] = [ 700, 375 ];
+  public view: number[] = [700, 375];
   public colorScheme = {
-    domain: [ '#5AA454', '#A10A28' ]
+    domain: ['#5AA454', '#A10A28']
   };
   public xAxisLabel = 'Date';
   public yAxisLabel = 'Spent money';
@@ -35,7 +35,7 @@ export class StatisticComponent implements OnInit {
   public isShowXAxisLabel = true;
   public isShowYAxisLabel = true;
   public selectedInterval: IntervalEnum;
-  public intervals: string[] = [ IntervalEnum.Week, IntervalEnum.Month, IntervalEnum.Year ];
+  public intervals: string[] = [IntervalEnum.Week, IntervalEnum.Month, IntervalEnum.Year];
   public transactions: Transaction[];
 
   constructor(
@@ -63,8 +63,8 @@ export class StatisticComponent implements OnInit {
       const incomesTransactions = [];
 
       this.results = [
-        { name: 'Incomes', series: [ ] },
-        { name: 'Expenses', series: [ ] }
+        { name: 'Incomes', series: [] },
+        { name: 'Expenses', series: [] }
       ];
 
       transactions.forEach(transaction => {

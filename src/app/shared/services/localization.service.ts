@@ -24,7 +24,7 @@ export class LocalizationService {
     this.currentLanguage = getUserLanguage();
   }
 
-  getInstantTranslation(key: string, args?: Object): string {
+  getTranslation(key: string, args?: Object): string {
     if (!key) {
       return '';
     }

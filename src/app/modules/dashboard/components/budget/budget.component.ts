@@ -10,6 +10,7 @@ import { SidebarService, BudgetService, TransactionService, AuthService } from '
 import { AddBudgetModalComponent, NotificationModalComponent } from 'src/app/shared/components/modals';
 import { User, Budget } from 'src/app/shared/models';
 import { PopupEnum } from 'src/app/shared/enums';
+import { LocalizationService } from 'src/app/shared/services/localization.service';
 
 @Component({
   selector: 'app-budget',
@@ -34,7 +35,8 @@ export class BudgetComponent implements OnInit {
     private _sidebarService: SidebarService,
     private _budgetService: BudgetService,
     private _transactionService: TransactionService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _localizationService: LocalizationService
   ) { }
 
   ngOnInit(): void {
@@ -82,7 +84,10 @@ export class BudgetComponent implements OnInit {
   private showNotificationModal(modalType: PopupEnum, message: string): void {
     this._dialog.open(NotificationModalComponent, {
       width: '400px',
-      data: { modalType, message }
+      data: {
+        modalType,
+        message: this._localizationService.getTranslation(message)
+      }
     });
   }
 

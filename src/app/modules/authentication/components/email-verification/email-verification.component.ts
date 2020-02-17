@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { NotificationModalComponent } from 'src/app/shared/components/modals';
 import { PopupEnum } from 'src/app/shared/enums';
 import { AuthService } from 'src/app/shared/services';
+import { LocalizationService } from 'src/app/shared/services/localization.service';
 
 @Component({
   selector: 'app-email-verification',
@@ -20,7 +21,8 @@ export class EmailVerificationComponent implements OnInit, OnDestroy {
     private _route: ActivatedRoute,
     private _router: Router,
     private _dialog: MatDialog,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _localizationService: LocalizationService
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +39,10 @@ export class EmailVerificationComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(params => {
         if (!params || !params.email || !params.hash) {
-          this.showNotification(PopupEnum.Error, 'There is no necessary data to activate your email');
+          this.showNotification(
+            PopupEnum.Error,
+            this._localizationService.getTranslation('There is no necessary data to activate your email')
+          );
 
           return;
         }
@@ -49,7 +54,10 @@ export class EmailVerificationComponent implements OnInit, OnDestroy {
   private verifyEmail(email: string, hash: string): void {
     this._authService.verifyEmail(email, hash).subscribe(
       () => {
-        this.showNotification(PopupEnum.Success, 'Your account has been successfully activated');
+        this.showNotification(
+          PopupEnum.Success,
+          this._localizationService.getTranslation('Your account has been successfully activated')
+        );
         this.navigateToHome();
       },
       response => {

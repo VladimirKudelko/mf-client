@@ -1,16 +1,16 @@
 <div class="no-budgets" *ngIf="!allExpenses">
   <fa-icon class="no-budgets__icon" [icon]="faInfoCircle"></fa-icon>
   <div class="no-budgets__content">
-    <h2>There are no budgets here.</h2>
+    <h2>{{ 'There are no budgets here' | translate }}.</h2>
     <p>
-      It's best you start with a monthly budget for all expenses.
+      {{ 'It\'s best you start with a monthly budget for all expenses' | translate }}.
     </p>
   </div>
 </div>
 
 <div class="all-expenses" *ngIf="allExpenses">
-  <h2>Current Month Limit: {{ allExpenses.limit | currency: allExpenses.currency }}</h2>
-  <h2>You have lost: {{ leftMoney | currency: allExpenses.currency }}</h2>
+  <h2>{{ 'Current Month Limit' | translate }}: {{ allExpenses.limit | currency: allExpenses.currency }}</h2>
+  <h2>{{ 'You have lost' | translate }}: {{ leftMoney | currency: allExpenses.currency }}</h2>
   <progress-bar [progress]="allExpensesPercentage" [color]="'#488aff'"></progress-bar>
 </div>
 

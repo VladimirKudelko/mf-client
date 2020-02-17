@@ -1,5 +1,5 @@
 <mat-radio-group class="time-intervals" [(ngModel)]="selectedInterval" (change)="changeInterval($event)">
-  <label class="label">Pick your interval</label>
+  <label class="label">{{ 'Pick your interval' | translate }}</label>
   <mat-radio-button
     class="time-intervals__radio-btn"
     *ngFor="let interval of intervals; let i = index"

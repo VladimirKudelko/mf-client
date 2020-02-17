@@ -1,7 +1,7 @@
 <div class="action-panel">
   <button mat-raised-button color="primary" (click)="logout()">
     <fa-icon [icon]="faDoorOpen"></fa-icon>
-    <span>Logout</span>
+    <span>{{ 'Logout' | translate }}</span>
   </button>
 </div>
 
@@ -14,31 +14,31 @@
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 
   <ng-container matColumnDef="Full Name">
-    <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>{{ 'First Name' | translate }}</mat-header-cell>
     <mat-cell class="profiles-table__row-item" [style.width]="'400px'" *matCellDef="let user">{{ user.firstName }} {{ user.lastName }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="email">
-    <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>{{ 'Email' | translate }}</mat-header-cell>
     <mat-cell class="profiles-table__row-item" *matCellDef="let user">{{ user.email }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="createdDate">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Created Date' | translate }}</mat-header-cell>
     <mat-cell class="profiles-table__row-item" *matCellDef="let user">{{ user.createdDate }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="role">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Role' | translate }}</mat-header-cell>
     <mat-cell *matCellDef="let user" class="profiles-table__row-item">
       <span [outerHTML]="user.role | dynamic"></span>
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="transactions">
-    <mat-header-cell *matHeaderCellDef>Transactions</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>{{ 'Transactions' | translate }}</mat-header-cell>
     <mat-cell *matCellDef="let user" class="profiles-table__row-item">
-      <button mat-raised-button color="primary" (click)="showTransactions(user._id)">show</button>
+      <button mat-raised-button color="primary" (click)="showTransactions(user._id)">{{ 'show' | translate }}</button>
     </mat-cell>
   </ng-container>
 
