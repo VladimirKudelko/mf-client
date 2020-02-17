@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { faPlus, faMinus  } from '@fortawesome/free-solid-svg-icons';
+import { filter } from 'rxjs/operators';
 
 import { IntervalEnum, CategoryTypeEnum, TransactionPeriodEnum } from 'src/app/shared/enums';
 import { TransactionService } from 'src/app/shared/services';
@@ -12,7 +13,7 @@ import { Transaction } from 'src/app/shared/models';
   styleUrls: ['./transactions-list-modal.component.scss']
 })
 export class TransactionsListModalComponent implements OnInit {
-  public intervals: string[] = [ IntervalEnum.Day, IntervalEnum.Week, IntervalEnum.Month, IntervalEnum.Year ];
+  public intervals: string[] = [IntervalEnum.Day, IntervalEnum.Week, IntervalEnum.Month, IntervalEnum.Year];
   public transactions: Transaction[] = [];
   public CategoryTypeEnum = CategoryTypeEnum;
   public faPlus = faPlus;
@@ -39,14 +40,17 @@ export class TransactionsListModalComponent implements OnInit {
       return;
     }
 
-    this._transactionService.getUserTransactions(this.data.userId, value).subscribe(response => {
-      const { transactions } = response;
+    this._transactionService
+      .getUserTransactions(this.data.userId, value)
+      .pipe(filter(response => !!response))
+      .subscribe(response => {
+        const { transactions } = response;
 
-      if (!transactions) {
-        return;
-      }
+        if (!transactions) {
+          return;
+        }
 
-      this.transactions = transactions;
-    });
+        this.transactions = transactions;
+      });
   }
 }

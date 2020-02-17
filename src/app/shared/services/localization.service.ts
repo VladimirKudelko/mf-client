@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
 
 import { LanguageEnum } from '../enums';
 import { getUserLanguage } from '../../utils/utils';
@@ -23,10 +22,6 @@ export class LocalizationService {
   initialize() {
     this._translateService.setDefaultLang(LanguageEnum.English);
     this.currentLanguage = getUserLanguage();
-  }
-
-  getTranslation(key: string): Observable<string> {
-    return this._translateService.get(key);
   }
 
   getInstantTranslation(key: string, args?: Object): string {

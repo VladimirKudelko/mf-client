@@ -1,8 +1,8 @@
 <form class="form">
-  <h1 mat-dialog-title>Are you sure?</h1>
+  <h1 mat-dialog-title>{{ 'Are you sure' | translate }}?</h1>
 
   <footer class="form__footer" mat-dialog-actions>
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button (click)="submit()" type="submit">Ok</button>
+    <button mat-button mat-dialog-close>{{ 'Cancel' | translate }}</button>
+    <button mat-button (click)="submit()" type="submit">{{ 'Ok' | translate }}</button>
   </footer>
 </form>

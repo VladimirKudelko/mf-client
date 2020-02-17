@@ -11,10 +11,12 @@ import * as httpStatus from 'http-status-codes';
 import { environment } from 'src/environments/environment';
 import { NotificationModalComponent } from '../components/modals';
 import { PopupEnum } from '../enums';
+import { LocalizationService } from '../services/localization.service';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
   constructor(
+    private _localizationService: LocalizationService,
     private _router: Router,
     private _dialog: MatDialog,
   ) { }
@@ -41,7 +43,13 @@ export class ApiInterceptor implements HttpInterceptor {
 
               break;
             case 0:
-              this.showNotification(PopupEnum.Error, 'Sorry, but the service is not available now. Try to do it later.');
+              this.showNotification(
+                PopupEnum.Error,
+                `
+                  ${this._localizationService.getInstantTranslation('Sorry, but the service is not available now')}.\
+                  ${this._localizationService.getInstantTranslation('Try to do it later')}.\
+                `
+              );
               this._router.navigate(['/auth/login']);
 
               break;

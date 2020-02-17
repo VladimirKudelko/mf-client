@@ -7,7 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "update-locales": "ngx-translate-extract --input ./src --output ./src/assets/locales/*.json --clean --sort --format namespaced-json"
+    "update-locales": "ngx-translate-extract --input ./src --output ./src/assets/locales/{en,ru}.json --sort --format namespaced-json --key-as-default-value"
   },
   "private": true,
   "dependencies": {

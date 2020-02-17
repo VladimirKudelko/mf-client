@@ -1,5 +1,5 @@
 <form class="form" (ngSubmit)="closeModal()">
-  <h1 mat-dialog-title class="form__title">Transactions List</h1>
+  <h1 mat-dialog-title class="form__title">{{ 'Transactions List' | translate }}</h1>
 
   <mat-form-field *ngIf="data.isShowSelect" class="form__control">
     <mat-select (selectionChange)="changeInterval($event)">
@@ -25,6 +25,6 @@
   </mat-list>
 
   <footer class="form__footer" mat-dialog-actions>
-    <button mat-raised-button mat-dialog-close type="submit" color="primary">Ok</button>
+    <button mat-raised-button mat-dialog-close type="submit" color="primary">{{ 'Ok' | translate }}</button>
   </footer>
 </form>

@@ -1,15 +1,15 @@
 <form class="form" [formGroup]="changeFullNameForm" (ngSubmit)="submit()">
-  <h1 mat-dialog-title>Change full name</h1>
+  <h1 mat-dialog-title>{{ 'Change full name' | translate }}</h1>
 
   <mat-form-field class="form__control">
-    <input matInput type="text" formControlName="firstName" [value]="data.firstName" placeholder="Enter an first name">
+    <input matInput type="text" formControlName="firstName" [value]="data.firstName" placeholder="{{ 'Enter an first name' | translate }}">
   </mat-form-field>
   <mat-form-field class="form__control">
-    <input matInput type="text" formControlName="lastName" [value]="data.lastName" placeholder="Enter an last name">
+    <input matInput type="text" formControlName="lastName" [value]="data.lastName" placeholder="{{ 'Enter an last name' | translate }}">
   </mat-form-field>
 
   <footer class="form__footer" mat-dialog-actions>
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button (click)="submit()" type="submit" [disabled]="!isFormValid()">Ok</button>
+    <button mat-button mat-dialog-close>{{ 'Cancel' | translate }}</button>
+    <button mat-button (click)="submit()" type="submit" [disabled]="!isFormValid()">{{ 'Ok' | translate }}</button>
   </footer>
 </form>

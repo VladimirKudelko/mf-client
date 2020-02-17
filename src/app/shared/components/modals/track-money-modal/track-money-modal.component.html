@@ -1,15 +1,15 @@
 <form class="form" [formGroup]="newTrackMoneyForm" (ngSubmit)="submit()">
-  <h1 mat-dialog-title>Track money for {{ data.category.title }}</h1>
+  <h1 mat-dialog-title>{{ 'Track money for' | translate }} {{ data.category.title }}</h1>
 
   <mat-form-field class="form__control">
-    <input matInput type="number" formControlName="amountMoney" placeholder="Enter an amount">
+    <input matInput type="number" formControlName="amountMoney" placeholder="{{ 'Enter an amount' | translate }}">
   </mat-form-field>
   <mat-form-field class="form__control">
-    <input matInput type="text" formControlName="note" placeholder="Enter a note">
+    <input matInput type="text" formControlName="note" placeholder="{{ 'Enter a note' | translate }}">
   </mat-form-field>
 
   <footer class="form__footer" mat-dialog-actions>
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button (click)="submit()" type="submit" [disabled]="formIsInvalid()">Ok</button>
+    <button mat-button mat-dialog-close>{{ 'Cancel' | translate }}</button>
+    <button mat-button (click)="submit()" type="submit" [disabled]="formIsInvalid()">{{ 'Ok' | translate }}</button>
   </footer>
 </form>

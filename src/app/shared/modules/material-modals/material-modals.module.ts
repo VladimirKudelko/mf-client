@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatStepperModule } from '@angular/material';
+import { TranslateModule } from '@ngx-translate/core';
 
 import * as modalComponents from '../../components/modals';
 import { AppMaterialModule } from '../app-material/app-material.module';
@@ -15,9 +16,10 @@ import { AppMaterialModule } from '../app-material/app-material.module';
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    MatStepperModule
+    MatStepperModule,
+    TranslateModule
   ],
-  exports: [Object.values(modalComponents)],
+  exports: [],
   entryComponents: [Object.values(modalComponents)]
 })
-export class MaterialModalsModule { }
+export class MaterialModalsModule {}
