@@ -14,4 +14,9 @@
       <span class="menu__item-title" >{{ 'Logout' | translate }}</span>
     </li>
   </ul>
+
+  <div class="languages">
+    <img class="languages__flag" (click)="changeLanguage(LanguageEnum.English)" src="../../../../assets/uk-flag-icon.png" alt="UK">
+    <img class="languages__flag" (click)="changeLanguage(LanguageEnum.Russian)" src="../../../../assets/russia-flag-icon.png" alt="UK">
+  </div>
 </aside>

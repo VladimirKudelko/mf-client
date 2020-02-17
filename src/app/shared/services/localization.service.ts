@@ -11,6 +11,8 @@ export class LocalizationService {
   set currentLanguage(language: string) {
     this._translateService.use(language);
     this._translateService.currentLang = language;
+
+    localStorage.setItem('language', language);
   }
 
   get currentLanguage(): string {
@@ -21,7 +23,7 @@ export class LocalizationService {
 
   initialize() {
     this._translateService.setDefaultLang(LanguageEnum.English);
-    this.currentLanguage = getUserLanguage();
+    this.currentLanguage = localStorage.getItem('language') || getUserLanguage();
   }
 
   getTranslation(key: string, args?: Object): string {
