@@ -7,6 +7,7 @@ import { TransactionService } from 'src/app/shared/services/transaction.service'
 import { Transaction, User } from 'src/app/shared/models';
 import { AuthService, SidebarService } from 'src/app/shared/services';
 import { TransactionsListModalComponent } from 'src/app/shared/components/modals/transactions-list-modal/transactions-list-modal.component';
+import { LocalizationService } from 'src/app/shared/services/localization.service';
 
 @Component({
   selector: 'app-statistic',
@@ -16,10 +17,7 @@ import { TransactionsListModalComponent } from 'src/app/shared/components/modals
 })
 export class StatisticComponent implements OnInit {
   private _user: User;
-  public results = [
-    { name: 'Incomes', series: [] },
-    { name: 'Expenses', series: [] }
-  ];
+  public results: { name: string, series: any[] }[];
   public view: number[] = [700, 375];
   public colorScheme = {
     domain: ['#5AA454', '#A10A28']
@@ -42,6 +40,7 @@ export class StatisticComponent implements OnInit {
     private _authService: AuthService,
     private _transactionService: TransactionService,
     private _sidebarService: SidebarService,
+    private _localizationService: LocalizationService,
     private _cdr: ChangeDetectorRef,
     public dialog: MatDialog,
   ) { }
@@ -63,8 +62,8 @@ export class StatisticComponent implements OnInit {
       const incomesTransactions = [];
 
       this.results = [
-        { name: 'Incomes', series: [] },
-        { name: 'Expenses', series: [] }
+        { name: this._localizationService.getTranslation('Incomes'), series: [] },
+        { name: this._localizationService.getTranslation('Expenses'), series: [] }
       ];
 
       transactions.forEach(transaction => {

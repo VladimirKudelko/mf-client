@@ -5,7 +5,7 @@
     *ngFor="let interval of intervals; let i = index"
     color="primary"
     [value]="interval">
-    {{ interval }}
+    {{ interval | translate }}
   </mat-radio-button>
 </mat-radio-group>
 <div class="chart-container">
@@ -14,8 +14,8 @@
     [view]="view"
     [results]="results"
     [scheme]="colorScheme"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
+    xAxisLabel="{{ xAxisLabel | translate }}"
+    yAxisLabel="{{ yAxisLabel | translate }}"
     [maxYAxisTickLength]="maxYAxisTickLength"
     [legendPosition]="legendPosition"
     [legend]="isShowLegend"

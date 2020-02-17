@@ -85,5 +85,11 @@
 	"You must specify at least 5 characters long and no more 25": "You must specify at least 5 characters long and no more 25",
 	"Your Email": "Your Email",
 	"Your account has been successfully activated": "Your account has been successfully activated",
-	"show": "show"
+	"show": "show",
+	"Day": "Day",
+	"Week": "Week",
+	"Month": "Month",
+	"Year": "Year",
+	"Spent money": "Spent money",
+	"Date": "Date"
 }
