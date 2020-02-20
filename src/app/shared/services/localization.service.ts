@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
+import * as moment from 'moment';
+
 import { LanguageEnum } from '../enums';
 import { getUserLanguage } from '../../utils/utils';
 
@@ -8,9 +10,13 @@ import { getUserLanguage } from '../../utils/utils';
   providedIn: 'root'
 })
 export class LocalizationService {
+  private availableLanguages: LanguageEnum[] = [LanguageEnum.English, LanguageEnum.Russian];
+
   set currentLanguage(language: string) {
     this._translateService.use(language);
     this._translateService.currentLang = language;
+
+    this.setMomentLocale(language);
 
     localStorage.setItem('language', language);
   }
@@ -52,4 +58,13 @@ export class LocalizationService {
     return translate;
   }
 
+  private setMomentLocale(language: string): void {
+    if (!this.availableLanguages.includes(language as LanguageEnum)) {
+      moment.locale(LanguageEnum.English);
+
+      return;
+    }
+
+    moment.locale(language);
+  }
 }
