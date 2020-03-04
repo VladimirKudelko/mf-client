@@ -1,0 +1,32 @@
+@import './default-themes-map';
+
+@mixin themify($themes: $themes, $context: true) {
+  // Iterate over the themes
+  @each $theme, $colors in $themes {
+    $app-background: map-get($colors, 'app-background') !global;
+
+    @if $theme == 'default' {
+
+      & {
+        @content;
+      }
+    } @else {
+      @if $context == true {
+
+        :host-context(.theme-#{$theme}) &,
+        .theme-#{$theme} &,
+        &.theme-#{$theme} {
+          @content;
+        }
+      } @else {
+
+        .theme-#{$theme} &,
+        &.theme-#{$theme} {
+          @content;
+        }
+      }
+    }
+
+    $app-background: null !global;
+  }
+}

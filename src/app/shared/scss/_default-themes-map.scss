@@ -1,0 +1,10 @@
+@import './colors';
+
+$themes: (
+  default: (
+    app-background: red,
+  ),
+  dark: (
+    app-background: blue,
+  )
+);

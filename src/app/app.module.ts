@@ -15,6 +15,7 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { ApiInterceptor } from './shared/interceptors/api.interceptor';
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
+import { ToggleSwitchComponent } from './shared/components/toggle-switch/toggle-switch.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
   return new TranslateHttpLoader(http, '/assets/locales/', '.json');
@@ -24,7 +25,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
   declarations: [
     AppComponent,
     LoaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    ToggleSwitchComponent
   ],
   imports: [
     BrowserModule,
