@@ -8,6 +8,7 @@ import { PopupEnum } from './popup-type';
 import { BudgetTypeEnum } from './budget-type.enum';
 import { BudgetLifetimeEnum } from './budget-lifetime.enum';
 import { LanguageEnum } from './language.enum';
+import { Themes } from './themes.enum';
 
 export {
   BudgetTypeEnum,
@@ -19,5 +20,6 @@ export {
   PopupEnum,
   RoleEnum,
   TransactionPeriodEnum,
+  Themes,
   WalletTypeEnum
 };

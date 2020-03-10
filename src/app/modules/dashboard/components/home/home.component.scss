@@ -12,20 +12,31 @@
   margin: 0 auto;
   padding: 2rem 1rem;
   text-align: center;
-  background-color: $white;
   border-radius: 0.15rem;
   box-shadow:
     1px 5px 30px rgba(0, 0, 0, 0.1),
     3px 5px 10px rgba(0, 0, 0, 0.1);
+  @include themify {
+    background-color: $todo-list-background;
+  }
 
   &__title {
     margin: 1rem 0;
     font-size: 2rem;
+    @include themify {
+      color: $header-color;
+    }
   }
 
   &__subtitle {
     margin: 0 0 2rem;
     color: darken($light-gray, 25);
+  }
+}
+
+.task {
+  @include themify {
+    background-color: $todo-item-background;
   }
 }
 
@@ -37,15 +48,25 @@
     padding: 0.5rem 0;
 
     &--completed {
-      color: $green;
+      @include themify {
+        color: $todo-item-completed-color;
+      }
     }
-  
+
     &--not-completed {
-      color: $red;
+      @include themify {
+        color: $todo-item-not-completed-color;
+      }
     }
   }
 
   &__description-icon {
     margin-right: 1rem;
+  }
+}
+
+.task-content {
+  @include themify {
+    color: $todo-item-content-color;
   }
 }

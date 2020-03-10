@@ -9,22 +9,22 @@
 
   <mat-list class="transactions-list" *ngIf="transactions && transactions.length">
     <mat-list-item
-      class="transactions-list__item"
+      class="transactions-list__item item"
       *ngFor="let transaction of transactions; let index = index"
       [ngClass]="{'transactions-list__item--dark': (index + 1) % 2 === 0}"
     >
-      <fa-icon *ngIf="transaction.type === CategoryTypeEnum.Expenses" [icon]="faMinus"></fa-icon>
-      <fa-icon *ngIf="transaction.type === CategoryTypeEnum.Incomes" [icon]="faPlus"></fa-icon>
-      <h4 mat-line>
+      <fa-icon class="item-icon item-icon-expenses" *ngIf="transaction.type === CategoryTypeEnum.Expenses" [icon]="faMinus"></fa-icon>
+      <fa-icon class="item-icon item-icon-incomes" *ngIf="transaction.type === CategoryTypeEnum.Incomes" [icon]="faPlus"></fa-icon>
+      <h4 class="item-title" mat-line>
         {{ transaction.createdDate | date }}
         <span *ngIf="transaction.note">({{ transaction.note }})</span>
       </h4>
-      <p mat-line> {{ transaction.amountMoney }}$ </p>
+      <p class="item-subtitle" mat-line> {{ transaction.amountMoney }}$ </p>
     </mat-list-item>
     <mat-divider></mat-divider>
   </mat-list>
 
   <footer class="form__footer" mat-dialog-actions>
-    <button mat-raised-button mat-dialog-close type="submit" color="primary">{{ 'Ok' | translate }}</button>
+    <button class="mat-button-close" mat-button mat-dialog-close type="submit" color="primary">{{ 'Ok' | translate }}</button>
   </footer>
 </form>

@@ -14,8 +14,43 @@
 
 .transactions-list {
 
-  &__item--dark {
-    background-color: $light-gray;
+  &__item {
+    @include themify {
+      border-bottom: 1px solid $transactions-list-item-border;
+    }
+
+    &--dark {
+      @include themify {
+        background-color: $transactions-list-item-dark-background;
+      }
+    }
+  }
+
+  .item-title {
+    @include themify {
+      color: $transactions-list-item-title-color;
+    }
+  }
+
+  .item-subtitle {
+    @include themify {
+      color: $transactions-list-item-subtitle-color;
+    }
+  }
+
+  .item-icon {
+
+    &-expenses {
+      @include themify {
+        color: $transactions-list-item-expenses-icon-color;
+      }
+    }
+
+    &-incomes {
+      @include themify {
+        color: $transactions-list-item-incomes-icon-color;
+      }
+    }
   }
 
   .mat-line {

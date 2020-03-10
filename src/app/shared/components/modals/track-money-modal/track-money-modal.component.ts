@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
@@ -9,7 +9,7 @@ import { Category } from 'src/app/shared/models';
   templateUrl: './track-money-modal.component.html',
   styleUrls: ['./track-money-modal.component.scss']
 })
-export class TrackMoneyModalComponent {
+export class TrackMoneyModalComponent implements OnInit {
   public newTrackMoneyForm: FormGroup = this.fb.group({
     amountMoney: [
       '',
@@ -21,12 +21,17 @@ export class TrackMoneyModalComponent {
     ],
     note: ['']
   });
+  public currencySymbol: string;
 
   constructor(
     public dialogRef: MatDialogRef<TrackMoneyModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { category: Category },
+    @Inject(MAT_DIALOG_DATA) public data: { category: Category, currency: string },
     @Inject(FormBuilder) private fb: FormBuilder
   ) { }
+
+  ngOnInit() {
+    this.currencySymbol = this.data.currency === 'USD' ? '$' : '';
+  }
 
   public formIsInvalid(): boolean {
     return !(

@@ -1,12 +1,20 @@
 <form class="form" [formGroup]="newCategoryForm" (ngSubmit)="submit()">
   <h1 mat-dialog-title>{{ 'Creation Category' | translate }}</h1>
 
-  <mat-form-field>
+  <mat-form-field class="form__control">
     <input matInput formControlName="title" placeholder="{{ 'Enter an category name' | translate }}">
   </mat-form-field>
 
   <footer class="form__footer" mat-dialog-actions>
-    <button mat-button mat-dialog-close>{{ 'Cancel' | translate }}</button>
-    <button mat-button (click)="submit()" type="submit" [disabled]="formIsInvalid()">{{ 'Ok' | translate }}</button>
+    <button
+      class="mat-button-submit"
+      mat-button
+      (click)="submit()"
+      type="submit"
+      [disabled]="formIsInvalid()"
+    >
+      {{ 'Ok' | translate }}
+    </button>
+    <button class="mat-button-close" mat-button mat-dialog-close>{{ 'Cancel' | translate }}</button>
   </footer>
 </form>

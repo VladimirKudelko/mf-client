@@ -91,5 +91,19 @@
 	"Month": "Месяц",
 	"Year": "Год",
 	"Spent money": "Потраченные деньги",
-	"Date": "Дата"
+	"Date": "Дата",
+	"min": "минуты",
+	"hours": "часов",
+	"days": "дней",
+	"months": "месяцев",
+	"ago": "назад",
+	"Theme": "Тема",
+	"Sign Up": "Зарегистрироваться",
+	"Create your first category": "Создать первую категорию",
+	"Track money": "Затрекать деньги",
+	"Change settings": "Изменить настройки",
+	"Create your own account in our system using mobile or web application.": "Создайте свой собственный аккаунт в нашей системе используя мобильное или веб-приложение.",
+	"When you add your transaction you must specify which category this transaction belongs but if there is no such category you can create your custom category.": "Когда вы добавляете свою транзакциюю вы должны указать категорию, которой принадлежит данная транзакция, но если такой категории нет, то вы можете создать свою.",
+	"Please, follow to 'Expenses' or 'Incomes' and add your first transaction.": "Перейдите пожалуйста к 'Доходам' или 'Расходам' и добавьте первую транзакцию.",
+	"If you did something by mistake while you're signing up, you can follow to 'Setting' and change that.": "Если вы ошиблись с данными на этапе регистрации, то вы можете изменить их в разделе 'Настройки'."
 }

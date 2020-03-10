@@ -1,0 +1,123 @@
+@import './default-themes-map';
+@import './colors';
+
+@mixin themify($themes: $themes, $context: true) {
+  // Iterate over the themes
+  @each $theme, $colors in $themes {
+    $app-background: map-get($colors, 'app-background') !global;
+    $header-color: map-get($colors, 'header-color') !global;
+    $sidebar-background: map-get($colors, 'sidebar-background') !global;
+    $sidebar-box-shadow: map-get($colors, 'sidebar-box-shadow') !global;
+    $sidebar-item-color: map-get($colors, 'sidebar-item-color') !global;
+    $sidebar-item-active-background: map-get($colors, 'sidebar-item-active-background') !global;
+    $todo-list-background: map-get($colors, 'todo-list-background') !global;
+    $todo-item-background: map-get($colors, 'todo-item-background') !global;
+    $todo-item-content-color: map-get($colors, 'todo-item-content-color') !global;
+    $todo-item-completed-color: map-get($colors, 'todo-item-completed-color') !global;
+    $todo-item-not-completed-color: map-get($colors, 'todo-item-not-completed-color') !global;
+    $cash-color: map-get($colors, 'cash-color') !global;
+    $cash-update-color: map-get($colors, 'cash-update-color') !global;
+    $categories-list-title-color: map-get($colors, 'categories-list-title-color') !global;
+    $categories-list-btn-color: map-get($colors, 'categories-list-btn-color') !global;
+    $categories-list-btn-background: map-get($colors, 'categories-list-btn-background') !global;
+    $categories-list-btn-hover-background: map-get($colors, 'categories-list-btn-hover-background') !global;
+    $categories-item-background: map-get($colors, 'categories-item-background') !global;
+    $categories-item-hover-background: map-get($colors, 'categories-item-hover-background') !global;
+    $categories-item-color: map-get($colors, 'categories-item-color') !global;
+    $loader-overlay-background: map-get($colors, 'loader-overlay-background') !global;
+    $popup-background: map-get($colors, 'popup-background') !global;
+    $popup-text-color: map-get($colors, 'popup-text-color') !global;
+    $popup-submit-button-color: map-get($colors, 'popup-submit-button-color') !global;
+    $popup-submit-button-background: map-get($colors, 'popup-submit-button-background') !global;
+    $popup-close-button-color: map-get($colors, 'popup-close-button-color') !global;
+    $popup-close-button-background: map-get($colors, 'popup-close-button-background') !global;
+    $mat-radio-outer-circle-color: map-get($colors, 'mat-radio-outer-circle-color') !global;
+    $mat-radio-outer-circle-checked-color: map-get($colors, 'mat-radio-outer-circle-checked-color') !global;
+    $mat-radio-inner-circle-checked-color: map-get($colors, 'mat-radio-inner-circle-checked-color') !global;
+    $time-interval-text-color: map-get($colors, 'time-interval-text-color') !global;
+    $time-interval-radio-label-color: map-get($colors, 'time-interval-radio-label-color') !global;
+    $chart-tick-color: map-get($colors, 'chart-tick-color') !global;
+    $chart-legend-title-color: map-get($colors, 'chart-legend-title-color') !global;
+    $chart-legend-labels-background: map-get($colors, 'chart-legend-labels-background') !global;
+    $chart-grid-line-stroke: map-get($colors, 'chart-grid-line-stroke') !global;
+    $transactions-list-item-dark-background: map-get($colors, 'transactions-list-item-dark-background') !global;
+    $transactions-list-item-border: map-get($colors, 'transactions-list-item-border') !global;
+    $transactions-list-item-title-color: map-get($colors, 'transactions-list-item-title-color') !global;
+    $transactions-list-item-subtitle-color: map-get($colors, 'transactions-list-item-subtitle-color') !global;
+    $transactions-list-item-expenses-icon-color: map-get($colors, 'transactions-list-item-expenses-icon-color') !global;
+    $transactions-list-item-incomes-icon-color: map-get($colors, 'transactions-list-item-incomes-icon-color') !global;
+
+    $account-info-title-color: map-get($colors, 'account-info-title-color') !global;
+    $account-info-control-color: map-get($colors, 'account-info-control-color') !global;
+    $account-additions-data-joined-color: map-get($colors, 'account-additions-data-joined-color') !global;
+
+    @if $theme == 'default' {
+
+      & {
+        @content;
+      }
+    } @else {
+      @if $context == true {
+
+        :host-context(.theme-#{$theme}) &,
+        .theme-#{$theme} &,
+        &.theme-#{$theme} {
+          @content;
+        }
+      } @else {
+
+        .theme-#{$theme} &,
+        &.theme-#{$theme} {
+          @content;
+        }
+      }
+    }
+
+    $app-background: null !global;
+    $header-color: null !global;
+    $sidebar-background: null !global;
+    $sidebar-box-shadow: null !global;
+    $sidebar-item-color: null !global;
+    $sidebar-item-active-background: null !global;
+    $todo-list-background: null !global;
+    $todo-item-background: null !global;
+    $todo-item-content-color: null !global;
+    $todo-item-completed-color: null !global;
+    $todo-item-not-completed-color: null !global;
+    $cash-color: null !global;
+    $cash-update-color: null !global;
+    $categories-list-title-color: null !global;
+    $categories-list-btn-color: null !global;
+    $categories-list-btn-background: null !global;
+    $categories-list-btn-hover-background: null !global;
+    $categories-item-background: null !global;
+    $categories-item-hover-background: null !global;
+    $categories-item-color: null !global;
+    $loader-overlay-background: null !global;
+    $popup-background: null !global;
+    $popup-text-color: null !global;
+    $popup-submit-button-color: null !global;
+    $popup-submit-button-background: null !global;
+    $popup-close-button-color: null !global;
+    $popup-close-button-background: null !global;
+    $mat-radio-outer-circle-color: null !global;
+    $mat-radio-outer-circle-checked-color: null !global;
+    $mat-radio-inner-circle-checked-color: null !global;
+    $time-interval-text-color: null !global;
+    $time-interval-radio-label-color: null !global;
+    $chart-tick-color: null !global;
+    $chart-legend-title-color: null !global;
+    $chart-legend-labels-background: null !global;
+    $chart-grid-line-stroke: null !global;
+    $transactions-list-item-dark-background: null !global;
+    $transactions-list-item-border: null !global;
+    $transactions-list-item-title-color: null !global;
+    $transactions-list-item-subtitle-color: null !global;
+    $transactions-list-item-expenses-icon-color: null !global;
+    $transactions-list-item-incomes-icon-color: null !global;
+
+    $account-info-title-color: null !global;
+    $account-info-control-color: null !global;
+    $account-additions-data-joined-color: null !global;
+  }
+}

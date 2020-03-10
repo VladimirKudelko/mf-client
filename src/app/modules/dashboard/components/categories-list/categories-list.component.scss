@@ -7,6 +7,9 @@
   &__title {
     display: inline-block;
     font-size: 1.75rem;
+    @include themify {
+      color: $categories-list-title-color;
+    }
   }
 
   &__creation {
@@ -16,10 +19,17 @@
     border: 0;
     border-radius: 3px;
     outline: none;
+    @include themify {
+      color: $categories-list-btn-color;
+      background: $categories-list-btn-background;
+    }
 
     &:hover {
       background-color: lighten($dark-blue, 20);
       cursor: pointer;
+      @include themify {
+        background: $categories-list-btn-hover-background;
+      }
     }
   }
 }
@@ -36,12 +46,17 @@
     height: 125px;
     margin: 1rem 1rem 1rem 0;
     overflow: hidden;
-    background-color: $dark-gray;
     transition: background-color 0.3s;
+    @include themify {
+      color: $categories-item-color;
+      background: $categories-item-background;
+    }
 
     &:hover {
-      background-color: darken($dark-gray, 20);
       cursor: pointer;
+      @include themify {
+        background: $categories-item-hover-background;
+      }
     }
   }
 }

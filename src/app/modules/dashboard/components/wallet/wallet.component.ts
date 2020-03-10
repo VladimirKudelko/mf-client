@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import * as moment from 'moment';
 
 import { Wallet } from 'src/app/shared/models';
+import { LocalizationService } from 'src/app/shared/services/localization.service';
 
 @Component({
   selector: 'app-wallet',
@@ -12,6 +13,8 @@ import { Wallet } from 'src/app/shared/models';
 export class WalletComponent {
   @Input() wallet: Wallet;
 
+  constructor(private _localizationService: LocalizationService) {}
+
   getDateDifferences(startDate, endDate = moment()): string {
     const startDateMoment = moment(startDate);
 
@@ -20,14 +23,22 @@ export class WalletComponent {
     const days = endDate.diff(startDateMoment, 'days');
     const months = endDate.diff(startDateMoment, 'months');
 
+    let dateDifference: string;
+
     if (minutes < 60) {
-      return `${minutes} min`;
+      dateDifference = `${minutes} ${this.getTranslation('min')}`;
     } else if (hours < 24) {
-      return `${hours} hours`;
+      dateDifference = `${hours} ${this.getTranslation('hours')}`;
     } else if (days < 7) {
-      return `${days} days`;
+      dateDifference = `${days} ${this.getTranslation('days')}`;
     } else if (months > 1) {
-      return `${months} months`;
+      dateDifference = `${months} ${this.getTranslation('months')}`;
     }
+
+    return `${dateDifference} ${this.getTranslation('ago')}`;
+  }
+
+  private getTranslation(text: string): string {
+    return this._localizationService.getTranslation(text);
   }
 }

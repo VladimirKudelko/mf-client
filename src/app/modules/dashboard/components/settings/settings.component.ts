@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { Subject } from 'rxjs';
 import * as moment from 'moment';
 
 import { SidebarService, AuthService } from 'src/app/shared/services';
@@ -10,24 +11,30 @@ import {
   ChangePasswordModalComponent,
   NotificationModalComponent
 } from 'src/app/shared/components/modals';
-import { PopupEnum } from 'src/app/shared/enums';
+import { PopupEnum, Themes } from 'src/app/shared/enums';
 import { LocalizationService } from 'src/app/shared/services/localization.service';
+import { UserPreferencesService } from 'src/app/shared/services/user-preferences.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
   private _settingsTask: Task;
+  private unsubscribe$ = new Subject();
 
   public user: User;
   public joinedDate: string;
+  public initialTheme: string;
+  public Themes = Themes;
 
   constructor(
     private _sidebarService: SidebarService,
     private _authService: AuthService,
     private _localizationService: LocalizationService,
+    private _userPreferences: UserPreferencesService,
     private _cdr: ChangeDetectorRef,
     public dialog: MatDialog
   ) { }
@@ -35,6 +42,13 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this._sidebarService.show();
     this.getUser();
+
+    this.initialTheme = this._userPreferences.currentTheme;
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   private showNotificationModal(modalType: PopupEnum, message: string): void {
@@ -52,32 +66,36 @@ export class SettingsComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result || !result.firstName || !result.lastName) {
-        return;
-      }
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(result => {
+        if (!result || !result.firstName || !result.lastName) {
+          return;
+        }
 
-      const { firstName, lastName } = result;
-      const data = {
-        firstName,
-        lastName,
-        isUpdateTask: !this._settingsTask.isCompleted
-      };
+        const { firstName, lastName } = result;
+        const data = {
+          firstName,
+          lastName,
+          isUpdateTask: !this._settingsTask.isCompleted
+        };
 
-      this._authService.updateUserSettings(this.user._id, data).subscribe(
-        response => {
-          if (response.isUpdated) {
-            this.showNotificationModal(
-              PopupEnum.Success,
-              this._localizationService.getTranslation('Full name has been updated')
-            );
-          }
+        this._authService.updateUserSettings(this.user._id, data)
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe(
+            response => {
+              if (response.isUpdated) {
+                this.showNotificationModal(
+                  PopupEnum.Success,
+                  this._localizationService.getTranslation('Full name has been updated')
+                );
+              }
 
-          this.getUser();
-        },
-        response => this.showNotificationModal(PopupEnum.Error, response.error.message)
-      );
-    });
+              this.getUser();
+            },
+            response => this.showNotificationModal(PopupEnum.Error, response.error.message)
+          );
+      });
   }
 
   public changeEmail(): void {
@@ -87,7 +105,9 @@ export class SettingsComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(result => {
       if (!result || !result.email) {
         return;
       }
@@ -98,57 +118,71 @@ export class SettingsComponent implements OnInit {
         isUpdateTask: !this._settingsTask.isCompleted
       };
 
-      this._authService.updateUserSettings(this.user._id, data).subscribe(
-        response => {
-          if (response.isUpdated) {
-            this.showNotificationModal(
-              PopupEnum.Success,
-              this._localizationService.getTranslation('Email has been updated')
-            );
-          }
+      this._authService.updateUserSettings(this.user._id, data)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe(
+          response => {
+            if (response.isUpdated) {
+              this.showNotificationModal(
+                PopupEnum.Success,
+                this._localizationService.getTranslation('Email has been updated')
+              );
+            }
 
-          this.getUser();
-        },
-        response => this.showNotificationModal(PopupEnum.Error, response.error.message)
-      );
-    });
+            this.getUser();
+          },
+          response => this.showNotificationModal(PopupEnum.Error, response.error.message)
+        );
+      });
   }
 
   public changePassword(): void {
     const dialogRef = this.dialog.open(ChangePasswordModalComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result || !result.lastPassword || !result.newPassword) {
-        return;
-      }
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(result => {
+        if (!result || !result.lastPassword || !result.newPassword) {
+          return;
+        }
 
-      const { lastPassword, newPassword } = result;
-      const data = {
-        lastPassword,
-        newPassword,
-        isUpdateTask: !this._settingsTask.isCompleted
-      };
+        const { lastPassword, newPassword } = result;
+        const data = {
+          lastPassword,
+          newPassword,
+          isUpdateTask: !this._settingsTask.isCompleted
+        };
 
-      this._authService.updatePassword(this.user._id, data).subscribe(
-        response => {
-          if (response.isSuccessfully) {
-            this.showNotificationModal(
-              PopupEnum.Success,
-              this._localizationService.getTranslation('Password has been updated')
-            );
-          }
-        },
-        response => this.showNotificationModal(PopupEnum.Error, response.error.message || response.error)
-      );
-    });
+        this._authService.updatePassword(this.user._id, data)
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe(
+            response => {
+              if (response.isSuccessfully) {
+                this.showNotificationModal(
+                  PopupEnum.Success,
+                  this._localizationService.getTranslation('Password has been updated')
+                );
+              }
+            },
+            response => this.showNotificationModal(PopupEnum.Error, response.error.message || response.error)
+          );
+      });
   }
 
   public getUser(): void {
-    this._authService.getUserById().subscribe(response => {
-      this.user = response.user;
-      this._settingsTask = this.user.tasks.find(task => task.key === 'settings');
-      this.joinedDate = moment(this.user.createdDate).format('DD MMMM YYYY');
-      this._cdr.detectChanges();
-    });
+    this._authService.getUserById()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(response => {
+        this.user = response.user;
+        this._settingsTask = this.user.tasks.find(task => task.key === 'settings');
+        this.joinedDate = moment(this.user.createdDate).format('DD MMMM YYYY');
+        this._cdr.detectChanges();
+      });
+  }
+
+  public toggleTheme(value: boolean): void {
+    this._userPreferences.currentTheme = value
+      ? Themes.Light
+      : Themes.Dark;
   }
 }

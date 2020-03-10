@@ -1,10 +1,14 @@
 @import 'src/app/shared/scss/colors';
+@import 'src/app/shared/scss/mixins';
 
 :host {
   position: relative;
   z-index: 999;
   display: block;
-  background-color: $sidebar-color;
+  @include themify {
+    background-color: $sidebar-background;
+    box-shadow: $sidebar-box-shadow;
+  }
 }
 
 .sidebar {
@@ -18,15 +22,22 @@
     overflow: hidden;
     color: $dark-gray;
     outline: none;
+    @include themify {
+      color: $sidebar-item-color;
+    }
 
     &--active {
-      background-color: lighten($sidebar-color, 20);
+      @include themify {
+        background-color: $sidebar-item-active-background;
+      }
     }
 
     &:hover {
-      background-color: lighten($sidebar-color, 20);
       outline: none;
       cursor: pointer;
+      @include themify {
+        background-color: $sidebar-item-active-background;
+      }
     }
   }
 

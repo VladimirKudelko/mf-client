@@ -15,5 +15,12 @@
   <div class="user-settings__account account-additions">
     <h2 class="account-additions__title">{{ 'Free Account' | translate }}</h2>
     <p class="account-additions__date-joined">{{ 'Joined on' | translate }} {{ joinedDate }}</p>
+
+    <h2 class="account-additions__title">{{ 'Theme' | translate }}</h2>
+    <app-toggle-switch
+      class="account-additions__theme-switcher"
+      [defaultValue]="initialTheme === Themes.Light"
+      (valueChanged)="toggleTheme($event)"
+    ></app-toggle-switch>
   </div>
 </div>
