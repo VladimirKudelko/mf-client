@@ -16,9 +16,15 @@
 .time-intervals {
   display: block;
   padding: 1rem 0;
+  @include themify {
+    color: $time-interval-text-color;
+  }
 
   &__radio-btn {
     margin-right: 1rem;
+    @include themify {
+      color: $time-interval-radio-label-color;
+    }
   }
 }
 
@@ -31,4 +37,31 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+::ng-deep {
+
+  text {
+    @include themify {
+      fill: $chart-tick-color;
+    }
+  }
+
+  line {
+    @include themify {
+      stroke: $chart-grid-line-stroke;
+    }
+  }
+
+  .legend-title-text {
+    @include themify {
+      color: $chart-legend-title-color;
+    }
+  }
+
+  .legend-labels {
+    @include themify {
+      background: $chart-legend-labels-background;
+    }
+  }
 }

@@ -8,13 +8,14 @@ import { CategoryTypeEnum, PopupEnum } from 'src/app/shared/enums';
 import { CategoryService, AuthService, TransactionService } from 'src/app/shared/services';
 import { TaskKeysEnum } from '../../enums';
 import { LocalizationService } from 'src/app/shared/services/localization.service';
+import { hideShow } from '../../animations';
 
 @Component({
   selector: 'app-categories-list',
   templateUrl: './categories-list.component.html',
   styleUrls: ['./categories-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // animations: [ hideShow ]
+  animations: [hideShow]
 })
 export class CategoriesListComponent implements OnInit {
   @Input() title: string;
@@ -65,7 +66,7 @@ export class CategoriesListComponent implements OnInit {
   }
 
   public createNewCategory(): void {
-    const dialogRef = this.dialog.open(CreateCategoryModalComponent);
+    const dialogRef = this.dialog.open(CreateCategoryModalComponent, { width: '25vw' });
 
     dialogRef.afterClosed().subscribe(result => {
       if (!result || !result.categoryTitle || !this.categoriesType) {
@@ -87,7 +88,14 @@ export class CategoriesListComponent implements OnInit {
   }
 
   public trackMoney(category: Category): void {
-    const dialogRef = this.dialog.open(TrackMoneyModalComponent, { data: { category } });
+    const dialogRef = this.dialog.open(
+      TrackMoneyModalComponent,
+      {
+        data: { category, currency: this.wallet.currency },
+        width: '25vw',
+        minHeight: '40vh'
+      }
+    );
 
     dialogRef.afterClosed().subscribe(result => {
       if (!result || !result.amountMoney || !category || !this.wallet) {

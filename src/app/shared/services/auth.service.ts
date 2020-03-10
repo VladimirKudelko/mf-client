@@ -7,8 +7,10 @@ import { tap } from 'rxjs/operators';
 import jwtDecode from 'jwt-decode';
 import * as _ from 'lodash';
 
-import { RoleEnum } from '../enums';
+import { RoleEnum, LanguageEnum } from '../enums';
 import { User } from '../models';
+import { UserPreferencesService } from './user-preferences.service';
+import { LocalizationService } from './localization.service';
 
 const urls = {
   signup: () => `/auth/signup`,
@@ -24,6 +26,8 @@ const urls = {
 export class AuthService implements CanActivate {
   constructor(
     private _httpClient: HttpClient,
+    private _userPreferencesService: UserPreferencesService,
+    private _localizationService: LocalizationService,
     private _router: Router
   ) { }
 
@@ -43,6 +47,8 @@ export class AuthService implements CanActivate {
 
       return false;
     }
+
+    this._userPreferencesService.currentTheme = this._userPreferencesService.currentTheme;
 
     return true;
   }
@@ -119,6 +125,10 @@ export class AuthService implements CanActivate {
   public logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('language');
+
+    this._localizationService.currentLanguage = LanguageEnum.English;
+
     this._router.navigateByUrl('/auth/login');
   }
 }

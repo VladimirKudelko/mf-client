@@ -91,5 +91,19 @@
 	"Month": "Month",
 	"Year": "Year",
 	"Spent money": "Spent money",
-	"Date": "Date"
+	"Date": "Date",
+	"min": "min",
+	"hours": "hours",
+	"days": "days",
+	"months": "months",
+	"ago": "ago",
+	"Theme": "Theme",
+	"Sign Up": "Sign Up",
+	"Create your first category": "Create your first category",
+	"Track money": "Track money",
+	"Change settings": "Change settings",
+	"Create your own account in our system using mobile or web application.": "Create your own account in our system using mobile or web application.",
+	"When you add your transaction you must specify which category this transaction belongs but if there is no such category you can create your custom category.": "When you add your transaction you must specify which category this transaction belongs but if there is no such category you can create your custom category.",
+	"Please, follow to 'Expenses' or 'Incomes' and add your first transaction.": "Please, follow to 'Expenses' or 'Incomes' and add your first transaction.",
+	"If you did something by mistake while you're signing up, you can follow to 'Setting' and change that.": "If you did something by mistake while you're signing up, you can follow to 'Setting' and change that."
 }

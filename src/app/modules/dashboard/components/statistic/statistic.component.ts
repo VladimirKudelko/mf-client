@@ -2,12 +2,13 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import { MatRadioChange, MatDialog } from '@angular/material';
 import * as moment from 'moment';
 
-import { IntervalEnum, CategoryTypeEnum } from 'src/app/shared/enums';
+import { IntervalEnum, CategoryTypeEnum, Themes } from 'src/app/shared/enums';
 import { TransactionService } from 'src/app/shared/services/transaction.service';
 import { Transaction, User } from 'src/app/shared/models';
 import { AuthService, SidebarService } from 'src/app/shared/services';
 import { TransactionsListModalComponent } from 'src/app/shared/components/modals/transactions-list-modal/transactions-list-modal.component';
 import { LocalizationService } from 'src/app/shared/services/localization.service';
+import { UserPreferencesService } from 'src/app/shared/services/user-preferences.service';
 
 @Component({
   selector: 'app-statistic',
@@ -41,6 +42,7 @@ export class StatisticComponent implements OnInit {
     private _transactionService: TransactionService,
     private _sidebarService: SidebarService,
     private _localizationService: LocalizationService,
+    private _userPreferencesService: UserPreferencesService,
     private _cdr: ChangeDetectorRef,
     public dialog: MatDialog,
   ) { }
@@ -48,6 +50,8 @@ export class StatisticComponent implements OnInit {
   ngOnInit(): void {
     this._sidebarService.show();
     this._user = this._authService.getUserFromLocalStorage();
+
+    this.changeColorScheme();
   }
 
   public changeInterval(event: MatRadioChange): void {
@@ -124,4 +128,11 @@ export class StatisticComponent implements OnInit {
     });
   }
 
+  private changeColorScheme(): void {
+    const currentTheme = this._userPreferencesService.currentTheme;
+
+    this.colorScheme = currentTheme === Themes.Light
+      ? { domain: ['#5AA454', '#A10A28'] }
+      : { domain: ['rgb(60, 192, 153)', 'rgb(168, 56, 93)'] };
+  }
 }

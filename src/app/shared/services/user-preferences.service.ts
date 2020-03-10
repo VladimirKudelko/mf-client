@@ -6,8 +6,10 @@ import { Themes } from '../enums';
   providedIn: 'root'
 })
 export class UserPreferencesService {
+  private theme: Themes;
+
   get currentTheme(): Themes {
-    return localStorage.getItem('theme') as Themes || Themes.Light;
+    return this.theme || localStorage.getItem('theme') as Themes || Themes.Light;
   }
 
   set currentTheme(theme: Themes) {
@@ -17,11 +19,15 @@ export class UserPreferencesService {
       return;
     }
 
+    this.theme = theme;
+
     if (theme === Themes.Dark) {
       bodyElement.classList.add(Themes.Dark);
     } else {
       bodyElement.classList.remove(Themes.Dark);
     }
+
+    localStorage.setItem('theme', theme);
   }
 
   public changeTheme(theme: Themes): void {

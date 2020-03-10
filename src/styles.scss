@@ -16,7 +16,9 @@ body {
 
 body {
   font-family: 'Source Code Pro', monospace;
-  background-color: $accent-color;
+  @include themify {
+    background-color: $app-background;
+  }
 }
 
 a {
@@ -24,9 +26,58 @@ a {
   text-decoration: none;
 }
 
-
 input:-webkit-autofill {
   -webkit-text-fill-color: $gray !important;
   -webkit-box-shadow: 0 0 0 30px $dark-gray inset !important;
   box-shadow: 0 0 0 30px $dark-gray inset !important;
+}
+
+/*** Material Angular ***/
+
+.mat-dialog-container {
+  @include themify {
+    color: $popup-text-color;
+    background-color: $popup-background;
+  }
+
+  .mat-button-submit {
+    @include themify {
+      color: $popup-submit-button-color;
+      background: $popup-submit-button-background;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
+
+  .mat-button-close {
+    @include themify {
+      color: $popup-close-button-color;
+      background: $popup-close-button-background;
+    }
+  }
+}
+
+.mat-radio-outer-circle {
+  @include themify {
+    border-color: $mat-radio-outer-circle-color;
+  }
+}
+
+.time-intervals__radio-btn.mat-radio-checked .mat-radio-container .mat-radio-outer-circle {
+  @include themify {
+    border-color: $mat-radio-outer-circle-checked-color;
+  }
+}
+
+.time-intervals__radio-btn.mat-radio-checked .mat-radio-container .mat-radio-inner-circle {
+  @include themify {
+    background-color: $mat-radio-inner-circle-checked-color;
+  }
+}
+
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+  background: $black;
+  opacity: 0.75;
 }

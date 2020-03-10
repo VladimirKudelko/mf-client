@@ -33,12 +33,17 @@
   &__title {
     margin-bottom: 0.5rem;
     font-size: 1.35rem;
+    @include themify {
+      color: $account-info-title-color;
+    }
   }
 
   &__control {
     display: inline-block;
     margin-bottom: 1rem;
-    color: $dark-red;
+    @include themify {
+      color: $account-info-control-color;
+    }
 
     &:hover {
       text-decoration: underline;
@@ -51,10 +56,19 @@
 
   &__title {
     font-size: 1.35rem;
+    @include themify {
+      color: $account-info-title-color;
+    }
   }
 
   &__date-joined {
     margin: 1rem 0;
-    color: $gray;
+    @include themify {
+      color: $account-additions-data-joined-color;
+    }
+  }
+
+  &__theme-switcher {
+    margin-top: 1rem;
   }
 }
