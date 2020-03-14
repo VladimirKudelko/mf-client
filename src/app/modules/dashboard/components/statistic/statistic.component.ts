@@ -9,6 +9,7 @@ import { AuthService, SidebarService } from 'src/app/shared/services';
 import { TransactionsListModalComponent } from 'src/app/shared/components/modals/transactions-list-modal/transactions-list-modal.component';
 import { LocalizationService } from 'src/app/shared/services/localization.service';
 import { UserPreferencesService } from 'src/app/shared/services/user-preferences.service';
+import { tap, finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-statistic',
@@ -19,7 +20,7 @@ import { UserPreferencesService } from 'src/app/shared/services/user-preferences
 export class StatisticComponent implements OnInit {
   private _user: User;
   public results: { name: string, series: any[] }[];
-  public view: number[] = [700, 375];
+  public view: number[] = [undefined, 400];
   public colorScheme = {
     domain: ['#5AA454', '#A10A28']
   };
@@ -36,6 +37,9 @@ export class StatisticComponent implements OnInit {
   public selectedInterval: IntervalEnum;
   public intervals: string[] = [IntervalEnum.Week, IntervalEnum.Month, IntervalEnum.Year];
   public transactions: Transaction[];
+  public userActivityTransactions: Transaction[];
+  public isUserActivityLoading: boolean;
+  public CategoryTypeEnum = CategoryTypeEnum;
 
   constructor(
     private _authService: AuthService,
@@ -50,14 +54,23 @@ export class StatisticComponent implements OnInit {
   ngOnInit(): void {
     this._sidebarService.show();
     this._user = this._authService.getUserFromLocalStorage();
+    this._transactionService
+      .getNewestTransactions(this._user._id)
+      .pipe(
+        tap(() => this.isUserActivityLoading = true),
+        finalize(() => {
+          this.isUserActivityLoading = false;
+
+          this._cdr.detectChanges();
+        })
+      )
+      .subscribe(transactions => (this.userActivityTransactions = transactions));
 
     this.changeColorScheme();
   }
 
   public changeInterval(event: MatRadioChange): void {
-    this._transactionService.getUserTransactions(this._user._id, event.value).subscribe(response => {
-      const { transactions } = response;
-
+    this._transactionService.getUserTransactions(this._user._id, event.value).subscribe(transactions => {
       if (!transactions && !transactions.length) {
         return;
       }

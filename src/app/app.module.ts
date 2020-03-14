@@ -11,10 +11,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './shared/modules/app-material/app-material.module';
 import { MaterialModalsModule } from './shared/modules/material-modals/material-modals.module';
 import { AppComponent } from './app.component';
-import { LoaderComponent } from './shared/components/loader/loader.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { ApiInterceptor } from './shared/interceptors/api.interceptor';
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
+import { SharedModule } from './shared/modules/shared/shared.module';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
   return new TranslateHttpLoader(http, '/assets/locales/', '.json');
@@ -23,7 +23,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
 @NgModule({
   declarations: [
     AppComponent,
-    LoaderComponent,
     SidebarComponent
   ],
   imports: [
@@ -36,6 +35,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
     HttpClientModule,
     FontAwesomeModule,
     MaterialModalsModule,
+    SharedModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

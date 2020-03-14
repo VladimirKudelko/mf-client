@@ -3,8 +3,104 @@
 
 :host {
   display: grid;
-  grid-template-rows: 10vh 80vh;
+  grid-gap: 20px;
+  grid-template-areas: 'transactions-chart user-activity';
+  grid-template-columns: 6fr 3fr;
   padding: 1rem;
+}
+
+.section {
+  border: 0 solid transparent;
+  border-radius: 5px;
+  @include themify {
+    background-color: $statistic-section-background;
+    box-shadow: $statistic-section-box-shadow;
+  }
+}
+
+.transactions-chart {
+  grid-area: transactions-chart;
+  max-height: 75vh;
+}
+
+.user-activity {
+  display: flex;
+  flex-flow: column;
+  grid-area: user-activity;
+  height: 75vh;
+
+  &__header {
+    padding: 1rem 1.5rem;
+    @include themify {
+      color: $user-activity-header-color;
+    }
+  }
+
+  &__list {
+    position: relative;
+    overflow: scroll;
+  }
+
+  .list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 1rem;
+    @include themify {
+      border-top: 1px solid $user-activity-item-border-color;
+    }
+
+    &__date {
+      @include themify {
+        color: $user-activity-item-date-color;
+      }
+    }
+
+    &__note {
+      width: 100px;
+
+      .value {
+        @include themify {
+          color: $user-activity-item-note-color;
+        }
+      }
+    }
+
+    &__money {
+      width: 75px;
+
+      .value {
+
+        &--up {
+          @include themify {
+            color: $user-activity-item-money-up-color;
+          }
+        }
+
+        &--up:before {
+          content: '\25b2';
+        }
+
+        &--down {
+          @include themify {
+            color: $user-activity-item-money-down-color;
+          }
+        }
+
+        &--down:before {
+          content: '\25bc';
+        }
+      }
+    }
+
+    .caption {
+      padding-bottom: 0.5rem;
+      font-size: 0.9rem;
+      @include themify {
+        color: $user-activity-item-caption-color;
+      }
+    }
+  }
 }
 
 .label {
@@ -15,7 +111,7 @@
 
 .time-intervals {
   display: block;
-  padding: 1rem 0;
+  padding: 1rem;
   @include themify {
     color: $time-interval-text-color;
   }
@@ -29,14 +125,9 @@
 }
 
 .chart-container {
-  position: relative;
-}
-
-.chart {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem;
 }
 
 ::ng-deep {

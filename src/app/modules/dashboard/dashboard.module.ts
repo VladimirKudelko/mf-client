@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { AppMaterialModule } from 'src/app/shared/modules/app-material/app-material.module';
+import { SharedModule } from 'src/app/shared/modules/shared/shared.module';
 import { HomeComponent } from './components/home/home.component';
 import { ExpensesComponent } from './components/expenses/expenses.component';
 import { IncomesComponent } from './components/incomes/incomes.component';
@@ -41,7 +42,8 @@ import { ToggleSwitchComponent } from 'src/app/shared/components/toggle-switch/t
     FontAwesomeModule,
     NgxChartsModule,
     ProgressBarModule,
-    TranslateModule
+    TranslateModule,
+    SharedModule
   ]
 })
 export class DashboardModule { }

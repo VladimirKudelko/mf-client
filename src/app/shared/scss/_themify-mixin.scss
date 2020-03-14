@@ -46,6 +46,15 @@
     $transactions-list-item-subtitle-color: map-get($colors, 'transactions-list-item-subtitle-color') !global;
     $transactions-list-item-expenses-icon-color: map-get($colors, 'transactions-list-item-expenses-icon-color') !global;
     $transactions-list-item-incomes-icon-color: map-get($colors, 'transactions-list-item-incomes-icon-color') !global;
+    $statistic-section-background: map-get($colors, 'statistic-section-background') !global;
+    $user-activity-header-color: map-get($colors, 'user-activity-header-color') !global;
+    $user-activity-item-border-color: map-get($colors, 'user-activity-item-border-color') !global;
+    $user-activity-item-date-color: map-get($colors, 'user-activity-item-date-color') !global;
+    $user-activity-item-caption-color: map-get($colors, 'user-activity-item-caption-color') !global;
+    $user-activity-item-note-color: map-get($colors, 'user-activity-item-note-color') !global;
+    $user-activity-item-money-up-color: map-get($colors, 'user-activity-item-money-up-color') !global;
+    $user-activity-item-money-down-color: map-get($colors, 'user-activity-item-money-down-color') !global;
+    $statistic-section-box-shadow: map-get($colors, 'statistic-section-box-shadow') !global;
 
     $account-info-title-color: map-get($colors, 'account-info-title-color') !global;
     $account-info-control-color: map-get($colors, 'account-info-control-color') !global;
@@ -115,6 +124,15 @@
     $transactions-list-item-subtitle-color: null !global;
     $transactions-list-item-expenses-icon-color: null !global;
     $transactions-list-item-incomes-icon-color: null !global;
+    $statistic-section-background: null !global;
+    $user-activity-header-color: null !global;
+    $user-activity-item-border-color: null !global;
+    $user-activity-item-date-color: null !global;
+    $user-activity-item-caption-color: null !global;
+    $user-activity-item-note-color: null !global;
+    $user-activity-item-money-up-color: null !global;
+    $user-activity-item-money-down-color: null !global;
+    $statistic-section-box-shadow: null !global;
 
     $account-info-title-color: null !global;
     $account-info-control-color: null !global;
