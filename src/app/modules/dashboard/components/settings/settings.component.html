@@ -16,6 +16,9 @@
     <h2 class="account-additions__title">{{ 'Free Account' | translate }}</h2>
     <p class="account-additions__date-joined">{{ 'Joined on' | translate }} {{ joinedDate }}</p>
 
+    <h2 class="account-additions__title">{{ 'Wallet Currency' | translate }} - {{ user.currency }}</h2>
+    <p class="account-additions__wallet-currency" (click)="changeCurrency()">{{ 'Edit' | translate }}</p>
+
     <h2 class="account-additions__title">{{ 'Theme' | translate }}</h2>
     <app-toggle-switch
       class="account-additions__theme-switcher"

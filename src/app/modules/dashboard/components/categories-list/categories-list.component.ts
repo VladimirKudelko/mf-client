@@ -92,7 +92,7 @@ export class CategoriesListComponent implements OnInit {
       TrackMoneyModalComponent,
       {
         data: { category, currency: this.wallet.currency },
-        width: '25vw',
+        minWidth: '300px',
         minHeight: '40vh'
       }
     );
@@ -102,22 +102,19 @@ export class CategoriesListComponent implements OnInit {
         return;
       }
 
-      const { amountMoney, note } = result;
-      const data: any = {
+      const data = {
         walletId: this.wallet._id,
         categoryId: category._id,
         type: this.categoriesType,
         createdDate: new Date().toISOString(),
         isUpdateTask: !this._moneyTask.isCompleted,
-        amountMoney
+        currency: this.wallet.currency,
+        amountMoney: result.amountMoney,
+        note: result.note || ''
       };
 
-      if (note) {
-        data.note = note;
-      }
-
       this._transactionService.createTransaction(this._user._id, data)
-        .subscribe(response => this.updatedCash.emit());
+        .subscribe(() => this.updatedCash.emit());
     });
   }
 }

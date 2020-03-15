@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Wallet } from '../models';
+import { pluck } from 'rxjs/operators';
 
 const urls = {
   getUserCash: (userId: string) => `/cash/${userId}`
@@ -11,11 +12,9 @@ const urls = {
   providedIn: 'root'
 })
 export class CashService {
-  constructor(
-    private _httpClient: HttpClient,
-  ) { }
+  constructor(private _httpClient: HttpClient) {}
 
-  public getUserCash(userId: string): Observable<{ wallet: Wallet }> {
-    return this._httpClient.get<{ wallet: Wallet }>(urls.getUserCash(userId));
+  public getUserCash(userId: string): Observable<Wallet> {
+    return this._httpClient.get<{ wallet: Wallet }>(urls.getUserCash(userId)).pipe(pluck('wallet'));
   }
 }

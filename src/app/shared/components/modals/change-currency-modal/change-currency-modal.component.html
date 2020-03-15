@@ -1,0 +1,44 @@
+<section class="currency-calculator">
+  <div class="currency-calculator__header header">
+    <img class="header__icon" src="../../../../../assets/money.svg" alt="money">
+    <h1 class="header__title">{{ 'Exchange Rate Calculator' | translate }}</h1>
+    <p class="header__subtitle">{{ 'Choose the currency to get the exchange rate' | translate }}</p>
+  </div>
+
+  <form class="currency-calculator__form form" [formGroup]="changeCurrencyForm" (ngSubmit)="submit()">
+    <mat-form-field class="form__control">
+      <mat-label>Current currency</mat-label>
+      <mat-select formControlName="from">
+        <mat-option [value]="data.from">{{ data.from }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <img class="form__icon" src="../../../../../assets/arrow-down.svg" alt="arrow-down">
+
+    <mat-form-field class="form__control">
+      <mat-label>Future currency</mat-label>
+      <mat-select formControlName="to">
+        <mat-option *ngFor="let conversionRate of conversionRates" [value]="conversionRate">
+          {{ conversionRate.currency }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="form__conversion-result">
+      {{ formatedConversionResult }}
+    </div>
+
+    <footer class="form__footer" mat-dialog-actions>
+      <button class="mat-button-close" mat-button mat-dialog-close>{{ 'Cancel' | translate }}</button>
+      <button
+        class="mat-button-submit"
+        mat-button
+        type="submit"
+        [disabled]="!changeCurrencyForm.valid"
+        (click)="submit()"
+      >
+        {{ 'Exchange' | translate }}
+      </button>
+    </footer>
+  </form>
+</section>

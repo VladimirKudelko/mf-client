@@ -105,5 +105,11 @@
 	"Create your own account in our system using mobile or web application.": "Create your own account in our system using mobile or web application.",
 	"When you add your transaction you must specify which category this transaction belongs but if there is no such category you can create your custom category.": "When you add your transaction you must specify which category this transaction belongs but if there is no such category you can create your custom category.",
 	"Please, follow to 'Expenses' or 'Incomes' and add your first transaction.": "Please, follow to 'Expenses' or 'Incomes' and add your first transaction.",
-	"If you did something by mistake while you're signing up, you can follow to 'Setting' and change that.": "If you did something by mistake while you're signing up, you can follow to 'Setting' and change that."
+	"If you did something by mistake while you're signing up, you can follow to 'Setting' and change that.": "If you did something by mistake while you're signing up, you can follow to 'Setting' and change that.",
+	"Wallet Currency": "Wallet Currency",
+	"Exchange Rate Calculator": "Exchange Rate Calculator",
+	"Choose the currency to get the exchange rate": "Choose the currency to get the exchange rate",
+	"Exchange": "Exchange",
+	"Currency has been updated": "Currency has been updated",
+	"Currency has not been updated": "Currency has not been updated"
 }

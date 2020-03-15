@@ -60,6 +60,7 @@
       width: 100px;
 
       .value {
+        overflow: hidden;
         @include themify {
           color: $user-activity-item-note-color;
         }

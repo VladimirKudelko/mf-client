@@ -3,6 +3,7 @@ import * as moment from 'moment';
 
 import { Wallet } from 'src/app/shared/models';
 import { LocalizationService } from 'src/app/shared/services/localization.service';
+import { CURRENCY_SYMBOLS } from 'src/app/shared/constants/currency-symbols';
 
 @Component({
   selector: 'app-wallet',
@@ -11,6 +12,8 @@ import { LocalizationService } from 'src/app/shared/services/localization.servic
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WalletComponent {
+  public CURRENCY_SYMBOLS = CURRENCY_SYMBOLS;
+
   @Input() wallet: Wallet;
 
   constructor(private _localizationService: LocalizationService) {}

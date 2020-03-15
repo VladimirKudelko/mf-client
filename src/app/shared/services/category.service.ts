@@ -13,9 +13,7 @@ const urls = {
   providedIn: 'root'
 })
 export class CategoryService {
-  constructor(
-    private _httpClient: HttpClient
-  ) { }
+  constructor(private _httpClient: HttpClient) {}
 
   public createNewCategory(userId: string, data: any): Observable<{ category: Category }> {
     return this._httpClient.post<{ category: Category }>(urls.createNewCategory(userId), data);

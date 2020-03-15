@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { Category } from 'src/app/shared/models';
+import { CURRENCY_SYMBOLS } from 'src/app/shared/constants/currency-symbols';
 
 @Component({
   selector: 'app-track-money-modal',
@@ -30,7 +31,7 @@ export class TrackMoneyModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.currencySymbol = this.data.currency === 'USD' ? '$' : '';
+    this.currencySymbol = CURRENCY_SYMBOLS[this.data.currency];
   }
 
   public formIsInvalid(): boolean {

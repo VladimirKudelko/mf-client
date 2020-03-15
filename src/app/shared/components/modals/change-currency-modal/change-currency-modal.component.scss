@@ -1,0 +1,50 @@
+@import 'src/app/shared/scss/colors';
+@import 'src/app/shared/scss/mixins';
+
+:host {
+  padding: 1rem;
+}
+
+.currency-calculator {
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__icon {
+      width: 25%;
+    }
+
+    &__title {
+      color: $dark-green;
+      font-size: 2rem;
+    }
+
+    &__subtitle {
+      margin-top: 10px;
+    }
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
+
+    &__control {
+      display: block;
+      width: 50%;
+      margin-top: 10px;
+    }
+
+    &__icon {
+      width: 15%;
+    }
+
+    &__conversion-result {
+      color: $dark-green;
+      font-size: 1.5rem;
+    }
+  }
+}

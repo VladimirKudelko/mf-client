@@ -7,12 +7,14 @@ import { CategoryService } from './category.service';
 import { ProfileService } from './profile.service';
 import { BudgetService } from './budget.service';
 import { UserResolverService } from './user-resolver.service';
+import { CurrencyService } from './currency.service';
 
 export {
   AuthService,
   BudgetService,
   CashService,
   CategoryService,
+  CurrencyService,
   LoaderService,
   ProfileService,
   SidebarService,

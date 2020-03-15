@@ -1,5 +1,5 @@
 <section class="wallet">
-  <div class="wallet__cash">{{ wallet.balance | currency: wallet.currency }}</div>
+  <div class="wallet__cash">{{ wallet.balance }} {{ CURRENCY_SYMBOLS[wallet.currency] }}</div>
 
   <div class="wallet__updates">
     <p>{{ 'Created date' | translate }}: {{ wallet.createdDate | date }}</p>

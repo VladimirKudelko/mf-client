@@ -7,10 +7,12 @@ import { Category } from './category.model';
 import { Transaction } from './transaction.model';
 import { Task } from './task';
 import { Budget } from './budget.model';
+import { ConversionRate } from './conversion-rate.model';
 
 export {
   Budget,
   Category,
+  ConversionRate,
   LoaderState,
   MenuItem,
   SidebarState,

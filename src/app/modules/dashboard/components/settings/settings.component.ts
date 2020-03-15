@@ -3,18 +3,19 @@ import { MatDialog } from '@angular/material';
 import { Subject } from 'rxjs';
 import * as moment from 'moment';
 
-import { SidebarService, AuthService } from 'src/app/shared/services';
+import { SidebarService, AuthService, CurrencyService } from 'src/app/shared/services';
 import { User, Task } from 'src/app/shared/models';
 import {
   ChangeEmailModalComponent,
   ChangeFullNameModalComponent,
   ChangePasswordModalComponent,
-  NotificationModalComponent
+  NotificationModalComponent,
+  ChangeCurrencyModalComponent
 } from 'src/app/shared/components/modals';
 import { PopupEnum, Themes } from 'src/app/shared/enums';
 import { LocalizationService } from 'src/app/shared/services/localization.service';
 import { UserPreferencesService } from 'src/app/shared/services/user-preferences.service';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-settings',
@@ -23,7 +24,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class SettingsComponent implements OnInit, OnDestroy {
   private _settingsTask: Task;
-  private unsubscribe$ = new Subject();
+  private _unsubscribe$ = new Subject();
 
   public user: User;
   public joinedDate: string;
@@ -35,6 +36,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     private _authService: AuthService,
     private _localizationService: LocalizationService,
     private _userPreferences: UserPreferencesService,
+    private _currencyService: CurrencyService,
     private _cdr: ChangeDetectorRef,
     public dialog: MatDialog
   ) { }
@@ -47,8 +49,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
+    this._unsubscribe$.next();
+    this._unsubscribe$.complete();
   }
 
   private showNotificationModal(modalType: PopupEnum, message: string): void {
@@ -67,7 +69,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed()
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(takeUntil(this._unsubscribe$))
       .subscribe(result => {
         if (!result || !result.firstName || !result.lastName) {
           return;
@@ -81,7 +83,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         };
 
         this._authService.updateUserSettings(this.user._id, data)
-          .pipe(takeUntil(this.unsubscribe$))
+          .pipe(takeUntil(this._unsubscribe$))
           .subscribe(
             response => {
               if (response.isUpdated) {
@@ -106,33 +108,33 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed()
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(takeUntil(this._unsubscribe$))
       .subscribe(result => {
-      if (!result || !result.email) {
-        return;
-      }
+        if (!result || !result.email) {
+          return;
+        }
 
-      const { email } = result;
-      const data = {
-        email,
-        isUpdateTask: !this._settingsTask.isCompleted
-      };
+        const { email } = result;
+        const data = {
+          email,
+          isUpdateTask: !this._settingsTask.isCompleted
+        };
 
-      this._authService.updateUserSettings(this.user._id, data)
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe(
-          response => {
-            if (response.isUpdated) {
-              this.showNotificationModal(
-                PopupEnum.Success,
-                this._localizationService.getTranslation('Email has been updated')
-              );
-            }
+        this._authService.updateUserSettings(this.user._id, data)
+          .pipe(takeUntil(this._unsubscribe$))
+          .subscribe(
+            response => {
+              if (response.isUpdated) {
+                this.showNotificationModal(
+                  PopupEnum.Success,
+                  this._localizationService.getTranslation('Email has been updated')
+                );
+              }
 
-            this.getUser();
-          },
-          response => this.showNotificationModal(PopupEnum.Error, response.error.message)
-        );
+              this.getUser();
+            },
+            response => this.showNotificationModal(PopupEnum.Error, response.error.message)
+          );
       });
   }
 
@@ -140,7 +142,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ChangePasswordModalComponent);
 
     dialogRef.afterClosed()
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(takeUntil(this._unsubscribe$))
       .subscribe(result => {
         if (!result || !result.lastPassword || !result.newPassword) {
           return;
@@ -154,7 +156,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         };
 
         this._authService.updatePassword(this.user._id, data)
-          .pipe(takeUntil(this.unsubscribe$))
+          .pipe(takeUntil(this._unsubscribe$))
           .subscribe(
             response => {
               if (response.isSuccessfully) {
@@ -169,9 +171,36 @@ export class SettingsComponent implements OnInit, OnDestroy {
       });
   }
 
+  public changeCurrency(): void {
+    const dialogRef = this.dialog.open(
+      ChangeCurrencyModalComponent,
+      {
+        data: { from: this.user.currency, userId: this.user._id },
+        width: '50vw',
+        minHeight: '50vh'
+      }
+    );
+
+    dialogRef.afterClosed()
+      .pipe(
+        filter(result => !!result),
+        takeUntil(this._unsubscribe$)
+      )
+      .subscribe(result => {
+        this._currencyService.changeCurrency(result).subscribe(response => {
+          const popupStatus = response.isUpdated ? PopupEnum.Success : PopupEnum.Error;
+          const popupMessage = response.isUpdated
+            ? 'Currency has been updated'
+            : 'Currency has not been updated';
+
+          this.showNotificationModal(popupStatus, this._localizationService.getTranslation(popupMessage));
+        });
+      });
+  }
+
   public getUser(): void {
     this._authService.getUserById()
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(takeUntil(this._unsubscribe$))
       .subscribe(response => {
         this.user = response.user;
         this._settingsTask = this.user.tasks.find(task => task.key === 'settings');

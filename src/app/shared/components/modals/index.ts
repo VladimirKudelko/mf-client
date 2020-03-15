@@ -7,12 +7,14 @@ import { NotificationModalComponent } from './notification/notification.componen
 import { TrackMoneyModalComponent } from './track-money-modal/track-money-modal.component';
 import { TransactionsListModalComponent } from './transactions-list-modal/transactions-list-modal.component';
 import { AddBudgetModalComponent } from './add-budget-modal/add-budget-modal.component';
+import { ChangeCurrencyModalComponent } from './change-currency-modal/change-currency-modal.component';
 
 export {
   AddBudgetModalComponent,
   ChangeEmailModalComponent,
   ChangeFullNameModalComponent,
   ChangePasswordModalComponent,
+  ChangeCurrencyModalComponent,
   ConfirmationModalComponent,
   CreateCategoryModalComponent,
   NotificationModalComponent,
