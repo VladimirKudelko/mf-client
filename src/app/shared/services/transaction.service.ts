@@ -26,14 +26,15 @@ export class TransactionService {
     return this._httpClient.post<{ transaction: Transaction }>(urls.createTransaction(userId), data);
   }
 
-  public getUserTransactions(userId: string, period: TransactionPeriodEnum): Observable<Transaction[]> {
+  public getUserTransactions(userId: string, period: TransactionPeriodEnum):
+    Observable<{ transactions: Transaction[], totalExpenses: number, totalIncomes: number }> {
+
     const httpOptions = {
       params: new HttpParams().set('period', period)
     };
 
     return this._httpClient
-      .get<{ transactions: Transaction[]} >(urls.getUserTransactions(userId), httpOptions)
-      .pipe(pluck('transactions'));
+      .get<{ transactions: Transaction[], totalExpenses: number, totalIncomes: number } >(urls.getUserTransactions(userId), httpOptions);
   }
 
   public getNewestTransactions(userId: string, limit = 10): Observable<Transaction[]> {

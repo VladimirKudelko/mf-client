@@ -43,6 +43,6 @@ export class TransactionsListModalComponent implements OnInit {
     this._transactionService
       .getUserTransactions(this.data.userId, value)
       .pipe(filter(transactions => !!transactions))
-      .subscribe(transactions => (this.transactions = transactions));
+      .subscribe(response => (this.transactions = response.transactions));
   }
 }

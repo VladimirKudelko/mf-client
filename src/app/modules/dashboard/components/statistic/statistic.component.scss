@@ -21,6 +21,24 @@
 .transactions-chart {
   grid-area: transactions-chart;
   max-height: 75vh;
+
+  .total-result {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+
+    &__expenses {
+      @include themify {
+        color: $statistic-total-result-expenses-color;
+      }
+    }
+
+    &__incomes {
+      @include themify {
+        color: $statistic-total-result-incomes-color;
+      }
+    }
+  }
 }
 
 .user-activity {

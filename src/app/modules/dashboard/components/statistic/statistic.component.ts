@@ -18,7 +18,7 @@ import { tap, finalize } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatisticComponent implements OnInit {
-  private _user: User;
+  public user: User;
   public results: { name: string, series: any[] }[];
   public view: number[] = [undefined, 400];
   public colorScheme = {
@@ -40,6 +40,8 @@ export class StatisticComponent implements OnInit {
   public userActivityTransactions: Transaction[];
   public isUserActivityLoading: boolean;
   public CategoryTypeEnum = CategoryTypeEnum;
+  public totalExpenses: number;
+  public totalIncomes: number;
 
   constructor(
     private _authService: AuthService,
@@ -53,9 +55,9 @@ export class StatisticComponent implements OnInit {
 
   ngOnInit(): void {
     this._sidebarService.show();
-    this._user = this._authService.getUserFromLocalStorage();
+    this.user = this._authService.getUserFromLocalStorage();
     this._transactionService
-      .getNewestTransactions(this._user._id)
+      .getNewestTransactions(this.user._id)
       .pipe(
         tap(() => this.isUserActivityLoading = true),
         finalize(() => {
@@ -70,10 +72,13 @@ export class StatisticComponent implements OnInit {
   }
 
   public changeInterval(event: MatRadioChange): void {
-    this._transactionService.getUserTransactions(this._user._id, event.value).subscribe(transactions => {
-      if (!transactions && !transactions.length) {
+    this._transactionService.getUserTransactions(this.user._id, event.value).subscribe(response => {
+      if (!response.transactions && !response.transactions.length) {
         return;
       }
+
+      this.totalExpenses = response.totalExpenses;
+      this.totalIncomes = response.totalIncomes;
 
       const expensesTransactions = [];
       const incomesTransactions = [];
@@ -83,7 +88,7 @@ export class StatisticComponent implements OnInit {
         { name: this._localizationService.getTranslation('Expenses'), series: [] }
       ];
 
-      transactions.forEach(transaction => {
+      response.transactions.forEach(transaction => {
         switch (transaction.type) {
           case CategoryTypeEnum.Expenses: expensesTransactions.push(transaction); break;
           case CategoryTypeEnum.Incomes: incomesTransactions.push(transaction); break;
@@ -98,7 +103,7 @@ export class StatisticComponent implements OnInit {
   }
 
   public selectLine(event: { name: string, value: number, series: string }): void {
-    const { _id } = this._user;
+    const { _id } = this.user;
     const startDate = moment(event.name);
     const endDate = moment(startDate).add(1, 'day');
 

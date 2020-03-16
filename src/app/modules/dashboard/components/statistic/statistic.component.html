@@ -9,6 +9,16 @@
       {{ interval | translate }}
     </mat-radio-button>
   </mat-radio-group>
+
+  <div class="total-result">
+    <h2 class="total-result__expenses" *ngIf="totalExpenses">
+      {{ 'Expenses' | translate }} - {{ totalExpenses }} {{ user.currency }}
+    </h2>
+    <h2 class="total-result__incomes" *ngIf="totalIncomes">
+      {{ 'Incomes' | translate }} - {{ totalIncomes }} {{ user.currency }}
+    </h2>
+  </div>
+
   <div class="chart-container">
     <ngx-charts-line-chart
       [view]="view"

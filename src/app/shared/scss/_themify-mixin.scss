@@ -55,7 +55,8 @@
     $user-activity-item-money-up-color: map-get($colors, 'user-activity-item-money-up-color') !global;
     $user-activity-item-money-down-color: map-get($colors, 'user-activity-item-money-down-color') !global;
     $statistic-section-box-shadow: map-get($colors, 'statistic-section-box-shadow') !global;
-
+    $statistic-total-result-expenses-color: map-get($colors, 'statistic-total-result-expenses-color') !global;
+    $statistic-total-result-incomes-color: map-get($colors, 'statistic-total-result-incomes-color') !global;
     $account-info-title-color: map-get($colors, 'account-info-title-color') !global;
     $account-info-control-color: map-get($colors, 'account-info-control-color') !global;
     $account-additions-data-joined-color: map-get($colors, 'account-additions-data-joined-color') !global;
@@ -133,7 +134,8 @@
     $user-activity-item-money-up-color: null !global;
     $user-activity-item-money-down-color: null !global;
     $statistic-section-box-shadow: null !global;
-
+    $statistic-total-result-expenses-color: null !global;
+    $statistic-total-result-incomes-color: null !global;
     $account-info-title-color: null !global;
     $account-info-control-color: null !global;
     $account-additions-data-joined-color: null !global;
