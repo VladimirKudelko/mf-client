@@ -1,11 +1,9 @@
 @import 'src/app/shared/scss/colors';
 @import 'src/app/shared/scss/mixins';
+@import 'src/app/shared/scss/screen-sizes';
 
 :host {
-  display: grid;
-  grid-gap: 20px;
-  grid-template-areas: 'transactions-chart user-activity';
-  grid-template-columns: 6fr 3fr;
+  display: flex;
   padding: 1rem;
 }
 
@@ -19,7 +17,7 @@
 }
 
 .transactions-chart {
-  grid-area: transactions-chart;
+  flex: 3;
   max-height: 75vh;
 
   .total-result {
@@ -43,9 +41,11 @@
 
 .user-activity {
   display: flex;
+  flex: 2;
   flex-flow: column;
   grid-area: user-activity;
   height: 75vh;
+  margin-left: 25px;
 
   &__header {
     padding: 1rem 1.5rem;
@@ -173,5 +173,31 @@
     @include themify {
       background: $chart-legend-labels-background;
     }
+  }
+}
+@media (max-width: $small-desktop) {
+
+  .transactions-chart {
+    flex: 5;
+  }
+
+  .user-activity {
+    flex: 4;
+  }
+}
+@media (max-width: $desktop) {
+
+  :host {
+    flex-wrap: wrap;
+  }
+
+  .transactions-chart {
+    min-height: 75vh;
+    padding-bottom: 1rem;
+  }
+
+  .user-activity {
+    min-height: 10vh;
+    margin: 25px 0 0;
   }
 }

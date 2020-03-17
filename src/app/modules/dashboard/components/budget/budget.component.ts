@@ -93,7 +93,7 @@ export class BudgetComponent implements OnInit {
 
   public openAddingBudgetModal(): void {
     this._dialog
-      .open(AddBudgetModalComponent, { minWidth: '750px' })
+      .open(AddBudgetModalComponent, { width: '100vw' })
       .afterClosed()
       .pipe(filter(result => result && !!Object.keys(result).length))
       .subscribe(result => this.addBudget(result));

@@ -1,5 +1,6 @@
 @import 'src/app/shared/scss/colors';
 @import 'src/app/shared/scss/mixins';
+@import 'src/app/shared/scss/screen-sizes';
 
 :host {
   padding: 1rem;
@@ -11,18 +12,17 @@
 }
 
 .user-settings {
+  display: flex;
   margin: 0 5rem;
 
   &__data {
-    float: left;
-    width: 50%;
+    flex: 1;
     padding-right: 3rem;
     text-align: right;
   }
 
   &__account {
-    float: right;
-    width: 50%;
+    flex: 1;
     padding-left: 3rem;
     text-align: left;
   }
@@ -82,6 +82,23 @@
     &:hover {
       text-decoration: underline;
       cursor: pointer;
+    }
+  }
+}
+@media (max-width: $desktop) {
+
+  .user-settings {
+    flex-direction: column;
+    margin: 0 2.5rem;
+
+    &__data {
+      padding: 0;
+      text-align: center;
+    }
+
+    &__account {
+      padding: 0;
+      text-align: center;
     }
   }
 }

@@ -1,22 +1,20 @@
-<main class="home">
-  <section class="todo-list">
-    <h2 class="todo-list__title">{{ 'Complete the whole tasks' | translate }}</h2>
-    <p class="todo-list__subtitle">{{ 'In order to peruse with the application' | translate }}</p>
+<section class="todo-list">
+  <h2 class="todo-list__title">{{ 'Complete the whole tasks' | translate }}</h2>
+  <p class="todo-list__subtitle">{{ 'In order to peruse with the application' | translate }}</p>
 
-    <mat-accordion *ngIf="tasks?.length">
-      <mat-expansion-panel class="task" *ngFor="let task of tasks">
-        <mat-expansion-panel-header class="task-header">
-          <mat-panel-description
-            class="task-header__description"
-            [ngClass]="getTaskClasses(task)">
-            <fa-icon class="task-header__description-icon" [icon]="getIconByStatus(task)"></fa-icon>
-            {{ task.description | translate }}
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="task-content">
-          {{ task.content | translate }}
-        </div>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </section>
-</main>
+  <mat-accordion *ngIf="tasks?.length">
+    <mat-expansion-panel class="task" *ngFor="let task of tasks">
+      <mat-expansion-panel-header class="task-header">
+        <mat-panel-description
+          class="task-header__description"
+          [ngClass]="getTaskClasses(task)">
+          <fa-icon class="task-header__description-icon" [icon]="getIconByStatus(task)"></fa-icon>
+          {{ task.description | translate }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="task-content">
+        {{ task.content | translate }}
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</section>

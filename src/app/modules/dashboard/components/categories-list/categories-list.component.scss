@@ -1,7 +1,9 @@
 @import 'src/app/shared/scss/colors';
 @import 'src/app/shared/scss/mixins';
+@import 'src/app/shared/scss/screen-sizes';
 
 .categories-list {
+  position: relative;
   padding: 1rem;
 
   &__title {
@@ -12,8 +14,10 @@
     }
   }
 
-  &__creation {
-    float: right;
+  &__create-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
     width: 25px;
     height: 25px;
     border: 0;
@@ -58,5 +62,11 @@
         background: $categories-item-hover-background;
       }
     }
+  }
+}
+@media (max-width: $mobile-large) {
+
+  .categories {
+    justify-content: center;
   }
 }

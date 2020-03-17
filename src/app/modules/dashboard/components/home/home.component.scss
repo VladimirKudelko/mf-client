@@ -1,7 +1,9 @@
 @import 'src/app/shared/scss/colors';
 @import 'src/app/shared/scss/mixins';
+@import 'src/app/shared/scss/screen-sizes';
 
-.home {
+:host {
+  display: block;
   padding: 1rem;
 }
 
@@ -68,5 +70,11 @@
 .task-content {
   @include themify {
     color: $todo-item-content-color;
+  }
+}
+@media (max-width: $mobile-large) {
+
+  .todo-list {
+    width: 100%;
   }
 }

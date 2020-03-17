@@ -1,42 +1,64 @@
 <div class="add-budget">
   <h1 mat-dialog-title>{{ 'Add Budget' | translate }}</h1>
 
-  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-horizontal-stepper class="horizontal-stepper" [linear]="isLinear" #stepper>
     <mat-step [stepControl]="budgetTypeForm">
-      <form [formGroup]="budgetTypeForm">
-        <ng-template matStepLabel>{{ 'Budget Type' | translate }}</ng-template>
-        <p class="add-budget__label">{{ 'Which expenses is this budget for' | translate }}?</p>
-        <mat-form-field class="add-budget__control">
-          <mat-select formControlName="budgetType" [compareWith]="compareBudgetTypeWithOption">
-            <mat-option *ngFor="let budget of budgets" [value]="budget">{{ budget.title | translate }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </form>
+      <ng-container *ngTemplateOutlet="stepOne"></ng-container>
     </mat-step>
-
     <mat-step [stepControl]="budgetLifetime">
-      <form [formGroup]="budgetLifetime">
-        <ng-template matStepLabel>{{ 'Budget Lifetime' | translate }}</ng-template>
-        <p class="add-budget__label">{{ 'How long will your budget live' | translate }}?</p>
-        <mat-form-field class="add-budget__control">
-          <mat-select formControlName="lifetime" [compareWith]="compareBudgetLifetimeWithOption">
-            <mat-option *ngFor="let lifetime of lifetimes" [value]="lifetime">{{ lifetime.title | translate }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </form>
+      <ng-container *ngTemplateOutlet="stepTwo"></ng-container>
     </mat-step>
-
-
     <mat-step [stepControl]="limitForm">
-      <form [formGroup]="limitForm">
-        <ng-template matStepLabel>{{ 'Amount of money' | translate }}</ng-template>
-        <p class="add-budget__label">{{ 'How much can you spend' | translate }}?</p>
-        <mat-form-field class="add-budget__control">
-          <input matInput type="number" placeholder="0" formControlName="limit" required>
-        </mat-form-field>
-      </form>
+      <ng-container *ngTemplateOutlet="stepThree"></ng-container>
     </mat-step>
   </mat-horizontal-stepper>
+
+  <mat-vertical-stepper class="vertical-stepper" [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="budgetTypeForm">
+      <ng-container *ngTemplateOutlet="stepOne"></ng-container>
+    </mat-step>
+    <mat-step [stepControl]="budgetLifetime">
+      <ng-container *ngTemplateOutlet="stepTwo"></ng-container>
+    </mat-step>
+    <mat-step [stepControl]="limitForm">
+      <ng-container *ngTemplateOutlet="stepThree"></ng-container>
+    </mat-step>
+  </mat-vertical-stepper>
+
+  <ng-template #stepOne>
+    <form [formGroup]="budgetTypeForm">
+      <ng-template matStepLabel>{{ 'Budget Type' | translate }}</ng-template>
+      <p class="add-budget__label">{{ 'Which expenses is this budget for' | translate }}?</p>
+      <mat-form-field class="add-budget__control">
+        <mat-select formControlName="budgetType" [compareWith]="compareBudgetTypeWithOption">
+          <mat-option *ngFor="let budget of budgets" [value]="budget">{{ budget.title | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </ng-template>
+
+  <ng-template #stepTwo>
+    <form [formGroup]="budgetLifetime">
+      <ng-template matStepLabel>{{ 'Budget Lifetime' | translate }}</ng-template>
+      <p class="add-budget__label">{{ 'How long will your budget live' | translate }}?</p>
+      <mat-form-field class="add-budget__control">
+        <mat-select formControlName="lifetime" [compareWith]="compareBudgetLifetimeWithOption">
+          <mat-option *ngFor="let lifetime of lifetimes" [value]="lifetime">{{ lifetime.title | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </ng-template>
+
+
+  <ng-template #stepThree>
+    <form [formGroup]="limitForm">
+      <ng-template matStepLabel>{{ 'Amount of money' | translate }}</ng-template>
+      <p class="add-budget__label">{{ 'How much can you spend' | translate }}?</p>
+      <mat-form-field class="add-budget__control">
+        <input matInput type="number" placeholder="0" formControlName="limit" required>
+      </mat-form-field>
+    </form>
+  </ng-template>
 
   <footer class="add-budget__footer" mat-dialog-actions>
     <button mat-button mat-dialog-close>{{ 'Cancel' | translate }}</button>

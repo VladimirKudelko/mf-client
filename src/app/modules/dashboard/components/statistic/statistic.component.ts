@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { MatRadioChange, MatDialog } from '@angular/material';
 import * as moment from 'moment';
 
@@ -17,10 +17,10 @@ import { tap, finalize } from 'rxjs/operators';
   styleUrls: ['./statistic.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StatisticComponent implements OnInit {
+export class StatisticComponent implements OnInit, AfterViewChecked {
   public user: User;
   public results: { name: string, series: any[] }[];
-  public view: number[] = [undefined, 400];
+  public view: number[] = [600, 400];
   public colorScheme = {
     domain: ['#5AA454', '#A10A28']
   };
@@ -69,6 +69,12 @@ export class StatisticComponent implements OnInit {
       .subscribe(transactions => (this.userActivityTransactions = transactions));
 
     this.changeColorScheme();
+  }
+
+  ngAfterViewChecked(): void {
+    this.view = window.innerWidth < 1150
+      ? [400, 300]
+      : [600, 400];
   }
 
   public changeInterval(event: MatRadioChange): void {

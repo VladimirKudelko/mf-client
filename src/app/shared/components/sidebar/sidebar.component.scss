@@ -1,10 +1,12 @@
 @import 'src/app/shared/scss/colors';
 @import 'src/app/shared/scss/mixins';
+@import 'src/app/shared/scss/screen-sizes';
 
 :host {
   position: relative;
   z-index: 999;
   display: block;
+  transition: margin-left 0.5s;
   @include themify {
     background-color: $sidebar-background;
     box-shadow: $sidebar-box-shadow;
@@ -59,5 +61,27 @@
     height: 15px;
     margin: 0 0.5rem;
     cursor: pointer;
+  }
+}
+
+.sidebar-switcher {
+  position: absolute;
+  top: 0;
+  right: -30px;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  background-color: #242323;
+}
+@media (max-width: $mobile-large) {
+
+  .sidebar-switcher {
+    display: block;
+  }
+}
+@media (min-width: $mobile-large) {
+
+  .sidebar-switcher {
+    display: none;
   }
 }

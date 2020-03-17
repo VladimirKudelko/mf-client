@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
 @import './app/shared/scss/colors';
 @import './app/shared/scss/mixins';
+@import './app/shared/scss/screen-sizes';
 
 * {
   box-sizing: border-box;
@@ -80,4 +81,16 @@ input:-webkit-autofill {
 .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
   background: $black;
   opacity: 0.75;
+}
+@media (max-width: $mobile-large) {
+
+  .cdk-overlay-container .cdk-overlay-pane {
+    width: 60vw !important;
+  }
+}
+@media (max-width: $mobile) {
+
+  .cdk-overlay-container .cdk-overlay-pane {
+    width: 80vw !important;
+  }
 }

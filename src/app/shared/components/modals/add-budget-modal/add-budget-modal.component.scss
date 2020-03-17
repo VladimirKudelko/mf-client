@@ -1,3 +1,5 @@
+@import 'src/app/shared/scss/screen-sizes';
+
 ::ng-deep {
 
   .mat-horizontal-stepper-header-container {
@@ -13,5 +15,25 @@
 
   &__label {
     font-weight: 600;
+  }
+}
+@media (max-width: $mobile-large) {
+
+  .horizontal-stepper {
+    display: none;
+  }
+
+  .vertical-stepper {
+    display: block;
+  }
+}
+@media (min-width: $mobile-large) {
+
+  .horizontal-stepper {
+    display: block;
+  }
+
+  .vertical-stepper {
+    display: none;
   }
 }

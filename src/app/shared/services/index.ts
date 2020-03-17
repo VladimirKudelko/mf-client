@@ -8,6 +8,8 @@ import { ProfileService } from './profile.service';
 import { BudgetService } from './budget.service';
 import { UserResolverService } from './user-resolver.service';
 import { CurrencyService } from './currency.service';
+import { LocalizationService } from './localization.service';
+import { GlobalEventsService } from './global-events.service';
 
 export {
   AuthService,
@@ -15,7 +17,9 @@ export {
   CashService,
   CategoryService,
   CurrencyService,
+  GlobalEventsService,
   LoaderService,
+  LocalizationService,
   ProfileService,
   SidebarService,
   TransactionService,

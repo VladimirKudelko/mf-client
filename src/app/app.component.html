@@ -1,7 +1,7 @@
-<div class="content" [ngClass]="sidebarClasses">
-  <app-sidebar *ngIf="isShowSidebar"></app-sidebar>
-  <div>
-    <router-outlet></router-outlet>
-  </div>
+<app-sidebar class="sidebar" *ngIf="isShowSidebar"></app-sidebar>
+
+<div class="main">
+  <router-outlet></router-outlet>
 </div>
+
 <app-loader *ngIf="isLoading"></app-loader>
