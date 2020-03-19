@@ -3,15 +3,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Transaction } from '../models';
-import { TransactionPeriodEnum } from '../enums';
+import { TransactionPeriodEnum, CategoryTypeEnum, IntervalEnum } from '../enums';
 import { pluck } from 'rxjs/operators';
 
 const urls = {
   createTransaction: (userId: string) => `/transactions/${userId}`,
   getUserTransactions: (userId: string) => `/transactions/user/${userId}`,
   getNewestUserTransactions: (userId: string) => `/transactions/user/${userId}/newest`,
-  getUserTransactionsByPeriod: (userId: string, startDate: number, endDate: number) =>
-    `/transactions/user/${userId}/date?startDate=${startDate}&endDate=${endDate}`,
+  getUserTransactionsByPeriod: (userId: string) => `/transactions/user/${userId}/date`,
   getUserExpensesByPeriod: (from: string, to: string) => `/transactions/expenses-summary?from=${from}&to=${to}`
 };
 @Injectable({
@@ -47,8 +46,20 @@ export class TransactionService {
       .pipe(pluck('transactions'));
   }
 
-  public getUserTransactionsByPeriod(userId: string, startDate: number, endDate: number): Observable<{ transactions: Transaction[] }> {
-    return this._httpClient.get<{ transactions: Transaction[]} >(urls.getUserTransactionsByPeriod(userId, startDate, endDate));
+  public getUserTransactionsByPeriod(
+    userId: string,
+    startDate: number,
+    endDate: number,
+    categoryType: CategoryTypeEnum
+  ): Observable<{ transactions: Transaction[] }> {
+    const httpOptions = {
+      params: new HttpParams()
+        .set('startDate', String(startDate))
+        .set('endDate', String(endDate))
+        .set('categoryType', String(categoryType))
+    };
+
+    return this._httpClient.get<{ transactions: Transaction[]} >(urls.getUserTransactionsByPeriod(userId), httpOptions);
   }
 
   public getUserExpensesByPeriod(from: string, to: string): Observable<any> {

@@ -9,7 +9,7 @@ import { AuthService, SidebarService } from 'src/app/shared/services';
 import { TransactionsListModalComponent } from 'src/app/shared/components/modals/transactions-list-modal/transactions-list-modal.component';
 import { LocalizationService } from 'src/app/shared/services/localization.service';
 import { UserPreferencesService } from 'src/app/shared/services/user-preferences.service';
-import { tap, finalize } from 'rxjs/operators';
+import { tap, finalize, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-statistic',
@@ -108,18 +108,16 @@ export class StatisticComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  public selectLine(event: { name: string, value: number, series: string }): void {
+  public selectLegend(event: CategoryTypeEnum): void {
     const { _id } = this.user;
-    const startDate = moment(event.name);
-    const endDate = moment(startDate).add(1, 'day');
+    const startDate = moment().add(-1, this.selectedInterval as any);
+    const endDate = moment();
 
-    this._transactionService.getUserTransactionsByPeriod(_id, +startDate, +endDate)
+    this._transactionService
+      .getUserTransactionsByPeriod(_id, +startDate, +endDate, event)
+      .pipe(filter(response => !!response && !!response.transactions))
       .subscribe(response => {
         const { transactions } = response;
-
-        if (!transactions) {
-          return;
-        }
 
         this.dialog.open(TransactionsListModalComponent, {
           data: { userId: _id, isShowSelect: false, transactions },
