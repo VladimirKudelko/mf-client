@@ -16,6 +16,16 @@ import { checkPasswords } from '../../validators';
 })
 export class RegistrationComponent {
   public registrationForm: FormGroup;
+  public questions1 = [
+    'What is your favourite color?',
+    'What is the name of your first pet?',
+    'What is your mother\'s maiden name?'
+  ];
+  public questions2 = [
+    'What is the name of the town where you were born?',
+    'Where are you from?',
+    'What is your favourite subject at school?'
+  ];
 
   constructor(
     private _fb: FormBuilder,
@@ -24,28 +34,28 @@ export class RegistrationComponent {
     public dialog: MatDialog
   ) {
     this.registrationForm = this._fb.group({
-      'firstName': [
+      firstName: [
         '',
         Validators.compose([
           Validators.required,
           Validators.minLength(2),
         ])
       ],
-      'lastName': [
+      lastName: [
         '',
         Validators.compose([
           Validators.required,
           Validators.minLength(2),
         ])
       ],
-      'email': [
+      email: [
         '',
         Validators.compose([
           Validators.required,
           Validators.email,
         ])
       ],
-      'password': [
+      password: [
         '',
         Validators.compose([
           Validators.required,
@@ -53,7 +63,15 @@ export class RegistrationComponent {
           Validators.maxLength(25),
         ])
       ],
-      'confirmPassword': [ '' ]
+      confirmPassword: [ '' ],
+      question1: this._fb.group({
+        question: ['', Validators.required],
+        answer: ['', Validators.required]
+      }),
+      question2: this._fb.group({
+        question: ['', Validators.required],
+        answer: ['', Validators.required]
+      }),
     }, { validator: checkPasswords });
   }
 

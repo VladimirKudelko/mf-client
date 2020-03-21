@@ -1,5 +1,6 @@
 @import 'src/app/shared/scss/colors';
 @import 'src/app/shared/scss/mixins';
+@import 'src/app/shared/scss/screen-sizes';
 
 :host {
   display: flex;
@@ -46,6 +47,8 @@
 }
 
 .form-group {
+  display: flex;
+  flex-direction: column;
   padding: 0.5rem;
 
   &__label {
@@ -72,5 +75,17 @@
 
   &__link {
     text-decoration: underline;
+  }
+}
+@media (max-width: $desktop) {
+
+  .registration-form {
+    width: 75%;
+  }
+}
+@media (max-width: $mobile-large) {
+
+  .registration-form {
+    width: 100%;
   }
 }

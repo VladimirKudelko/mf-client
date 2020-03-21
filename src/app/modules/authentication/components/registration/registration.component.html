@@ -54,6 +54,38 @@
       </div>
     </div>
 
+    <hr/>
+
+    <div class="form-group" formGroupName="question1">
+      <label class="form-group__label">{{ 'Question #1' | translate }}</label>
+
+      <mat-form-field>
+        <mat-select formControlName="question">
+          <mat-option *ngFor="let question of questions1" [value]="question">{{ question }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <input type="text" placeholder="Answer" formControlName="answer" class="form-group__control"/>
+      <div class="form-group__error" *ngIf="isControlInvalid('question1')">
+        {{ 'Question 1 is required' | translate }}
+      </div>
+    </div>
+
+    <div class="form-group" formGroupName="question2">
+      <label class="form-group__label">{{ 'Question #2' | translate }}</label>
+
+      <mat-form-field>
+        <mat-select formControlName="question">
+          <mat-option *ngFor="let question of questions2" [value]="question">{{ question }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <input type="text" placeholder="Answer" formControlName="answer" class="form-group__control"/>
+      <div class="form-group__error" *ngIf="isControlInvalid('question2')">
+        {{ 'Question 2 is required' | translate }}
+      </div>
+    </div>
+
     <div class="registration-form__submit">
       <button class="registration-form__submit-btn" type="submit" [disabled]="registrationForm.invalid">
         {{ 'Sign up' | translate }}

@@ -111,5 +111,6 @@
 	"Choose the currency to get the exchange rate": "Choose the currency to get the exchange rate",
 	"Exchange": "Exchange",
 	"Currency has been updated": "Currency has been updated",
-	"Currency has not been updated": "Currency has not been updated"
+	"Currency has not been updated": "Currency has not been updated",
+	"Password recovery": "Password recovery"
 }

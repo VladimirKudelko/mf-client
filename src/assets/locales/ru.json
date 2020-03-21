@@ -111,5 +111,6 @@
 	"Choose the currency to get the exchange rate": "Выберите валюту для обмена",
 	"Exchange": "Обменять",
 	"Currency has been updated": "Валюта обновлена",
-	"Currency has not been updated": "Валюта не обновлена"
+	"Currency has not been updated": "Валюта не обновлена",
+	"Password recovery": "Восстоновление пароля"
 }

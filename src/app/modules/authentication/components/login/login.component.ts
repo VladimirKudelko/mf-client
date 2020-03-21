@@ -1,3 +1,4 @@
+import { RecoveryPasswordModalComponent } from 'src/app/shared/components/modals/recovery-password-modal/recovery-password-modal.component';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,6 +8,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { RoleEnum, PopupEnum } from 'src/app/shared/enums';
 import { NotificationModalComponent } from 'src/app/shared/components/modals/notification/notification.component';
 import { SidebarService } from 'src/app/shared/services';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -46,14 +48,14 @@ export class LoginComponent implements OnInit {
     this._sidebarService.hide();
   }
 
-  isControlInvalid(controlName: string): boolean {
+  public isControlInvalid(controlName: string): boolean {
     return (
       this.loginForm.controls[controlName].invalid &&
       this.loginForm.controls[controlName].touched
     );
   }
 
-  submit(): void {
+  public submit(): void {
     this._authService.loginUser(this.loginForm.value)
       .subscribe(
         response => {
@@ -78,4 +80,31 @@ export class LoginComponent implements OnInit {
       );
   }
 
+  public openRecoveryPasswordModal(): void {
+    this._dialog
+      .open(RecoveryPasswordModalComponent, { minWidth: '50vw', minHeight: '25vh' })
+      .afterClosed()
+      .pipe(filter(result => !!result))
+      .subscribe(result => {
+        const { userId, newPassword } = result;
+
+        this._authService.resetPassword(userId, newPassword).subscribe(isSuccessfully => {
+          const popupStatus = isSuccessfully
+            ? PopupEnum.Success
+            : PopupEnum.Error;
+          const popupMessage = isSuccessfully
+            ? 'Password has been updated'
+            : 'Password has not been updated';
+
+          this.showNotification(popupStatus, popupMessage);
+        });
+      });
+  }
+
+  private showNotification(modalType: PopupEnum, message: string): void {
+    this._dialog.open(NotificationModalComponent, {
+      width: '400px',
+      data: { modalType, message }
+    });
+  }
 }

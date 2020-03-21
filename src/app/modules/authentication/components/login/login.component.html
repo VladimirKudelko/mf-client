@@ -38,8 +38,9 @@
       </button>
     </div>
   </form>
+
   <footer class="login-form__footer">
     <a class="login-form__footer-link" routerLink='/auth/reg'>{{ 'Sign up for an account' | translate }}</a>
-    <a class="login-form__footer-link" routerLink='/auth/recovery-password'>{{ 'Forgot password' | translate }}?</a>
+    <a class="login-form__footer-link" (click)="openRecoveryPasswordModal()">{{ 'Forgot password' | translate }}?</a>
   </footer>
 </section>

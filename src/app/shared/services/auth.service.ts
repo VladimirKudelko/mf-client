@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, pluck } from 'rxjs/operators';
 
 import jwtDecode from 'jwt-decode';
 import * as _ from 'lodash';
@@ -18,7 +18,10 @@ const urls = {
   updateSettings: (userId: string) => `/profile/settings/${userId}`,
   changePassword: (userId: string) => `/profile/settings/change-password/${userId}`,
   getUserById: (userId: string) => `/profile/${userId}`,
-  verifyEmail: () => `/auth/email-verification`
+  verifyEmail: () => `/auth/email-verification`,
+  getUserQuestions: () => `/user/user-questions/`,
+  verifyUserQuestions: () => `/user/user-questions/verification`,
+  resetPassword: (userId: string) => `/user/${userId}/password-reset`,
 };
 @Injectable({
   providedIn: 'root'
@@ -91,6 +94,22 @@ export class AuthService implements CanActivate {
 
   public verifyEmail(email: string, hash: string): Observable<{ isVerified: boolean }> {
     return this._httpClient.post<{ isVerified: boolean }>(urls.verifyEmail(), { email, hash });
+  }
+
+  public getUserQuestions(email: string): Observable<{ userId: string, questions: object }> {
+    const httpOptions = {
+      params: new HttpParams().set('email', String(email))
+    };
+
+    return this._httpClient.get<{ userId: string, questions: object }>(urls.getUserQuestions(), httpOptions);
+  }
+
+  public verifyUserQuestions(body): Observable<boolean> {
+    return this._httpClient.post<{ isSuccessfully: boolean }>(urls.verifyUserQuestions(), body).pipe(pluck('isSuccessfully'));
+  }
+
+  public resetPassword(userId: string, newPassword: string): Observable<boolean> {
+    return this._httpClient.post<{ isSuccessfully: boolean }>(urls.resetPassword(userId), { newPassword }).pipe(pluck('isSuccessfully'));
   }
 
   public saveToLocalStorage(key: string, value: string): void {

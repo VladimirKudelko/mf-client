@@ -1,3 +1,4 @@
+import { RecoveryPasswordModalComponent } from './recovery-password-modal/recovery-password-modal.component';
 import { ChangeEmailModalComponent } from './change-email/change-email.component';
 import { ChangeFullNameModalComponent } from './change-full-name/change-full-name.component';
 import { ChangePasswordModalComponent } from './change-password/change-password.component';
@@ -17,6 +18,7 @@ export {
   ChangeCurrencyModalComponent,
   ConfirmationModalComponent,
   CreateCategoryModalComponent,
+  RecoveryPasswordModalComponent,
   NotificationModalComponent,
   TrackMoneyModalComponent,
   TransactionsListModalComponent

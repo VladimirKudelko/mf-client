@@ -8,6 +8,7 @@ import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
+import { AppMaterialModule } from 'src/app/shared/modules/app-material/app-material.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { EmailVerificationComponent } from './components/email-verification/emai
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    TranslateModule
+    TranslateModule,
+    AppMaterialModule
   ]
 })
 export class AuthenticationModule { }

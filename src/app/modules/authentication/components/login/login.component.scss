@@ -1,5 +1,6 @@
 @import 'src/app/shared/scss/colors';
 @import 'src/app/shared/scss/mixins';
+@import 'src/app/shared/scss/screen-sizes';
 
 :host {
   display: flex;
@@ -48,6 +49,7 @@
     display: block;
     margin-top: 0.5rem;
     text-decoration: underline;
+    cursor: pointer;
   }
 }
 
@@ -65,5 +67,28 @@
   &__error {
     padding: 0 0.7rem;
     color: $red;
+  }
+}
+@media (max-width: $desktop) {
+
+  .login-form {
+    width: 75%;
+  }
+}
+@media (max-width: $mobile-large) {
+
+  .login-title {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: $mobile) {
+
+  .login-title {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .login-form {
+    width: 100%;
   }
 }
