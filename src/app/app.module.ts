@@ -6,6 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './shared/modules/app-material/app-material.module';
@@ -15,6 +16,9 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
 import { ApiInterceptor } from './shared/interceptors/api.interceptor';
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
 import { SharedModule } from './shared/modules/shared/shared.module';
+import { environment } from './../environments/environment';
+
+export const socketConfig: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
   return new TranslateHttpLoader(http, '/assets/locales/', '.json');
@@ -36,6 +40,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
     FontAwesomeModule,
     MaterialModalsModule,
     SharedModule,
+    SocketIoModule.forRoot(socketConfig),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

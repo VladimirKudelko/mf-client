@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -22,7 +22,6 @@ export class CategoriesListComponent implements OnInit {
   @Input() wallet: Wallet;
   @Input() categoriesType: CategoryTypeEnum;
   @Input() categories: Category[];
-  @Output() updatedCash = new EventEmitter();
 
   private _user: User;
   private _categoryTask: Task;
@@ -66,25 +65,26 @@ export class CategoriesListComponent implements OnInit {
   }
 
   public createNewCategory(): void {
-    const dialogRef = this.dialog.open(CreateCategoryModalComponent, { width: '25vw' });
+    this.dialog
+      .open(CreateCategoryModalComponent, { width: '25vw' })
+      .afterClosed()
+      .subscribe(result => {
+        if (!result || !result.categoryTitle || !this.categoriesType) {
+          return;
+        }
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result || !result.categoryTitle || !this.categoriesType) {
-        return;
-      }
+        const data = {
+          type: this.categoriesType,
+          title: result.categoryTitle,
+          isUpdateTask: !this._categoryTask.isCompleted
+        };
 
-      const data = {
-        type: this.categoriesType,
-        title: result.categoryTitle,
-        isUpdateTask: !this._categoryTask.isCompleted
-      };
-
-      this._categoryService.createNewCategory(this._user._id, data).subscribe(response => {
-        this.categories.push(response.category);
-        this.showNotificationModal(PopupEnum.Success, 'Category is added');
-        this._cdr.detectChanges();
+        this._categoryService.createNewCategory(this._user._id, data).subscribe(response => {
+          this.categories.push(response.category);
+          this.showNotificationModal(PopupEnum.Success, 'Category is added');
+          this._cdr.detectChanges();
+        });
       });
-    });
   }
 
   public trackMoney(category: Category): void {
@@ -113,8 +113,7 @@ export class CategoriesListComponent implements OnInit {
         note: result.note || ''
       };
 
-      this._transactionService.createTransaction(this._user._id, data)
-        .subscribe(() => this.updatedCash.emit());
+      this._transactionService.createTransaction(this._user._id, data).subscribe();
     });
   }
 }

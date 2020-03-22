@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 
 import { Category } from '../models';
 
@@ -19,11 +20,15 @@ export class CategoryService {
     return this._httpClient.post<{ category: Category }>(urls.createNewCategory(userId), data);
   }
 
-  public getExpensesCategories(userId: string): Observable<{ categories: Category[] }> {
-    return this._httpClient.get<{ categories: Category[] }>(urls.getExpensesCategories(userId));
+  public getExpensesCategories(userId: string): Observable<Category[]> {
+    return this._httpClient
+      .get<{ categories: Category[] }>(urls.getExpensesCategories(userId))
+      .pipe(pluck('categories'));
   }
 
-  public getIncomesCategories(userId: string): Observable<{ categories: Category[] }> {
-    return this._httpClient.get<{ categories: Category[] }>(urls.getIncomesCategories(userId));
+  public getIncomesCategories(userId: string): Observable<Category[]> {
+    return this._httpClient
+      .get<{ categories: Category[] }>(urls.getIncomesCategories(userId))
+      .pipe(pluck('categories'));
   }
 }

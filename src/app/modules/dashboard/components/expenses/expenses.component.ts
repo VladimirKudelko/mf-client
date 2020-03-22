@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { CashService, AuthService, SidebarService, CategoryService } from 'src/app/shared/services';
 import { Wallet, Category, User } from 'src/app/shared/models';
@@ -10,8 +12,9 @@ import { CategoryTypeEnum } from 'src/app/shared/enums';
   styleUrls: ['./expenses.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExpensesComponent implements OnInit {
+export class ExpensesComponent implements OnInit, OnDestroy {
   private _user: User;
+  private unsubscribe$ = new Subject();
 
   public currentWallet: Wallet;
   public categories: Category[];
@@ -23,19 +26,38 @@ export class ExpensesComponent implements OnInit {
     private _categoryService: CategoryService,
     private _sidebarService: SidebarService,
     private _cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this._sidebarService.show();
+
     this._user = this._authService.getUserFromLocalStorage();
-    this._categoryService.getExpensesCategories(this._user._id).subscribe(response => {
-      this.categories = response.categories;
-      this._cdr.detectChanges();
-    });
-    this.updateUserCash();
+
+    this.subscribeToBalanceUpdate();
+    this.getCategories();
+    this.getUserWallet();
   }
 
-  public updateUserCash(): void {
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+  private subscribeToBalanceUpdate(): void {
+    this._cashService.wallet.pipe(takeUntil(this.unsubscribe$)).subscribe(newWallet => {
+      this.currentWallet = newWallet;
+      this._cdr.markForCheck();
+    });
+  }
+
+  private getCategories(): void {
+    this._categoryService.getExpensesCategories(this._user._id).subscribe(categories => {
+      this.categories = categories;
+      this._cdr.detectChanges();
+    });
+  }
+
+  private getUserWallet(): void {
     this._cashService.getUserCash(this._user._id).subscribe(wallet => {
       this.currentWallet = wallet;
       this._cdr.detectChanges();

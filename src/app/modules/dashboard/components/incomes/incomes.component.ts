@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { CashService, AuthService, SidebarService, CategoryService } from 'src/app/shared/services';
 import { Wallet, Category, User } from 'src/app/shared/models';
@@ -10,8 +12,9 @@ import { CategoryTypeEnum } from 'src/app/shared/enums';
   styleUrls: ['./incomes.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IncomesComponent implements OnInit {
+export class IncomesComponent implements OnInit, OnDestroy {
   private _user: User;
+  private unsubscribe$ = new Subject();
 
   public currentWallet: Wallet;
   public categories: Category[];
@@ -27,15 +30,34 @@ export class IncomesComponent implements OnInit {
 
   ngOnInit(): void {
     this._sidebarService.show();
+
     this._user = this._authService.getUserFromLocalStorage();
-    this._categoryService.getIncomesCategories(this._user._id).subscribe(response => {
-      this.categories = response.categories;
-      this._cdr.detectChanges();
-    });
-    this.updateUserCash();
+
+    this.subscribeToBalanceUpdate();
+    this.getCategories();
+    this.getUserWallet();
   }
 
-  public updateUserCash(): void {
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+  private subscribeToBalanceUpdate(): void {
+    this._cashService.wallet.pipe(takeUntil(this.unsubscribe$)).subscribe(newWallet => {
+      this.currentWallet = newWallet;
+      this._cdr.markForCheck();
+    });
+  }
+
+  private getCategories(): void {
+    this._categoryService.getIncomesCategories(this._user._id).subscribe(categories => {
+      this.categories = categories;
+      this._cdr.detectChanges();
+    });
+  }
+
+  private getUserWallet(): void {
     this._cashService.getUserCash(this._user._id).subscribe(wallet => {
       this.currentWallet = wallet;
       this._cdr.detectChanges();
