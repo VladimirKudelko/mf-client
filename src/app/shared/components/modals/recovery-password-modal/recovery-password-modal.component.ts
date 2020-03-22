@@ -4,7 +4,7 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 
 import { AuthService } from 'src/app/shared/services';
 import { PopupEnum } from 'src/app/shared/enums';
-import { NotificationModalComponent } from '..';
+import { NotificationModalComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-recovery-password-modal',

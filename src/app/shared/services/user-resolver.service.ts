@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { filter, pluck } from 'rxjs/operators';
 
 import { User } from '../models';
-import { AuthService } from '.';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,5 @@
-import * as supportedLanguages from '../../assets/locales/supported-languages.json';
-
 import { LanguageEnum } from '../shared/enums';
+import { supportedLanguages } from '../shared/constants/supported-languages';
 
 const defaultLanguage = LanguageEnum.English;
 
