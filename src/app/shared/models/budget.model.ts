@@ -1,11 +1,10 @@
-import { BudgetTypeEnum } from '../enums';
+import { BudgetStatusEnum } from '../enums';
 
 export interface Budget {
   _id: string;
   userId: string;
-  budgetType: BudgetTypeEnum;
   limit: number;
-  isActive: boolean;
+  status: BudgetStatusEnum;
   from: string;
   to: string;
   modifiedDate: string;

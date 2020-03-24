@@ -10,7 +10,5 @@ export interface User {
   tasks: Task[];
   role: RoleEnum;
   currency: string;
-  budget: {
-    allExpenses: Budget
-  };
+  budgets: Budget[];
 }

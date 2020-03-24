@@ -1,3 +1,5 @@
+@import './mixins';
+
 @keyframes rotating {
 
   from {
@@ -8,3 +10,7 @@
     transform: rotate(360deg);
   }
 }
+
+@include blink-animation('active-status-blink', rgba(0, 127, 0, 0.25));
+@include blink-animation('pending-status-blink', rgba(235, 28, 35, 0.25));
+@include blink-animation('closed-status-blink', rgba(153, 153, 153, 0.25));

@@ -1,19 +1,63 @@
-<div class="no-budgets" *ngIf="!allExpenses">
-  <fa-icon class="no-budgets__icon" [icon]="faInfoCircle"></fa-icon>
-  <div class="no-budgets__content">
-    <h2>{{ 'There are no budgets here' | translate }}.</h2>
-    <p>
-      {{ 'It\'s best you start with a monthly budget for all expenses' | translate }}.
-    </p>
+<ng-container *ngIf="budgets?.length; else noBudgets">
+  <div class="budgets">
+    <section class="budget-chart">
+      <app-budget-chart
+        *ngIf="selectedBudget"
+        [budget]="selectedBudget"
+      ></app-budget-chart>
+    </section>
+
+    <section class="budget-list">
+      <article
+        *ngFor="let budget of budgets"
+        class="budget-list__item budget"
+        (click)="selectBudget(budget)"
+      >
+        <div class="budget-header">
+          <h2 class="budget-header__limit">Monthly {{ budget.currency }} {{ budget.limit }}</h2>
+
+          <div class="budget-header__status">
+            <div class="outer-circle" [style.animation]="getOuterCircleAnimation(budget.status)">
+              <div class="inner-circle" [style.background]="getInnerCircleBackground(budget.status)"></div>
+            </div>
+            <div class="budget-header__status-text">
+              {{ budget.status }}
+            </div>
+          </div>
+        </div>
+
+        <div class="budget-content">
+          <div class="budget-content__used-money">
+            <div>{{ budget.currency }} {{ budget.used }} used</div>
+            <div>{{ budget.currency }} {{ budget.limit - budget.used }} left</div>
+          </div>
+
+          <div class="budget-content__progress-bar">
+            <div class="used-money" [style.width]="calculateUsedMoneyBarWidth(budget.limit, budget.used)"></div>
+          </div>
+
+          <div class="budget-content__dates">
+            <div>{{ budget.from | date: 'MMMM d' }}</div>
+            <div>{{ budget.to | date: 'MMMM d' }}</div>
+          </div>
+        </div>
+      </article>
+    </section>
   </div>
-</div>
+</ng-container>
 
-<div class="all-expenses" *ngIf="allExpenses">
-  <h2>{{ 'Current Month Limit' | translate }}: {{ allExpenses.limit | currency: allExpenses.currency }}</h2>
-  <h2>{{ 'You have lost' | translate }}: {{ leftMoney | currency: allExpenses.currency }}</h2>
-  <progress-bar [progress]="allExpensesPercentage" [color]="'#488aff'"></progress-bar>
-</div>
+<ng-template #noBudgets>
+  <div class="no-budgets" *ngIf="!user?.budgets?.length">
+    <fa-icon class="no-budgets__icon" [icon]="faInfoCircle"></fa-icon>
+    <div class="no-budgets__content">
+      <h2>{{ 'There are no budgets here' | translate }}.</h2>
+      <p>
+        {{ 'It\'s best you start with a monthly budget for all expenses' | translate }}.
+      </p>
+    </div>
+  </div>
 
-<div class="add-budget-btn" (click)="openAddingBudgetModal()">
-  <span>+</span>
-</div>
+  <div class="add-budget-btn" (click)="openAddingBudgetModal()">
+    <span>+</span>
+  </div>
+</ng-template>

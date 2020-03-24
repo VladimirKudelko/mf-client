@@ -5,15 +5,15 @@ import { CategoryTypeEnum } from './category-type.enum';
 import { IntervalEnum } from './interval.enum';
 import { TransactionPeriodEnum } from './transaction-period';
 import { PopupEnum } from './popup-type';
-import { BudgetTypeEnum } from './budget-type.enum';
 import { BudgetLifetimeEnum } from './budget-lifetime.enum';
 import { LanguageEnum } from './language.enum';
 import { Themes } from './themes.enum';
 import { IoEventTypesEnum } from './io-event-types.enum';
+import { BudgetStatusEnum } from './budget-status.enum';
 
 export {
-  BudgetTypeEnum,
   BudgetLifetimeEnum,
+  BudgetStatusEnum,
   CategoryTypeEnum,
   CurrencyEnum,
   IntervalEnum,

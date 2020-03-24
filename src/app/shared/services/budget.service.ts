@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Budget } from '../models';
 
 const urls = {
-  addBudget: () => `/budgets`
+  addBudgets: () => `/budgets`
 };
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class BudgetService {
     private _httpClient: HttpClient
   ) { }
 
-  public addBudget(budget: any): Observable<{ budget: Budget }> {
-    return this._httpClient.post<{ budget: Budget }>(urls.addBudget(), budget);
+  public addBudgets(budgets: Budget[]): Observable<{ budgets: Budget[] }> {
+    return this._httpClient.post<{ budgets: Budget[] }>(urls.addBudgets(), { budgets });
   }
 }

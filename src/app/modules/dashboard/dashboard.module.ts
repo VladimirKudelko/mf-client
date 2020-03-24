@@ -19,6 +19,7 @@ import { CategoriesListComponent } from './components/categories-list/categories
 import { CategoryComponent } from './components/category/category.component';
 import { BudgetComponent } from './components/budget/budget.component';
 import { ToggleSwitchComponent } from 'src/app/shared/components/toggle-switch/toggle-switch.component';
+import { BudgetChartComponent } from './components/budget-chart/budget-chart.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ToggleSwitchComponent } from 'src/app/shared/components/toggle-switch/t
     CategoriesListComponent,
     CategoryComponent,
     BudgetComponent,
-    ToggleSwitchComponent
+    ToggleSwitchComponent,
+    BudgetChartComponent
   ],
   imports: [
     CommonModule,

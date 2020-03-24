@@ -1,9 +1,120 @@
 @import 'src/app/shared/scss/colors';
 @import 'src/app/shared/scss/mixins';
+@import 'src/app/shared/scss/animations';
+@import 'src/app/shared/scss/screen-sizes';
 
 :host {
   display: block;
   padding: 1rem;
+}
+
+.budgets {
+  display: flex;
+}
+
+.budget-chart {
+  display: flex;
+  flex: 3;
+  justify-content: center;
+}
+
+.budget-list {
+  flex: 2;
+  margin-left: 25px;
+
+  &__item {
+    margin-bottom: 12px;
+    padding: 16px;
+    background-color: $white;
+    border-bottom: 1px solid rgba($black, 0.2);
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .budget {
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+
+      &__limit {
+        overflow: hidden;
+        font-size: 1.3rem;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      &__status {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .outer-circle {
+          position: relative;
+          width: 12px;
+          height: 12px;
+          margin-right: 5px;
+          background: rgba(235, 28, 35, 0.25);
+          border-radius: 50%;
+
+          .inner-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            margin: -3px 0 0 -3px;
+            background: #eb1c23;
+            border-radius: 50%;
+          }
+        }
+      }
+
+      &__status-text {
+        font-size: 0.75rem;
+      }
+    }
+
+    &-content {
+      margin-top: 15px;
+
+      &__used-money {
+        display: flex;
+        justify-content: space-between;
+        color: rgba(8, 14, 16, 0.62);
+        font-size: 0.85rem;
+      }
+
+      &__progress-bar {
+        height: 12px;
+        margin: 10px 0;
+        background-color: rgba(0, 0, 0, 0.15);
+        border-radius: 3px;
+
+        .used-money {
+          height: 12px;
+          background-color: $light-blue;
+        }
+      }
+
+      &__dates {
+        display: flex;
+        justify-content: space-between;
+        color: rgba(8, 14, 16, 0.62);
+        font-size: 0.85rem;
+      }
+    }
+
+    &:hover {
+      box-shadow: 0 0.5rem 1rem 0 rgba(44, 51, 73, 0.1);
+      cursor: pointer;
+    }
+  }
 }
 
 .no-budgets {
@@ -35,5 +146,19 @@
     background-color: lighten($turquoise, 10);
     transform: scale(1.05);
     cursor: pointer;
+  }
+}
+@media (max-width: $smallest-desktop) {
+
+  .budgets {
+    flex-direction: column-reverse;
+  }
+
+  .budget-list {
+    margin-left: 0;
+  }
+
+  .budget-chart {
+    margin-top: 25px;
   }
 }

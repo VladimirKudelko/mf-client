@@ -6,6 +6,14 @@ import { Transaction } from '../models';
 import { TransactionPeriodEnum, CategoryTypeEnum, IntervalEnum } from '../enums';
 import { pluck } from 'rxjs/operators';
 
+interface GetUserExpensesByPeriodDTO {
+  isSuccessfully: boolean;
+  from: string;
+  to: string;
+  transactions: Transaction[];
+  used: number;
+}
+
 const urls = {
   createTransaction: (userId: string) => `/transactions/${userId}`,
   getUserTransactions: (userId: string) => `/transactions/user/${userId}`,
@@ -62,7 +70,7 @@ export class TransactionService {
     return this._httpClient.get<{ transactions: Transaction[]} >(urls.getUserTransactionsByPeriod(userId), httpOptions);
   }
 
-  public getUserExpensesByPeriod(from: string, to: string): Observable<any> {
-    return this._httpClient.get<any>(urls.getUserExpensesByPeriod(from, to));
+  public getUserExpensesByPeriod(from: string, to: string): Observable<GetUserExpensesByPeriodDTO> {
+    return this._httpClient.get<GetUserExpensesByPeriodDTO>(urls.getUserExpensesByPeriod(from, to));
   }
 }

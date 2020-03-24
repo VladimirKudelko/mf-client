@@ -2,15 +2,15 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { filter, pluck } from 'rxjs/operators';
-
-import * as moment from 'moment';
+import { forkJoin } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { SidebarService, BudgetService, TransactionService, AuthService } from 'src/app/shared/services';
 import { AddBudgetModalComponent, NotificationModalComponent } from 'src/app/shared/components/modals';
-import { User, Budget } from 'src/app/shared/models';
-import { PopupEnum } from 'src/app/shared/enums';
+import { User, Budget, Transaction } from 'src/app/shared/models';
+import { PopupEnum, BudgetStatusEnum } from 'src/app/shared/enums';
 import { LocalizationService } from 'src/app/shared/services/localization.service';
+import { BudgetDTO } from '../../dtos';
 
 @Component({
   selector: 'app-budget',
@@ -21,12 +21,8 @@ import { LocalizationService } from 'src/app/shared/services/localization.servic
 export class BudgetComponent implements OnInit {
   public faInfoCircle = faInfoCircle;
   public user: User;
-  public allExpenses: Budget;
-  public leftMoney: number;
-
-  public get allExpensesPercentage(): number {
-    return (this.leftMoney * 100) / this.allExpenses.limit;
-  }
+  public budgets: BudgetDTO[];
+  public selectedBudget: BudgetDTO;
 
   constructor(
     private _dialog: MatDialog,
@@ -44,41 +40,73 @@ export class BudgetComponent implements OnInit {
 
     this.user = this._route.snapshot.data.user;
 
-    this.updateBudget();
+    this.retrieveTransactionsForBudgets();
+    this._cdr.detectChanges();
   }
 
-  private getUser(): void {
-    this._authService
-      .getUserById()
-      .pipe(
-        filter(response => !!response && !!response.user),
-        pluck('user')
-      )
-      .subscribe((user: User) => {
-        this.user = user;
+  public openAddingBudgetModal(): void {
+    this._dialog
+      .open(AddBudgetModalComponent, { data: { currency: this.user.currency }, minWidth: '50vw' })
+      .afterClosed()
+      .pipe(filter(budgets => budgets && budgets.length))
+      .subscribe(budgets => this.addBudgets(budgets));
+  }
 
-        this.updateBudget();
-        this._cdr.detectChanges();
+  public addBudgets(budgets: Budget[]): void {
+    this._budgetService
+      .addBudgets(budgets)
+      .subscribe(() => {
+        this.getUser();
+        this.showNotificationModal(PopupEnum.Success, 'Budget has been successfully added');
       });
   }
 
-  private updateBudget(): void {
-    if (this.user.budget && this.user.budget.allExpenses) {
-      this.allExpenses = this.user.budget.allExpenses;
-      this.getUserTransactions();
+  public selectBudget(budget: BudgetDTO): void {
+    if (budget.status !== BudgetStatusEnum.Active) {
+      return;
+    }
+
+    this.selectedBudget = budget;
+  }
+
+  public calculateUsedMoneyBarWidth(limit: number, used: number): string {
+    if (!used) {
+      return '0%';
+    }
+
+    const percentOfUsedMoney = ((used * 100) / limit).toFixed(2);
+
+    return `${percentOfUsedMoney}%`;
+  }
+
+  public getInnerCircleBackground(status: BudgetStatusEnum): string {
+    switch (status) {
+      case BudgetStatusEnum.Active:
+        return '#008000';
+      case BudgetStatusEnum.Pending:
+        return '#eb1c23';
+      case BudgetStatusEnum.Closed:
+        return '#808080';
     }
   }
 
-  private getUserTransactions(): void {
-    this._transactionService
-      .getUserExpensesByPeriod(
-        moment(this.allExpenses.from).format('YYYY-MM-DD'),
-        moment(this.allExpenses.to).format('YYYY-MM-DD')
-      )
-      .subscribe(response => {
-        this.leftMoney = response.left;
-        this._cdr.detectChanges();
-      });
+  public getOuterCircleAnimation(status: BudgetStatusEnum): string {
+    switch (status) {
+      case BudgetStatusEnum.Active:
+        return 'active-status-blink 1s linear infinite';
+      case BudgetStatusEnum.Pending:
+        return 'pending-status-blink 1s linear infinite';
+      case BudgetStatusEnum.Closed:
+        return 'close-status-blink 1s linear infinite';
+    }
+  }
+
+  private getUser(): void {
+    this._authService.getUserById(this.user._id).subscribe(response => {
+      this.user = response.user;
+
+      this._cdr.detectChanges();
+    });
   }
 
   private showNotificationModal(modalType: PopupEnum, message: string): void {
@@ -91,20 +119,33 @@ export class BudgetComponent implements OnInit {
     });
   }
 
-  public openAddingBudgetModal(): void {
-    this._dialog
-      .open(AddBudgetModalComponent, { width: '100vw' })
-      .afterClosed()
-      .pipe(filter(result => result && !!Object.keys(result).length))
-      .subscribe(result => this.addBudget(result));
+  private retrieveTransactionsForBudgets(): void {
+    const { budgets } = this.user;
+
+    if (!budgets || !budgets.length) {
+      return;
+    }
+
+    const transactionRequests = budgets.map(budget => {
+      return this._transactionService.getUserExpensesByPeriod(budget.from, budget.to);
+    });
+
+    forkJoin(transactionRequests).subscribe(responseList => {
+      this.budgets = responseList.map((response, index) => this.transformToBudgetModel(
+        budgets[index],
+        response.transactions,
+        response.used)
+      );
+
+      this._cdr.detectChanges();
+    });
   }
 
-  public addBudget(budget: any): void {
-    this._budgetService
-      .addBudget({ ...budget, currency: this.user.currency })
-      .subscribe(() => {
-        this.getUser();
-        this.showNotificationModal(PopupEnum.Success, 'Budget has been successfully added');
-      });
+  private transformToBudgetModel(budget: Budget, transactions: Transaction[], used: number): BudgetDTO {
+    return {
+      ...budget,
+      transactions,
+      used
+    };
   }
 }

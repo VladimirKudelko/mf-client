@@ -38,3 +38,20 @@
     cursor: not-allowed;
   }
 }
+
+@mixin blink-animation($name, $background) {
+  @keyframes #{$name} {
+
+    0% {
+      background: transparent;
+    }
+
+    50% {
+      background: $background;
+    }
+
+    100% {
+      background: transparent;
+    }
+  }
+}
