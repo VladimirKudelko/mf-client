@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
+import * as moment from 'moment';
+
 import { SidebarService, BudgetService, TransactionService, AuthService } from 'src/app/shared/services';
 import { AddBudgetModalComponent, NotificationModalComponent } from 'src/app/shared/components/modals';
 import { User, Budget, Transaction } from 'src/app/shared/models';
@@ -99,6 +101,10 @@ export class BudgetComponent implements OnInit {
       case BudgetStatusEnum.Closed:
         return 'close-status-blink 1s linear infinite';
     }
+  }
+
+  public formatDate(date: string): string {
+    return moment(date).format('MMMM DD');
   }
 
   private getUser(): void {

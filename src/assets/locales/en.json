@@ -112,5 +112,11 @@
 	"Exchange": "Exchange",
 	"Currency has been updated": "Currency has been updated",
 	"Currency has not been updated": "Currency has not been updated",
-	"Password recovery": "Password recovery"
+	"Password recovery": "Password recovery",
+	"Monthly": "Monthly",
+	"active": "active",
+	"pending": "pending",
+	"closed": "closed",
+	"used": "used",
+	"left": "left"
 }

@@ -14,22 +14,22 @@
         (click)="selectBudget(budget)"
       >
         <div class="budget-header">
-          <h2 class="budget-header__limit">Monthly {{ budget.currency }} {{ budget.limit }}</h2>
+          <h2 class="budget-header__limit">{{ 'Monthly' | translate }} {{ budget.currency }} {{ budget.limit }}</h2>
 
           <div class="budget-header__status">
             <div class="outer-circle" [style.animation]="getOuterCircleAnimation(budget.status)">
               <div class="inner-circle" [style.background]="getInnerCircleBackground(budget.status)"></div>
             </div>
             <div class="budget-header__status-text">
-              {{ budget.status }}
+              {{ budget.status | translate }}
             </div>
           </div>
         </div>
 
         <div class="budget-content">
           <div class="budget-content__used-money">
-            <div>{{ budget.currency }} {{ budget.used }} used</div>
-            <div>{{ budget.currency }} {{ budget.limit - budget.used }} left</div>
+            <div>{{ budget.currency }} {{ budget.used }} {{ 'used' | translate }}</div>
+            <div>{{ budget.currency }} {{ budget.limit - budget.used }} {{ 'left' | translate}}</div>
           </div>
 
           <div class="budget-content__progress-bar">
@@ -37,8 +37,8 @@
           </div>
 
           <div class="budget-content__dates">
-            <div>{{ budget.from | date: 'MMMM d' }}</div>
-            <div>{{ budget.to | date: 'MMMM d' }}</div>
+            <div>{{ formatDate(budget.from) }}</div>
+            <div>{{ formatDate(budget.to) }}</div>
           </div>
         </div>
       </article>

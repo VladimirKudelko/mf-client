@@ -23,8 +23,6 @@ export class BudgetChartComponent implements OnInit {
   public showYAxisLabel = false;
   public colorScheme = { domain: ['#5AA454'] };
 
-  constructor() { }
-
   ngOnInit(): void {
     this.initializeChartData();
   }

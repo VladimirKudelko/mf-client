@@ -112,5 +112,11 @@
 	"Exchange": "Обменять",
 	"Currency has been updated": "Валюта обновлена",
 	"Currency has not been updated": "Валюта не обновлена",
-	"Password recovery": "Восстоновление пароля"
+	"Password recovery": "Восстоновление пароля",
+	"Monthly": "Ежемесячно",
+	"active": "активный",
+	"pending": "отложенный",
+	"closed": "закрытый",
+	"used": "использованно",
+	"left": "осталось"
 }
