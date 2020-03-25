@@ -143,8 +143,18 @@ export class BudgetComponent implements OnInit {
         response.used)
       );
 
+      this.selectFirstActiveBudget();
+
       this._cdr.detectChanges();
     });
+  }
+
+  private selectFirstActiveBudget(): void {
+    if (!this.budgets || !this.budgets.length) {
+      return;
+    }
+
+    this.selectedBudget = this.budgets.find(budget => budget.status === BudgetStatusEnum.Active);
   }
 
   private transformToBudgetModel(budget: Budget, transactions: Transaction[], used: number): BudgetDTO {
