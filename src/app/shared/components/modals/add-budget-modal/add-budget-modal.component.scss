@@ -1,9 +1,17 @@
 @import 'src/app/shared/scss/screen-sizes';
+@import 'src/app/shared/scss/mixins';
 
 ::ng-deep {
 
   .mat-horizontal-stepper-header-container {
     margin-bottom: 1rem;
+  }
+}
+
+.horizontal-stepper,
+.vertical-stepper {
+  @include themify() {
+    background-color: $material-stepper-background;
   }
 }
 

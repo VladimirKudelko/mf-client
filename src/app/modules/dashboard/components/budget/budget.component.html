@@ -1,13 +1,13 @@
 <ng-container *ngIf="budgets?.length; else noBudgets">
   <div class="budgets">
-    <section class="budget-chart">
+    <section class="section budget-chart">
       <app-budget-chart
         *ngIf="selectedBudget"
         [budget]="selectedBudget"
       ></app-budget-chart>
     </section>
 
-    <section class="budget-list">
+    <section class="section budget-list">
       <article
         *ngFor="let budget of budgets"
         class="budget-list__item budget"

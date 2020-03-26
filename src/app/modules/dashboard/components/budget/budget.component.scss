@@ -12,6 +12,16 @@
   display: flex;
 }
 
+.section {
+  padding: 20px;
+  border: 0 solid transparent;
+  border-radius: 5px;
+  @include themify {
+    background-color: $section-background;
+    box-shadow: $section-box-shadow;
+  }
+}
+
 .budget-chart {
   display: flex;
   flex: 3;
@@ -25,11 +35,13 @@
   &__item {
     margin-bottom: 12px;
     padding: 16px;
-    background-color: $white;
     border-bottom: 1px solid rgba($black, 0.2);
     border-bottom-right-radius: 2px;
     border-bottom-left-radius: 2px;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
+    @include themify {
+      background: $budget-list-item-background;
+    }
 
     &:last-child {
       margin-bottom: 0;
@@ -47,6 +59,9 @@
         font-size: 1.3rem;
         white-space: nowrap;
         text-overflow: ellipsis;
+        @include themify() {
+          color: $budget-header-limit-color;
+        }
       }
 
       &__status {
@@ -86,27 +101,35 @@
       &__used-money {
         display: flex;
         justify-content: space-between;
-        color: rgba(8, 14, 16, 0.62);
         font-size: 0.85rem;
+        @include themify() {
+          color: $budget-progress-bar-label-color;
+        }
       }
 
       &__progress-bar {
         height: 12px;
         margin: 10px 0;
-        background-color: rgba(0, 0, 0, 0.15);
         border-radius: 3px;
+        @include themify() {
+          background-color: $budget-progress-bar-background;
+        }
 
         .used-money {
           height: 12px;
-          background-color: $light-blue;
+          @include themify() {
+            background-color: $budget-progress-bar-used-background;
+          }
         }
       }
 
       &__dates {
         display: flex;
         justify-content: space-between;
-        color: rgba(8, 14, 16, 0.62);
         font-size: 0.85rem;
+        @include themify() {
+          color: $budget-progress-bar-label-color;
+        }
       }
     }
 
@@ -147,6 +170,10 @@
     transform: scale(1.05);
     cursor: pointer;
   }
+}
+
+::ng-deep {
+  @include chart-styles;
 }
 @media (max-width: $smallest-desktop) {
 

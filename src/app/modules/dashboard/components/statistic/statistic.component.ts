@@ -35,7 +35,7 @@ export class StatisticComponent implements OnInit, AfterViewChecked {
   public isShowXAxisLabel = true;
   public isShowYAxisLabel = true;
   public selectedInterval: IntervalEnum;
-  public intervals: string[] = [IntervalEnum.Week, IntervalEnum.Month, IntervalEnum.Year];
+  public intervals: IntervalEnum[] = [IntervalEnum.Week, IntervalEnum.Month, IntervalEnum.Year];
   public transactions: Transaction[];
   public userActivityTransactions: Transaction[];
   public isUserActivityLoading: boolean;
@@ -68,6 +68,7 @@ export class StatisticComponent implements OnInit, AfterViewChecked {
       )
       .subscribe(transactions => (this.userActivityTransactions = transactions));
 
+    this.setInitialSelection();
     this.changeColorScheme();
   }
 
@@ -125,6 +126,11 @@ export class StatisticComponent implements OnInit, AfterViewChecked {
           height: '80vh'
         });
       });
+  }
+
+  private setInitialSelection(): void {
+    this.selectedInterval = this.intervals[0];
+    this.changeInterval({ value: this.selectedInterval } as any);
   }
 
   private groupTransactionsByDate(transactions): any {

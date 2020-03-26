@@ -46,7 +46,7 @@
     $transactions-list-item-subtitle-color: map-get($colors, 'transactions-list-item-subtitle-color') !global;
     $transactions-list-item-expenses-icon-color: map-get($colors, 'transactions-list-item-expenses-icon-color') !global;
     $transactions-list-item-incomes-icon-color: map-get($colors, 'transactions-list-item-incomes-icon-color') !global;
-    $statistic-section-background: map-get($colors, 'statistic-section-background') !global;
+    $section-background: map-get($colors, 'section-background') !global;
     $user-activity-header-color: map-get($colors, 'user-activity-header-color') !global;
     $user-activity-item-border-color: map-get($colors, 'user-activity-item-border-color') !global;
     $user-activity-item-date-color: map-get($colors, 'user-activity-item-date-color') !global;
@@ -54,12 +54,19 @@
     $user-activity-item-note-color: map-get($colors, 'user-activity-item-note-color') !global;
     $user-activity-item-money-up-color: map-get($colors, 'user-activity-item-money-up-color') !global;
     $user-activity-item-money-down-color: map-get($colors, 'user-activity-item-money-down-color') !global;
-    $statistic-section-box-shadow: map-get($colors, 'statistic-section-box-shadow') !global;
+    $section-box-shadow: map-get($colors, 'section-box-shadow') !global;
     $statistic-total-result-expenses-color: map-get($colors, 'statistic-total-result-expenses-color') !global;
     $statistic-total-result-incomes-color: map-get($colors, 'statistic-total-result-incomes-color') !global;
     $account-info-title-color: map-get($colors, 'account-info-title-color') !global;
     $account-info-control-color: map-get($colors, 'account-info-control-color') !global;
     $account-additions-data-joined-color: map-get($colors, 'account-additions-data-joined-color') !global;
+    $material-stepper-background: map-get($colors, 'material-stepper-background') !global;
+    $mat-select-value-text-color: map-get($colors, 'mat-select-value-text-color') !global;
+    $budget-list-item-background: map-get($colors, 'budget-list-item-background') !global;
+    $budget-header-limit-color: map-get($colors, 'budget-header-limit-color') !global;
+    $budget-progress-bar-label-color: map-get($colors, 'progress-bar-label') !global;
+    $budget-progress-bar-background: map-get($colors, 'budget-progress-bar-background') !global;
+    $budget-progress-bar-used-background: map-get($colors, 'budget-progress-bar-used-background') !global;
 
     @if $theme == 'default' {
 
@@ -125,7 +132,7 @@
     $transactions-list-item-subtitle-color: null !global;
     $transactions-list-item-expenses-icon-color: null !global;
     $transactions-list-item-incomes-icon-color: null !global;
-    $statistic-section-background: null !global;
+    $section-background: null !global;
     $user-activity-header-color: null !global;
     $user-activity-item-border-color: null !global;
     $user-activity-item-date-color: null !global;
@@ -133,11 +140,18 @@
     $user-activity-item-note-color: null !global;
     $user-activity-item-money-up-color: null !global;
     $user-activity-item-money-down-color: null !global;
-    $statistic-section-box-shadow: null !global;
+    $section-box-shadow: null !global;
     $statistic-total-result-expenses-color: null !global;
     $statistic-total-result-incomes-color: null !global;
     $account-info-title-color: null !global;
     $account-info-control-color: null !global;
     $account-additions-data-joined-color: null !global;
+    $material-stepper-background: null !global;
+    $mat-select-value-text-color: null !global;
+    $budget-list-item-background: null !global;
+    $budget-header-limit-color: null !global;
+    $budget-progress-bar-label-color: null !global;
+    $budget-progress-bar-background: null !global;
+    $budget-progress-bar-used-background: null !global;
   }
 }

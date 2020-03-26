@@ -55,3 +55,30 @@
     }
   }
 }
+
+@mixin chart-styles {
+
+  text {
+    @include themify {
+      fill: $chart-tick-color;
+    }
+  }
+
+  line {
+    @include themify {
+      stroke: $chart-grid-line-stroke;
+    }
+  }
+
+  .legend-title-text {
+    @include themify {
+      color: $chart-legend-title-color;
+    }
+  }
+
+  .legend-labels {
+    @include themify {
+      background: $chart-legend-labels-background;
+    }
+  }
+}

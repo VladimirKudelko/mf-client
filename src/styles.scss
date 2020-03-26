@@ -60,6 +60,12 @@ input:-webkit-autofill {
   }
 }
 
+.mat-select .mat-select-value-text {
+  @include themify() {
+    color: $mat-select-value-text-color;
+  }
+}
+
 .mat-radio-outer-circle {
   @include themify {
     border-color: $mat-radio-outer-circle-color;

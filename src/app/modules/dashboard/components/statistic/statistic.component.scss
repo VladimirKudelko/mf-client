@@ -11,8 +11,8 @@
   border: 0 solid transparent;
   border-radius: 5px;
   @include themify {
-    background-color: $statistic-section-background;
-    box-shadow: $statistic-section-box-shadow;
+    background-color: $section-background;
+    box-shadow: $section-box-shadow;
   }
 }
 
@@ -150,30 +150,7 @@
 }
 
 ::ng-deep {
-
-  text {
-    @include themify {
-      fill: $chart-tick-color;
-    }
-  }
-
-  line {
-    @include themify {
-      stroke: $chart-grid-line-stroke;
-    }
-  }
-
-  .legend-title-text {
-    @include themify {
-      color: $chart-legend-title-color;
-    }
-  }
-
-  .legend-labels {
-    @include themify {
-      background: $chart-legend-labels-background;
-    }
-  }
+  @include chart-styles;
 }
 @media (max-width: $small-desktop) {
 
