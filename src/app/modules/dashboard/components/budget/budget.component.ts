@@ -13,6 +13,7 @@ import { User, Budget, Transaction } from 'src/app/shared/models';
 import { PopupEnum, BudgetStatusEnum } from 'src/app/shared/enums';
 import { LocalizationService } from 'src/app/shared/services/localization.service';
 import { BudgetDTO } from '../../dtos';
+import { isExpiredActiveBudget, isBudgetToBeActive } from '../../conditions/budget.conditions';
 
 @Component({
   selector: 'app-budget',
@@ -35,15 +36,11 @@ export class BudgetComponent implements OnInit {
     private _transactionService: TransactionService,
     private _authService: AuthService,
     private _localizationService: LocalizationService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this._sidebarService.show();
-
-    this.user = this._route.snapshot.data.user;
-
-    this.retrieveTransactionsForBudgets();
-    this._cdr.detectChanges();
+    this.initialize();
   }
 
   public openAddingBudgetModal(): void {
@@ -107,10 +104,50 @@ export class BudgetComponent implements OnInit {
     return moment(date).format('MMMM DD');
   }
 
+  private initialize(): void {
+    this.user = this._route.snapshot.data.user;
+
+    const budgetsToUpdate = this.getBudgetsToUpdate();
+
+    if (budgetsToUpdate && budgetsToUpdate.length) {
+      this.updateBudgets(budgetsToUpdate);
+    } else {
+      this.retrieveTransactionsForBudgets();
+    }
+  }
+
+  private updateBudgets(budgets: Budget[]): void {
+    this._budgetService
+      .updateBudgets({ budgets })
+      .subscribe(() => this.getUser());
+  }
+
+  private getBudgetsToUpdate(): Budget[] {
+    const { budgets } = this.user;
+
+    const expiredActiveBudgets = this.getExpiredActiveBudgets(budgets);
+    const budgetsToBeActive = this.getBudgetsToBeActive(budgets);
+
+    return [...expiredActiveBudgets, ...budgetsToBeActive];
+  }
+
+  private getExpiredActiveBudgets(budgets: Budget[]): Budget[] {
+    return budgets
+      .filter(budget => isExpiredActiveBudget(budget))
+      .map(budget => ({ ...budget, status: BudgetStatusEnum.Closed }));
+  }
+
+  private getBudgetsToBeActive(budgets: Budget[]): Budget[] {
+    return budgets
+      .filter(budget => isBudgetToBeActive(budget))
+      .map(budget => ({ ...budget, status: BudgetStatusEnum.Active }));
+  }
+
   private getUser(): void {
     this._authService.getUserById(this.user._id).subscribe(response => {
       this.user = response.user;
 
+      this.retrieveTransactionsForBudgets();
       this._cdr.detectChanges();
     });
   }
