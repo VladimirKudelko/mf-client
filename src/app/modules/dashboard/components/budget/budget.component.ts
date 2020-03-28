@@ -73,9 +73,11 @@ export class BudgetComponent implements OnInit {
       return '0%';
     }
 
-    const percentOfUsedMoney = ((used * 100) / limit).toFixed(2);
+    const percentOfUsedMoney = ((used * 100) / limit);
 
-    return `${percentOfUsedMoney}%`;
+    return percentOfUsedMoney <= 100
+      ? `${percentOfUsedMoney.toFixed(2)}%`
+      : '100%';
   }
 
   public getInnerCircleBackground(status: BudgetStatusEnum): string {
