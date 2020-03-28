@@ -1,14 +1,13 @@
-import { RecoveryPasswordModalComponent } from 'src/app/shared/components/modals/recovery-password-modal/recovery-password-modal.component';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
+import { filter } from 'rxjs/operators';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { RoleEnum, PopupEnum } from 'src/app/shared/enums';
-import { NotificationModalComponent } from 'src/app/shared/components/modals/notification/notification.component';
+import { NotificationModalComponent, RecoveryPasswordModalComponent } from 'src/app/shared/components/modals';
 import { SidebarService } from 'src/app/shared/services';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',

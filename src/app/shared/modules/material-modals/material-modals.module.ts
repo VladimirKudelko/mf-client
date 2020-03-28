@@ -5,11 +5,37 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatStepperModule } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 
-import * as modalComponents from '../../components/modals';
+import {
+  AddBudgetModalComponent,
+  ChangeEmailModalComponent,
+  ChangeFullNameModalComponent,
+  ChangePasswordModalComponent,
+  ChangeCurrencyModalComponent,
+  ConfirmationModalComponent,
+  CreateCategoryModalComponent,
+  RecoveryPasswordModalComponent,
+  NotificationModalComponent,
+  TrackMoneyModalComponent,
+  TransactionsListModalComponent
+} from '../../components/modals';
 import { AppMaterialModule } from '../app-material/app-material.module';
 
+const MATERIAL_MODALS = [
+  AddBudgetModalComponent,
+  ChangeEmailModalComponent,
+  ChangeFullNameModalComponent,
+  ChangePasswordModalComponent,
+  ChangeCurrencyModalComponent,
+  ConfirmationModalComponent,
+  CreateCategoryModalComponent,
+  RecoveryPasswordModalComponent,
+  NotificationModalComponent,
+  TrackMoneyModalComponent,
+  TransactionsListModalComponent
+];
+
 @NgModule({
-  declarations: [Object.values(modalComponents)],
+  declarations: MATERIAL_MODALS,
   imports: [
     CommonModule,
     AppMaterialModule,
@@ -20,6 +46,6 @@ import { AppMaterialModule } from '../app-material/app-material.module';
     TranslateModule
   ],
   exports: [],
-  entryComponents: [Object.values(modalComponents)]
+  entryComponents: MATERIAL_MODALS
 })
 export class MaterialModalsModule {}

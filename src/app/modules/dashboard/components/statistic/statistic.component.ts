@@ -6,7 +6,7 @@ import { IntervalEnum, CategoryTypeEnum, Themes } from 'src/app/shared/enums';
 import { TransactionService } from 'src/app/shared/services/transaction.service';
 import { Transaction, User } from 'src/app/shared/models';
 import { AuthService, SidebarService } from 'src/app/shared/services';
-import { TransactionsListModalComponent } from 'src/app/shared/components/modals/transactions-list-modal/transactions-list-modal.component';
+import { TransactionsListModalComponent } from 'src/app/shared/components/modals';
 import { LocalizationService } from 'src/app/shared/services/localization.service';
 import { UserPreferencesService } from 'src/app/shared/services/user-preferences.service';
 import { tap, finalize, filter } from 'rxjs/operators';
