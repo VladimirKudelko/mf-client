@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod --base-href /",
+    "build": "ng build --prod --base-href https://UladzimirKudzelka.github.io/MF-client/",
     "test": "ng test",
     "lint": "ng lint",
     "update-locales": "ngx-translate-extract --input ./src --output ./src/assets/locales/{en,ru}.json --sort --format namespaced-json --key-as-default-value"
