@@ -61,11 +61,11 @@
 
       <mat-form-field>
         <mat-select formControlName="question">
-          <mat-option *ngFor="let question of questions1" [value]="question">{{ question }}</mat-option>
+          <mat-option *ngFor="let question of questions1" [value]="question">{{ question | translate }}</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <input type="text" placeholder="Answer" formControlName="answer" class="form-group__control"/>
+      <input type="text" placeholder="{{ 'Answer' | translate }}" formControlName="answer" class="form-group__control"/>
       <div class="form-group__error" *ngIf="isControlInvalid('question1')">
         {{ 'Question 1 is required' | translate }}
       </div>
@@ -76,11 +76,11 @@
 
       <mat-form-field>
         <mat-select formControlName="question">
-          <mat-option *ngFor="let question of questions2" [value]="question">{{ question }}</mat-option>
+          <mat-option *ngFor="let question of questions2" [value]="question">{{ question | translate }}</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <input type="text" placeholder="Answer" formControlName="answer" class="form-group__control"/>
+      <input type="text" placeholder="{{ 'Answer' | translate }}" formControlName="answer" class="form-group__control"/>
       <div class="form-group__error" *ngIf="isControlInvalid('question2')">
         {{ 'Question 2 is required' | translate }}
       </div>

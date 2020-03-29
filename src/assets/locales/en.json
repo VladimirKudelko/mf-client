@@ -118,5 +118,14 @@
 	"pending": "pending",
 	"closed": "closed",
 	"used": "used",
-	"left": "left"
+	"left": "left",
+	"Question 1 is required": "Question 1 is required",
+	"Question 2 is required": "Question 2 is required",
+	"Answer": "Answer",
+	"What is your favourite color?": "What is your favourite color?",
+	"What is the name of your first pet?": "What is the name of your first pet?",
+	"What is your mother's maiden name?": "What is your mother's maiden name?",
+	"What is the name of the town where you were born?": "What is the name of the town where you were born?",
+	"Where are you from?": "Where are you from?",
+	"What is your favourite subject at school?": "What is your favourite subject at school?"
 }

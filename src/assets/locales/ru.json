@@ -118,5 +118,14 @@
 	"pending": "отложенный",
 	"closed": "закрытый",
 	"used": "использованно",
-	"left": "осталось"
+	"left": "осталось",
+	"Question 1 is required": "Вопрос #1 обязателен",
+	"Question 2 is required": "Вопрос #2 обязателен",
+	"Answer": "Ответ",
+	"What is your favourite color?": "Какой ваш любимый цвет?",
+	"What is the name of your first pet?": "Какое имя вашего первого домашнего питомца?",
+	"What is your mother's maiden name?": "Какая девичья фамилия вашей матери?",
+	"What is the name of the town where you were born?": "Какое имя города, где вы родились?",
+	"Where are you from?": "Откуда ты?",
+	"What is your favourite subject at school?": "Какой ваш любимый предмет в школе?"
 }
