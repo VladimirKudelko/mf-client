@@ -4,9 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod --base-href https://UladzimirKudzelka.github.io/MF-client/",
+    "start-prod": "ng serve --prod",
+    "build": "ng build",
+    "build-prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
+    "firebase-deploy": "firebase deploy",
     "update-locales": "ngx-translate-extract --input ./src --output ./src/assets/locales/{en,ru}.json --sort --format namespaced-json --key-as-default-value"
   },
   "private": true,
