@@ -29,6 +29,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   public user: User;
   public joinedDate: string;
   public initialTheme: string;
+  public mainIconPath: string;
   public Themes = Themes;
 
   constructor(
@@ -46,11 +47,19 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.getUser();
 
     this.initialTheme = this._userPreferences.currentTheme;
+
+    this.setMainIconPath();
   }
 
   ngOnDestroy(): void {
     this._unsubscribe$.next();
     this._unsubscribe$.complete();
+  }
+
+  private setMainIconPath(): void {
+    this.mainIconPath = this._userPreferences.currentTheme === Themes.Light
+      ? '../../../../../assets/angel.png'
+      : '../../../../../assets/devil.png';
   }
 
   private showNotificationModal(modalType: PopupEnum, message: string): void {
@@ -213,5 +222,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this._userPreferences.currentTheme = value
       ? Themes.Light
       : Themes.Dark;
+
+    this.setMainIconPath();
   }
 }

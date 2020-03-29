@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 
 import { BudgetLifetimeEnum, BudgetStatusEnum } from 'src/app/shared/enums';
+import { CURRENCY_SYMBOLS } from 'src/app/shared/constants/currency-symbols';
 
 @Component({
   selector: 'app-add-budget-modal',
@@ -19,6 +20,7 @@ export class AddBudgetModalComponent {
     { title: '1 Year', amountOfMonths: 12, value: BudgetLifetimeEnum.Year },
   ];
   public isLinear = false;
+  public CURRENCY_SYMBOLS = CURRENCY_SYMBOLS;
   public budgetLifetime: FormGroup = this._fb.group({
     lifetime: [this.lifetimes[0], Validators.required]
   });
