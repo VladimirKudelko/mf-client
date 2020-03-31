@@ -29,16 +29,24 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getTaskClasses(task: Task): object {
+  public getTaskClasses(task: Task): object {
     return {
       'task-header__description--completed': task.isCompleted,
       'task-header__description--not-completed': !task.isCompleted
     };
   }
 
-  getIconByStatus(task: Task): IconDefinition {
+  public getIconByStatus(task: Task): IconDefinition {
     return task.isCompleted
       ? faCheck
       : faTimes;
+  }
+
+  public getTaskLink(taskKey: string) {
+    switch (taskKey) {
+      case 'category': return '/dashboard/expenses';
+      case 'money': return '/dashboard/expenses';
+      case 'settings': return '/dashboard/settings';
+    }
   }
 }

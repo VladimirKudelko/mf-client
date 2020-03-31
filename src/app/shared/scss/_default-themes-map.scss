@@ -64,7 +64,8 @@ $themes: (
     budget-header-limit-color: $black,
     budget-progress-bar-label-color: rgba(8, 14, 16, 0.62),
     budget-progress-bar-background: rgba(0, 0, 0, 0.15),
-    budget-progress-bar-used-background: $light-blue
+    budget-progress-bar-used-background: $light-blue,
+    mat-placeholder-not-focused-color: #757575,
   ),
   dark: (
     app-background: #141930,
@@ -130,6 +131,7 @@ $themes: (
     budget-header-limit-color: $white,
     budget-progress-bar-label-color: rgba(8, 14, 16, 0.9),
     budget-progress-bar-background: rgba(20, 25, 48, 0.15),
-    budget-progress-bar-used-background: darken(#36f, 5%)
+    budget-progress-bar-used-background: darken(#36f, 5%),
+    mat-placeholder-not-focused-color: #dadada
   )
 );

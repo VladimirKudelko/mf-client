@@ -16,8 +16,8 @@ export class TrackMoneyModalComponent implements OnInit {
       '',
       Validators.compose([
         Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(10),
+        Validators.max(1000000),
+        Validators.minLength(1)
       ])
     ],
     note: ['']
@@ -34,8 +34,8 @@ export class TrackMoneyModalComponent implements OnInit {
     this.currencySymbol = CURRENCY_SYMBOLS[this.data.currency];
   }
 
-  public formIsInvalid(): boolean {
-    return !(
+  public isFormValid(): boolean {
+    return (
       this.newTrackMoneyForm.valid &&
       this.newTrackMoneyForm.get('amountMoney').value
     );

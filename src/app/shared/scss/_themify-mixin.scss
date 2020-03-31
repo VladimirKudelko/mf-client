@@ -34,6 +34,7 @@
     $mat-radio-outer-circle-color: map-get($colors, 'mat-radio-outer-circle-color') !global;
     $mat-radio-outer-circle-checked-color: map-get($colors, 'mat-radio-outer-circle-checked-color') !global;
     $mat-radio-inner-circle-checked-color: map-get($colors, 'mat-radio-inner-circle-checked-color') !global;
+    $mat-placeholder-not-focused-color: map-get($colors, 'mat-placeholder-not-focused-color') !global;
     $time-interval-text-color: map-get($colors, 'time-interval-text-color') !global;
     $time-interval-radio-label-color: map-get($colors, 'time-interval-radio-label-color') !global;
     $chart-tick-color: map-get($colors, 'chart-tick-color') !global;

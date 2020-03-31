@@ -68,8 +68,16 @@
 }
 
 .task-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   @include themify {
     color: $todo-item-content-color;
+  }
+
+  &__button {
+    max-width: 100px;
+    margin-top: 15px;
   }
 }
 @media (max-width: $mobile-large) {

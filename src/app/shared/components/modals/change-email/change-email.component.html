@@ -2,7 +2,8 @@
   <h1 mat-dialog-title>{{ 'Change email' | translate }}</h1>
 
   <mat-form-field class="form__control">
-    <input matInput type="text" formControlName="email" [value]="data.email" placeholder="{{ 'Enter an email' | translate }}">
+    <input matInput type="text" formControlName="email" [value]="data.email">
+    <mat-placeholder class="placeholder">{{ 'Enter an email' | translate }}</mat-placeholder>
   </mat-form-field>
 
   <footer class="form__footer" mat-dialog-actions>
