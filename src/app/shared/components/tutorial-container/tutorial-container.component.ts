@@ -17,6 +17,7 @@ export class TutorialContainerComponent implements OnInit, AfterContentChecked {
 
   public isThereActiveTooltip: boolean;
   public activeHelpTipId: number;
+  public isThereHorizontalOverflow: boolean;
 
   constructor(
     private _tutorialService: TutorialService,
@@ -53,16 +54,14 @@ export class TutorialContainerComponent implements OnInit, AfterContentChecked {
     const tooltipTargetClientRect = this._tooltipTarget.getBoundingClientRect();
     const tooltipClientRect = tooltipElement.getBoundingClientRect();
 
-    const isThereHorizontalOverflow = (
+    this.isThereHorizontalOverflow = (
       tooltipClientRect.width +
       tooltipTargetClientRect.left +
       tooltipTargetClientRect.width
     ) > documentClientRect.width;
 
-    this._tooltipTarget.style.zIndex = '101';
-
-    tooltipElement.style.top = `${tooltipTargetClientRect.top}px`;
-    tooltipElement.style.left = isThereHorizontalOverflow
+    tooltipElement.style.top = `${(tooltipTargetClientRect.top - (tooltipClientRect.height / 2)) + (tooltipTargetClientRect.height / 2)}px`;
+    tooltipElement.style.left = this.isThereHorizontalOverflow
       ? `${tooltipTargetClientRect.left - tooltipClientRect.width - this._horizontalOffset}px`
       : `${tooltipTargetClientRect.left - this._horizontalOffset}px`;
   }

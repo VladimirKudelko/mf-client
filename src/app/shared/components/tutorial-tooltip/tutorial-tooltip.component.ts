@@ -1,16 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 
 import { TutorialService } from 'src/app/shared/services';
 import { helpTips } from '../../constants/tutorial-help-tips';
 import { HelpTip } from './../../models/helptip';
+import { fadeIn } from '../../animations/fade-in.animations';
 
 @Component({
   selector: 'app-tutorial-tooltip',
   templateUrl: './tutorial-tooltip.component.html',
-  styleUrls: ['./tutorial-tooltip.component.scss']
+  styleUrls: ['./tutorial-tooltip.component.scss'],
+  animations: [fadeIn]
 })
 export class TutorialTooltipComponent implements OnInit {
   @Input() helpTipId: number;
+  @Input() isShowArrowLeft = true;
+
+  @HostBinding('@fadeIn')
 
   public activeHelpTip: HelpTip;
 

@@ -3,6 +3,7 @@
 :host {
   position: fixed;
   z-index: 101;
+  display: flex;
 }
 
 .tooltip {
@@ -19,5 +20,21 @@
   &__description {
     margin: 10px 0;
     font-size: 0.9rem;
+  }
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  margin: auto;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+
+  &-left {
+    border-right: 8px solid #796efe;
+  }
+
+  &-right {
+    border-left: 8px solid #796efe;
   }
 }

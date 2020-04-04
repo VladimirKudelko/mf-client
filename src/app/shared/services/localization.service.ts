@@ -49,7 +49,6 @@ export class LocalizationService {
       return translate;
     }
 
-    // TODO: refactor this loop
     // tslint:disable-next-line:forin
     for (const arg in args) {
       translate = translate.replace(`{{${arg}}}`, args[arg]);

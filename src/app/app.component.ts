@@ -6,7 +6,8 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { SidebarService, LoaderService, LocalizationService } from './shared/services';
 
@@ -17,15 +18,14 @@ import { SidebarService, LoaderService, LocalizationService } from './shared/ser
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit, OnDestroy {
-  private _loaderSubscription: Subscription;
-  private _sidebarSubscription: Subscription;
+  private unsubscribe$ = new Subject();
 
   public isShowSidebar: boolean;
   public isLoading: boolean;
 
   constructor(
     private _loaderService: LoaderService,
-    private _sidebarService: SidebarService,
+    public _sidebarService: SidebarService,
     private _localizationService: LocalizationService,
     private _cdr: ChangeDetectorRef
   ) {}
@@ -33,14 +33,15 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._localizationService.initialize();
 
-    // TODO: takeUntil
-    // TODO: | async
-    this._loaderSubscription = this._loaderService.loaderState$
+    this._loaderService.loaderState$
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe(state => {
         this.isLoading = state.isShow;
         this._cdr.detectChanges();
       });
-    this._sidebarSubscription = this._sidebarService.sidebarState$
+
+    this._sidebarService.sidebarState$
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe(state => {
         this.isShowSidebar = state.isShow;
         this._cdr.detectChanges();
@@ -48,7 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._loaderSubscription.unsubscribe();
-    this._sidebarSubscription.unsubscribe();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

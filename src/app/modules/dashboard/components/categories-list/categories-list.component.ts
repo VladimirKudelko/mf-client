@@ -1,7 +1,10 @@
 import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { filter } from 'rxjs/operators';
+
 import { MatDialog } from '@angular/material';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { ActivatedRoute } from '@angular/router';
 
 import { TrackMoneyModalComponent, CreateCategoryModalComponent, NotificationModalComponent } from 'src/app/shared/components/modals';
 import { Category, User, Wallet, Task } from 'src/app/shared/models';
@@ -83,12 +86,8 @@ export class CategoriesListComponent implements OnInit {
     this.dialog
       .open(CreateCategoryModalComponent, { width: '25vw' })
       .afterClosed()
+      .pipe(filter(result => !!(result && result.categoryTitle && this.categoriesType)))
       .subscribe(result => {
-        // todo: filter
-        if (!result || !result.categoryTitle || !this.categoriesType) {
-          return;
-        }
-
         const data = {
           type: this.categoriesType,
           title: result.categoryTitle,
@@ -104,33 +103,29 @@ export class CategoriesListComponent implements OnInit {
   }
 
   public trackMoney(category: Category): void {
-    const dialogRef = this.dialog.open(
-      TrackMoneyModalComponent,
-      {
-        data: { category, currency: this.wallet.currency },
-        minWidth: '300px',
-        minHeight: '40vh'
-      }
-    );
+    const dialogConfig = {
+      data: { category, currency: this.wallet.currency },
+      minWidth: '300px',
+      minHeight: '40vh'
+    };
 
-    dialogRef.afterClosed().subscribe(result => {
-      // todo: filter, avoid instance
-      if (!result || !result.amountMoney || !category || !this.wallet) {
-        return;
-      }
+    this.dialog
+      .open(TrackMoneyModalComponent, dialogConfig)
+      .afterClosed()
+      .pipe(filter(result => !!(result && result.amountMoney && category && this.wallet)))
+      .subscribe(result => {
+        const data = {
+          walletId: this.wallet._id,
+          categoryId: category._id,
+          type: this.categoriesType,
+          createdDate: new Date().toISOString(),
+          isUpdateTask: !this._moneyTask.isCompleted,
+          currency: this.wallet.currency,
+          amountMoney: result.amountMoney,
+          note: result.note || ''
+        };
 
-      const data = {
-        walletId: this.wallet._id,
-        categoryId: category._id,
-        type: this.categoriesType,
-        createdDate: new Date().toISOString(),
-        isUpdateTask: !this._moneyTask.isCompleted,
-        currency: this.wallet.currency,
-        amountMoney: result.amountMoney,
-        note: result.note || ''
-      };
-
-      this._transactionService.createTransaction(this._user._id, data).subscribe();
-    });
+        this._transactionService.createTransaction(this._user._id, data).subscribe();
+      });
   }
 }

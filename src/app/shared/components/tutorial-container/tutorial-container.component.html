@@ -2,4 +2,5 @@
 <app-tutorial-tooltip
   *ngIf="isThereActiveTooltip"
   [helpTipId]="activeHelpTipId"
+  [isShowArrowLeft]="!isThereHorizontalOverflow"
 ></app-tutorial-tooltip>
