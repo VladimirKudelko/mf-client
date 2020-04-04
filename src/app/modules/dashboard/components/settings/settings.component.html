@@ -1,7 +1,13 @@
 <div class="image-wrapper">
   <img class="image" [src]="mainIconPath"/>
 </div>
-<div class="user-settings" *ngIf="user">
+<div
+  *ngIf="user"
+  appTooltipTarget
+  [expectedHelpTipId]="3"
+  [helpTipId]="helpTipId"
+  class="user-settings"
+>
   <div class="user-settings__data account-information">
     <h2 class="account-information__title">{{ user.firstName + ' ' + user.lastName }}</h2>
     <span class="account-information__control" (click)="changeFullName()">{{ 'Edit' | translate }}</span>

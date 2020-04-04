@@ -1,8 +1,14 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
+
 import { Subscription } from 'rxjs';
 
-import { SidebarService, LoaderService } from './shared/services';
-import { LocalizationService } from './shared/services/localization.service';
+import { SidebarService, LoaderService, LocalizationService } from './shared/services';
 
 @Component({
   selector: 'app-root',
@@ -22,11 +28,13 @@ export class AppComponent implements OnInit, OnDestroy {
     private _sidebarService: SidebarService,
     private _localizationService: LocalizationService,
     private _cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this._localizationService.initialize();
 
+    // TODO: takeUntil
+    // TODO: | async
     this._loaderSubscription = this._loaderService.loaderState$
       .subscribe(state => {
         this.isLoading = state.isShow;

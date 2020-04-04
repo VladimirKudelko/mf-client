@@ -1,13 +1,13 @@
 import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute } from '@angular/router';
 
 import { TrackMoneyModalComponent, CreateCategoryModalComponent, NotificationModalComponent } from 'src/app/shared/components/modals';
 import { Category, User, Wallet, Task } from 'src/app/shared/models';
 import { CategoryTypeEnum, PopupEnum } from 'src/app/shared/enums';
-import { CategoryService, AuthService, TransactionService } from 'src/app/shared/services';
+import { CategoryService, AuthService, TransactionService, LocalizationService, TutorialService } from 'src/app/shared/services';
 import { TaskKeysEnum } from '../../enums';
-import { LocalizationService } from 'src/app/shared/services/localization.service';
 import { hideShow } from '../../animations';
 
 @Component({
@@ -28,14 +28,21 @@ export class CategoriesListComponent implements OnInit {
   private _moneyTask: Task;
 
   public faPlus = faPlus;
+  public helpTipId;
+
+  get isShowCategories(): string {
+    return this.categories ? 'show' : 'hide';
+  }
 
   constructor(
     private _cdr: ChangeDetectorRef,
     public dialog: MatDialog,
+    public activatedRoute: ActivatedRoute,
     private _categoryService: CategoryService,
     private _transactionService: TransactionService,
     private _authService: AuthService,
-    private _localizationService: LocalizationService
+    private _localizationService: LocalizationService,
+    private _tutorialService: TutorialService
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +53,20 @@ export class CategoriesListComponent implements OnInit {
         case TaskKeysEnum.Money: this._moneyTask = task; break;
       }
     });
+
+    this.showTooltipIfNeeded();
+  }
+
+  private showTooltipIfNeeded(): void {
+    const helpTipId = this.activatedRoute.snapshot.paramMap.get('helpTipId');
+
+    if (!+helpTipId) {
+      return;
+    }
+
+    this.helpTipId = +helpTipId;
+    this._tutorialService.activeHelpTipId.next(this.helpTipId);
+    this._cdr.detectChanges();
   }
 
   private showNotificationModal(modalType: PopupEnum, message: string): void {
@@ -58,17 +79,12 @@ export class CategoriesListComponent implements OnInit {
     });
   }
 
-  get isShowCategories(): string {
-    return this.categories
-      ? 'show'
-      : 'hide';
-  }
-
   public createNewCategory(): void {
     this.dialog
       .open(CreateCategoryModalComponent, { width: '25vw' })
       .afterClosed()
       .subscribe(result => {
+        // todo: filter
         if (!result || !result.categoryTitle || !this.categoriesType) {
           return;
         }
@@ -98,6 +114,7 @@ export class CategoriesListComponent implements OnInit {
     );
 
     dialogRef.afterClosed().subscribe(result => {
+      // todo: filter, avoid instance
       if (!result || !result.amountMoney || !category || !this.wallet) {
         return;
       }

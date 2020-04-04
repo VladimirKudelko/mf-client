@@ -20,9 +20,9 @@
           class="task-content__button"
           mat-flat-button
           color="primary"
-          [routerLink]="getTaskLink(task.key)"
+          (click)="navigateWithState(task.key)"
         >
-          Try it out
+          {{ 'Try it out' | translate }}
         </button>
       </div>
     </mat-expansion-panel>

@@ -1,0 +1,12 @@
+<div class="tooltip">
+  <h2 class="tooltip__header">{{ activeHelpTip?.header }}</h2>
+
+  <p class="tooltip__description">{{ activeHelpTip?.description }}</p>
+
+  <div class="tooltip__footer">
+    <button mat-flat-button color="accent" (click)="closeTooltip()">
+      {{ 'Got it' }}
+    </button>
+  </div>
+</div>
+<!-- TODO: translation -->

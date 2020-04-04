@@ -1,0 +1,23 @@
+@import '../../scss/colors';
+
+:host {
+  position: fixed;
+  z-index: 101;
+}
+
+.tooltip {
+  width: 250px;
+  padding: 20px;
+  color: $white;
+  background-color: #796efe;
+  border-radius: 5px;
+
+  &__header {
+    font-size: 1.2rem;
+  }
+
+  &__description {
+    margin: 10px 0;
+    font-size: 0.9rem;
+  }
+}
