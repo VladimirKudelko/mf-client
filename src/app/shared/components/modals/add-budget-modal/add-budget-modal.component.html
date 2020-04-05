@@ -35,9 +35,10 @@
   <ng-template #stepTwo>
     <form [formGroup]="limitForm">
       <ng-template matStepLabel>{{ 'Amount of money' | translate }}</ng-template>
-      <p class="add-budget__label">{{ 'How much can you spend' | translate }}?</p>
+      <p class="add-budget__label">{{ 'How much are you going to spend' | translate }}? ({{ CURRENCY_SYMBOLS[data.currency] }})</p>
       <mat-form-field class="add-budget__control">
-        <input matInput type="number" placeholder="0" formControlName="limit" required>
+        <input matInput type="number" formControlName="limit" required>
+        <mat-placeholder class="placeholder">0</mat-placeholder>
       </mat-form-field>
     </form>
   </ng-template>

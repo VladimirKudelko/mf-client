@@ -1,69 +1,77 @@
-<section class="section transactions-chart">
-  <mat-radio-group class="time-intervals" [(ngModel)]="selectedInterval" (change)="changeInterval($event)">
-    <label class="label">{{ 'Pick your interval' | translate }}</label>
-    <mat-radio-button
-      class="time-intervals__radio-btn"
-      *ngFor="let interval of intervals; let i = index"
-      color="primary"
-      [value]="interval">
-      {{ interval | translate }}
-    </mat-radio-button>
-  </mat-radio-group>
+<ng-container *ngIf="userActivityTransactions?.length; else elseTemplate">
+  <section class="section transactions-chart">
+    <mat-radio-group class="time-intervals" [(ngModel)]="selectedInterval" (change)="changeInterval($event)">
+      <label class="label">{{ 'Pick your interval' | translate }}</label>
+      <mat-radio-button
+        class="time-intervals__radio-btn"
+        *ngFor="let interval of intervals; let i = index"
+        color="primary"
+        [value]="interval">
+        {{ interval | translate }}
+      </mat-radio-button>
+    </mat-radio-group>
 
-  <div class="total-result">
-    <h2 class="total-result__expenses" *ngIf="totalExpenses">
-      {{ 'Expenses' | translate }} - {{ totalExpenses }} {{ user.currency }}
-    </h2>
-    <h2 class="total-result__incomes" *ngIf="totalIncomes">
-      {{ 'Incomes' | translate }} - {{ totalIncomes }} {{ user.currency }}
-    </h2>
-  </div>
+    <div class="total-result">
+      <h2 class="total-result__expenses" *ngIf="totalExpenses">
+        {{ 'Expenses' | translate }} - {{ totalExpenses }} {{ user.currency }}
+      </h2>
+      <h2 class="total-result__incomes" *ngIf="totalIncomes">
+        {{ 'Incomes' | translate }} - {{ totalIncomes }} {{ user.currency }}
+      </h2>
+    </div>
 
-  <div class="chart-container">
-    <ngx-charts-line-chart
-      class="chart"
-      [view]="view"
-      [results]="results"
-      [scheme]="colorScheme"
-      xAxisLabel="{{ xAxisLabel | translate }}"
-      yAxisLabel="{{ yAxisLabel | translate }}"
-      [maxYAxisTickLength]="maxYAxisTickLength"
-      [legendPosition]="legendPosition"
-      [legend]="isShowLegend"
-      [xAxis]="isShowXAxis"
-      [yAxis]="isShowYAxis"
-      [showXAxisLabel]="isShowXAxisLabel"
-      [showYAxisLabel]="isShowYAxisLabel"
-      [autoScale]="isAutoScale"
-      (select)="selectLegend($event)"
-    ></ngx-charts-line-chart>
-  </div>
-</section>
+    <div class="chart-container">
+      <ngx-charts-line-chart
+        class="chart"
+        [view]="view"
+        [results]="results"
+        [scheme]="colorScheme"
+        xAxisLabel="{{ xAxisLabel | translate }}"
+        yAxisLabel="{{ yAxisLabel | translate }}"
+        [maxYAxisTickLength]="maxYAxisTickLength"
+        [legendPosition]="legendPosition"
+        [legend]="isShowLegend"
+        [xAxis]="isShowXAxis"
+        [yAxis]="isShowYAxis"
+        [showXAxisLabel]="isShowXAxisLabel"
+        [showYAxisLabel]="isShowYAxisLabel"
+        [autoScale]="isAutoScale"
+        (select)="selectLegend($event)"
+      ></ngx-charts-line-chart>
+    </div>
+  </section>
 
-<section class="section user-activity">
-  <div class="user-activity__header">
-    <h2>User Activity (last 10)</h2>
-  </div>
+  <section class="section user-activity">
+    <div class="user-activity__header">
+      <h2>User Activity (last 10)</h2>
+    </div>
 
-  <div class="user-activity__list">
-    <app-loader *ngIf="isUserActivityLoading"></app-loader>
-    <ng-container *ngIf="userActivityTransactions?.length">
-      <div class="list-item" *ngFor="let transaction of userActivityTransactions">
-        <div class="list-item__date">{{ transaction.createdDate | date: 'MMMM d' }}</div>
-        <div class="list-item__money">
-          <div class="caption">Amount</div>
-          <div class="value" [ngClass]="{
-            'value--up': transaction.type === CategoryTypeEnum.Incomes,
-            'value--down': transaction.type === CategoryTypeEnum.Expenses
-          }">
-            {{ transaction.amountMoney }}
+    <div class="user-activity__list">
+      <app-loader *ngIf="isUserActivityLoading"></app-loader>
+      <ng-container *ngIf="userActivityTransactions?.length">
+        <div class="list-item" *ngFor="let transaction of userActivityTransactions">
+          <div class="list-item__date">{{ transaction.createdDate | date: 'MMMM d' }}</div>
+          <div class="list-item__money">
+            <div class="caption">Amount</div>
+            <div class="value" [ngClass]="{
+              'value--up': transaction.type === CategoryTypeEnum.Incomes,
+              'value--down': transaction.type === CategoryTypeEnum.Expenses
+            }">
+              {{ transaction.amountMoney }}
+            </div>
+          </div>
+          <div class="list-item__note">
+            <div class="caption">Note</div>
+            <div class="value">{{ transaction.note || '-' }}</div>
           </div>
         </div>
-        <div class="list-item__note">
-          <div class="caption">Note</div>
-          <div class="value">{{ transaction.note || '-' }}</div>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-</section>
+      </ng-container>
+    </div>
+  </section>
+</ng-container>
+<ng-template #elseTemplate>
+  <section class="no-transactions">
+    <img class="no-transactions__image" src="../../../../../assets/sad-smile.png" alt="sad-smile">
+    <h1 class="no-transactions__title">{{ 'There are no transactions' | translate }}</h1>
+  </section>
+</ng-template>

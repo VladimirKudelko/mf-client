@@ -8,11 +8,13 @@ import { Transaction } from './transaction.model';
 import { Task } from './task';
 import { Budget } from './budget.model';
 import { ConversionRate } from './conversion-rate.model';
+import { HelpTip } from './helptip';
 
 export {
   Budget,
   Category,
   ConversionRate,
+  HelpTip,
   LoaderState,
   MenuItem,
   SidebarState,

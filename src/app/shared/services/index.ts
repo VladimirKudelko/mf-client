@@ -10,6 +10,7 @@ import { UserResolverService } from './user-resolver.service';
 import { CurrencyService } from './currency.service';
 import { LocalizationService } from './localization.service';
 import { GlobalEventsService } from './global-events.service';
+import { TutorialService } from './tutorial.service';
 
 export {
   AuthService,
@@ -23,5 +24,6 @@ export {
   ProfileService,
   SidebarService,
   TransactionService,
+  TutorialService,
   UserResolverService
 };

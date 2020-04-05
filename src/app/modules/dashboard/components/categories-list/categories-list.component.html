@@ -1,10 +1,22 @@
 <section class="categories-list">
   <h2 class="categories-list__title">{{ title }}</h2>
-  <button class="categories-list__create-button" (click)="createNewCategory()">
+  <button
+    class="categories-list__create-button"
+    appTooltipTarget
+    [expectedHelpTipId]="1"
+    [helpTipId]="helpTipId"
+    (click)="createNewCategory()"
+  >
     <fa-icon [icon]="faPlus"></fa-icon>
   </button>
 
-  <div class="categories" [@hideShow]="isShowCategories">
+  <div
+    appTooltipTarget
+    [expectedHelpTipId]="2"
+    [helpTipId]="helpTipId"
+    class="categories"
+    [@hideShow]="isShowCategories"
+  >
     <app-category
       class="categories__item"
       *ngFor="let category of categories"

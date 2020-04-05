@@ -2,15 +2,18 @@
   <h1 mat-dialog-title>{{ 'Track money for' | translate }} {{ data.category.title }}</h1>
 
   <mat-form-field class="form__control">
-    <input matInput class="amount-money-control" type="number" formControlName="amountMoney" placeholder="{{ 'Enter an amount' | translate }}">
+    <input matInput class="amount-money-control" type="number" max="1000000" formControlName="amountMoney">
+    <mat-placeholder class="placeholder">{{ 'Enter an amount' | translate }}</mat-placeholder>
     <span matSuffix class="amount-money-control__suffix">{{ currencySymbol }}</span>
   </mat-form-field>
+
   <mat-form-field class="form__control">
-    <input matInput type="text" formControlName="note" placeholder="{{ 'Enter a note' | translate }}">
+    <input matInput type="text" formControlName="note">
+    <mat-placeholder class="placeholder">{{ 'Enter a note' | translate }}</mat-placeholder>
   </mat-form-field>
 
   <footer class="form__footer" mat-dialog-actions>
     <button class="mat-button-close" mat-button mat-dialog-close>{{ 'Cancel' | translate }}</button>
-    <button class="mat-button-submit" mat-button (click)="submit()" type="submit" [disabled]="formIsInvalid()">{{ 'Ok' | translate }}</button>
+    <button class="mat-button-submit" mat-button (click)="submit()" type="submit" [disabled]="!isFormValid()">{{ 'Ok' | translate }}</button>
   </footer>
 </form>

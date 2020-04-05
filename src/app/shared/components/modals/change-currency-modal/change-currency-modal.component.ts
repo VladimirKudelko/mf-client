@@ -19,7 +19,7 @@ export class ChangeCurrencyModalComponent implements OnInit {
   public wallet: Wallet;
   public conversionRates: ConversionRate[];
   public conversionResult: number;
-  public formatedConversionResult: string;
+  public formattedConversionResult: string;
 
   constructor(
     private _currencyService: CurrencyService,
@@ -64,7 +64,7 @@ export class ChangeCurrencyModalComponent implements OnInit {
   private registerFormControlEvents(): void {
     this.changeCurrencyForm.controls['to'].valueChanges.subscribe(value => {
       this.conversionResult = this.calculateAmountByRate(value.conversionRate);
-      this.formatedConversionResult = `\
+      this.formattedConversionResult = `\
         ${this.wallet.balance} ${this.data.from} = \
         ${this.conversionResult} ${value.currency}\
       `;

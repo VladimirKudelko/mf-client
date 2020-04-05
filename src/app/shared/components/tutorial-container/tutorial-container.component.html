@@ -1,0 +1,6 @@
+<div *ngIf="isThereActiveTooltip" class="overlay"></div>
+<app-tutorial-tooltip
+  *ngIf="isThereActiveTooltip"
+  [helpTipId]="activeHelpTipId"
+  [isShowArrowLeft]="!isThereHorizontalOverflow"
+></app-tutorial-tooltip>

@@ -4,7 +4,7 @@
 
 :host {
   position: relative;
-  z-index: 999;
+  z-index: 100;
   display: block;
   transition: margin-left 0.5s;
   @include themify {

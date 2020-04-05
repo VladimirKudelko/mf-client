@@ -80,7 +80,7 @@ export class StatisticComponent implements OnInit, AfterViewChecked {
 
   public changeInterval(event: MatRadioChange): void {
     this._transactionService.getUserTransactions(this.user._id, event.value).subscribe(response => {
-      if (!response.transactions && !response.transactions.length) {
+      if (!response.transactions || !response.transactions.length) {
         return;
       }
 

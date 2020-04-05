@@ -1,0 +1,13 @@
+<div class="arrow arrow-left" *ngIf="isShowArrowLeft"></div>
+<div class="tooltip">
+  <h2 class="tooltip__header">{{ activeHelpTip?.header | translate }}</h2>
+
+  <p class="tooltip__description">{{ activeHelpTip?.description | translate }}</p>
+
+  <div class="tooltip__footer">
+    <button mat-flat-button color="accent" (click)="closeTooltip()">
+      {{ 'Got it' | translate }}
+    </button>
+  </div>
+</div>
+<div class="arrow arrow-right" *ngIf="!isShowArrowLeft"></div>

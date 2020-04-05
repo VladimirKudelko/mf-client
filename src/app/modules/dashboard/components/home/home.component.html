@@ -7,13 +7,23 @@
       <mat-expansion-panel-header class="task-header">
         <mat-panel-description
           class="task-header__description"
-          [ngClass]="getTaskClasses(task)">
+          [ngClass]="getTaskClasses(task)"
+        >
           <fa-icon class="task-header__description-icon" [icon]="getIconByStatus(task)"></fa-icon>
           {{ task.description | translate }}
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div class="task-content">
-        {{ task.content | translate }}
+        <span class="task-content__description">{{ task.content | translate }}</span>
+        <button
+          *ngIf="task.key !== 'signup'"
+          class="task-content__button"
+          mat-flat-button
+          color="primary"
+          (click)="navigateWithState(task.key)"
+        >
+          {{ 'Try it out' | translate }}
+        </button>
       </div>
     </mat-expansion-panel>
   </mat-accordion>

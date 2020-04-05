@@ -17,6 +17,7 @@ import { ApiInterceptor } from './shared/interceptors/api.interceptor';
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
 import { SharedModule } from './shared/modules/shared/shared.module';
 import { environment } from './../environments/environment';
+import { TutorialContainerComponent } from './shared/components/tutorial-container/tutorial-container.component';
 
 export const socketConfig: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -28,6 +29,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
   declarations: [
     AppComponent,
     SidebarComponent,
+    TutorialContainerComponent
   ],
   imports: [
     BrowserModule,

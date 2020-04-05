@@ -17,9 +17,6 @@ body {
 
 body {
   font-family: 'Source Code Pro', monospace;
-  @include themify {
-    background-color: $app-background;
-  }
 }
 
 a {
@@ -56,6 +53,33 @@ input:-webkit-autofill {
     @include themify {
       color: $popup-close-button-color;
       background: $popup-close-button-background;
+    }
+  }
+
+  .placeholder {
+    @include themify {
+      color: $mat-placeholder-not-focused-color;
+    }
+  }
+
+  .mat-form-field-underline {
+    @include themify {
+      background-color: $mat-placeholder-not-focused-color;
+    }
+  }
+
+  .mat-focused {
+
+    .placeholder {
+      color: #673ab7;
+    }
+  }
+
+  .mat-form-field-invalid,
+  .mat-form-field-invalid.mat-focused {
+
+    .placeholder {
+      color: #f44336;
     }
   }
 }

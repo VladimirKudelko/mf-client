@@ -31,7 +31,7 @@ export class RecoveryPasswordModalComponent {
     ]
   });
   public userId: string;
-  public questions: object;
+  public questions: any;
   public isShowNewPasswordForm = false;
 
   constructor(

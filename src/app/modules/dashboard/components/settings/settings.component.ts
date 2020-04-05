@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Subject } from 'rxjs';
 import * as moment from 'moment';
 
-import { SidebarService, AuthService, CurrencyService } from 'src/app/shared/services';
+import { SidebarService, AuthService, CurrencyService, TutorialService } from 'src/app/shared/services';
 import { User, Task } from 'src/app/shared/models';
 import {
   ChangeEmailModalComponent,
@@ -20,7 +21,8 @@ import { takeUntil, filter } from 'rxjs/operators';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsComponent implements OnInit, OnDestroy {
   private _settingsTask: Task;
@@ -29,7 +31,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
   public user: User;
   public joinedDate: string;
   public initialTheme: string;
+  public mainIconPath: string;
   public Themes = Themes;
+  public helpTipId: number;
 
   constructor(
     private _sidebarService: SidebarService,
@@ -37,7 +41,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
     private _localizationService: LocalizationService,
     private _userPreferences: UserPreferencesService,
     private _currencyService: CurrencyService,
+    private _tutorialService: TutorialService,
     private _cdr: ChangeDetectorRef,
+    private _activatedRoute: ActivatedRoute,
     public dialog: MatDialog
   ) { }
 
@@ -46,11 +52,32 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.getUser();
 
     this.initialTheme = this._userPreferences.currentTheme;
+
+    this.setMainIconPath();
+    this.showTooltipIfNeeded();
   }
 
   ngOnDestroy(): void {
     this._unsubscribe$.next();
     this._unsubscribe$.complete();
+  }
+
+  private showTooltipIfNeeded(): void {
+    const helpTipId = this._activatedRoute.snapshot.paramMap.get('helpTipId');
+
+    if (!+helpTipId) {
+      return;
+    }
+
+    this.helpTipId = +helpTipId;
+    this._tutorialService.activeHelpTipId.next(this.helpTipId);
+    this._cdr.detectChanges();
+  }
+
+  private setMainIconPath(): void {
+    this.mainIconPath = this._userPreferences.currentTheme === Themes.Light
+      ? '../../../../../assets/angel.png'
+      : '../../../../../assets/devil.png';
   }
 
   private showNotificationModal(modalType: PopupEnum, message: string): void {
@@ -213,5 +240,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this._userPreferences.currentTheme = value
       ? Themes.Light
       : Themes.Dark;
+
+    this.setMainIconPath();
   }
 }
