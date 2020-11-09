@@ -45,7 +45,6 @@ const MATERIAL_MODALS = [
     MatStepperModule,
     TranslateModule
   ],
-  exports: [],
-  entryComponents: MATERIAL_MODALS
+  exports: []
 })
 export class MaterialModalsModule {}
