@@ -25,8 +25,8 @@ export class ProfilesComponent implements OnInit {
   public faTrashAlt = faTrashAlt;
   public faDoorOpen = faDoorOpen;
 
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private _cdr: ChangeDetectorRef,
