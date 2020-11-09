@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
-import { MatRadioChange, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatRadioChange } from '@angular/material/radio';
 import * as moment from 'moment';
 
 import { IntervalEnum, CategoryTypeEnum, Themes } from 'src/app/shared/enums';

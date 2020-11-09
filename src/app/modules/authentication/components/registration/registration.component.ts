@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import { NotificationModalComponent } from 'src/app/shared/components/modals/notification/notification.component';
 import { AuthService } from 'src/app/shared/services/auth.service';
