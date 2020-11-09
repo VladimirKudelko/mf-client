@@ -10,7 +10,7 @@ import { TutorialService } from 'src/app/shared/services';
   styleUrls: ['./tutorial-container.component.scss']
 })
 export class TutorialContainerComponent implements OnInit, AfterContentChecked {
-  @ViewChild('tutorialTooltip') tutorialTooltip: ElementRef;
+  @ViewChild('tutorialTooltip', { static: false }) tutorialTooltip: ElementRef;
 
   private _tooltipTarget: HTMLElement;
   private _horizontalOffset = 15;

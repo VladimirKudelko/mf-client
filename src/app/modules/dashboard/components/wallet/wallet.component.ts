@@ -32,7 +32,7 @@ export class WalletComponent {
       dateDifference = `${minutes} ${this.getTranslation('min')}`;
     } else if (hours < 24) {
       dateDifference = `${hours} ${this.getTranslation('hours')}`;
-    } else if (days < 7) {
+    } else if (days < 31) {
       dateDifference = `${days} ${this.getTranslation('days')}`;
     } else if (months > 1) {
       dateDifference = `${months} ${this.getTranslation('months')}`;
